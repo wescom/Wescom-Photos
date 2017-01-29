@@ -1,0 +1,64 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+/*
+*= require_self
+*= require_tree .
+*/
+@import "bootstrap";
+
+#branding h1 {
+  min-width: 300px;
+}
+
+#branding h1 a {
+  font: italic 1.1em Georgia, "Times New Roman", Times, serif;
+  color: #fff;
+  margin: 0px;
+  padding: 0px;
+}
+
+#branding h1 span a {
+  font: italic 0.7em Georgia, "Times New Roman", Times, serif;
+  color: #6da9d2;
+}
+
+/*
+.image_gallery_block {
+	overflow: hidden;
+}
+
+img.image_gallery_img {
+	-webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+	box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+	margin-bottom:20px;
+}
+
+.image_gallery_caption {
+	background-color: #eeeeee;
+	font: 1.0em Arial, Tahoma, sans-serif;
+	color: #33393c;
+	border-radius: 10px;
+	opacity: 0.95;
+	padding: 10px;
+	z-index: 100;
+	overflow: hidden;
+	position: absolute;
+	margin-top: -5px;
+}
+
+image_gallery img:hover {
+ 
+}
+*/

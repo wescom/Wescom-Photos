@@ -10,9 +10,14 @@ end
 gem 'rails', '~> 5.0.1'
 gem 'mysql2'
 
+gem 'bootstrap', '~> 4.0.0.alpha6'
+
 gem 'progress_bar'
 gem 'will_paginate'
 gem "paperclip", "~> 5.0.0"
+
+gem 'sunspot_rails'
+gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'

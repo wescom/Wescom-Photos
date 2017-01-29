@@ -1,62 +1,15 @@
-<tr class="<%= cycle("alternate","") %>">
-	<td class="center image_col">
-		<%= link_to image_tag(image_fragment.image(:large), :alt=>"Story Image", :class=>"image_small"), 
+<div class="col-md-3 col-sm-5 col-xs-8">
+	<div class="image_gallery_block">
+<!--		<%= link_to image_tag(image_fragment.image(:large), :alt=>"Story Image", :class=>"img-responsive image_gallery_img"), 
 				{:action => 'show', :controller => 'story_images', :id => image_fragment } %>
-	</td>
-	<td class="headline headline_col">
-		<%= link_to image_fragment.media_name %>
-		<p>
-			<% if image_fragment.media_printcaption && image_fragment.media_printcaption.length > 0 %>
-				<%= strip_subhead_tags(image_fragment.media_printcaption)[0..250].html_safe %>
+				-->
+		<%= image_tag(image_fragment.image(:large), :alt=>"Story Image", :class=>"img-responsive image_gallery_img") %>
+		<div class="image_gallery_caption">
+			<% if !image_fragment.media_printcaption.nil? %>
+				<%= image_fragment.media_printcaption %>
 			<% else %>
-				<% if image_fragment.media_originalcaption %>
-					<%= strip_subhead_tags(image_fragment.media_originalcaption)[0..250].html_safe %>
-				<% end %>
+				ORIGINAL: DO NOT SHOW
 			<% end %>
-		</p>
-	</td>
-	<td>
-		<% if image_fragment.media_printproducer.present? %>
-			<%= image_fragment.media_printproducer %>
-		<% else %>
-			<%= image_fragment.media_byline if image_fragment.media_byline.present? %>
-		<% end %>
-	</td>
-  <td class="center status_col"><%= image_fragment.publish_status %></td>
-  <td class="center section_col">
-		<% if image_fragment.story.plan.present? %>
-			<% if image_fragment.story.plan.pub_name.present? %>
-				<% if image_fragment.story.plan.pub_name.strip == "The Bulletin" %>
-					<%= image_tag('/images/bulletin.jpg', :alt=>"bulletin", :class=>"image_thumb") %>
-				<% else %>
-					<% if image_fragment.story.plan.pub_name.strip == "Redmond Spokesman" %>
-						<%= image_tag('/images/spokesman.jpg', :alt=>"spokesman", :class=>"image_thumb") %>
-					<% else %>
-						<%= image_fragment.story.plan.pub_name %>
-					<% end %>
-				<% end %>
-				<br/>
-			<% end %>
-			<%= image_fragment.story.plan.section_name %>
-			<%= " - " if !image_fragment.story.plan.section_name.nil? and image_fragment.story.plan.section_name.length > 0 and image_fragment.story.page.to_i > 0 %>
-			<%= "p." + image_fragment.story.page if image_fragment.story.page.to_i > 0 %>
-		<% end %>
-	</td>
-  <td class="center pubdate_col">
-		<% if image_fragment.story.present? %>
-			<%= image_fragment.story.pubdate.strftime('%m/%d/%y') if image_fragment.story.pubdate.present? %>
-		<% end %>
-	</td>
-	<td class="center system_col">
-		<% if image_fragment.story.present? %>
-			<% if image_fragment.story.frontend_db == "DTI" %>
-				<%= image_tag('/images/dti_logo.jpg', :alt=>"FrontEndDB", :class=>"image_thumb") %>
-			<% else %>
-				<% if image_fragment.story.frontend_db == "SII" %>
-					<%= image_tag('/images/sii_logo.jpg', :alt=>"FrontEndDB", :class=>"image_thumb") %>
-				<% end %>
-			<% end %>
-		<% end %>
-	</td>
-	<td class="false center status_col"></td>
-</tr>
+		</div>
+	</div>
+</div>

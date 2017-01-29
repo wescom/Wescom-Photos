@@ -1,37 +1,13 @@
-<div id="story_images-page">
-	<div id="page-content" class="clearfix">
-		<h1>
-			Images
-		</h1>
+<h1>Search Images</h1>
+<span><%= @search_results.count %> results</span>
+<span><%= render :partial => 'search_images' %></span>
 
-		<div class="inner-box clearfix">
-		  <div id="form-block" class="grid_15">
-			  <% if @story_images %>
-			    <div id="table-block" class="grid_15">
-						<div id="table-paginate" class="full_width">
-			      	<div class="float_right"><%= will_paginate @story_images %></div>
-						</div>
-			      <% unless @story_images.nil? %>
-			        <table cellspacing="0" cellpadding="0">
-			          <tbody>
-			            <tr class="header">
-			              <td>Name</td>
-			              <td>Type</td>
-			              <td>Location</td>
-			              <td>Created</td>
-			              <td>Updated</td>
-			              <td class="center">Action</td>
-			            </tr>
-			            <%= render :partial => 'image_fragment', :collection => @story_images %>
-			          </tbody>
-			        </table>
-			      <% end %>
-						<div id="table-paginate" class="full_width">
-			      	<div class="float_right"><%= will_paginate @story_images %></div>
-						</div>
-			    </div>
-			  <% end %>
+<div id="story_images-page">
+	<% if @story_images %>
+		<div class="container-fluid">
+			<div class="row">
+				<%= render :partial => 'image_fragment', :collection => @story_images.results %>
 			</div>
 		</div>
-	</div>
+	<% end %>
 </div>
