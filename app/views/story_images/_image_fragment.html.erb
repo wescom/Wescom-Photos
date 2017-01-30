@@ -1,9 +1,10 @@
-<div class="col-md-3 col-sm-5 col-xs-8">
-	<div class="image_gallery_block">
-<!--		<%= link_to image_tag(image_fragment.image(:large), :alt=>"Story Image", :class=>"img-responsive image_gallery_img"), 
-				{:action => 'show', :controller => 'story_images', :id => image_fragment } %>
-				-->
+<!--
+<div class="boxportfolio4">
+    <div class="boxcontainer image_gallery_block">
 		<%= image_tag(image_fragment.image(:large), :alt=>"Story Image", :class=>"img-responsive image_gallery_img") %>
+				<%= link_to image_tag(image_fragment.image(:large), :alt=>"Story Image", :class=>"img-responsive image_gallery_img"), 
+						{:action => 'show', :controller => 'story_images', :id => image_fragment } %>
+						
 		<div class="image_gallery_caption">
 			<% if !image_fragment.media_printcaption.nil? %>
 				<%= image_fragment.media_printcaption %>
@@ -11,5 +12,23 @@
 				ORIGINAL: DO NOT SHOW
 			<% end %>
 		</div>
-	</div>
+    </div>
 </div>
+-->
+
+<% if image_fragment.image.url != "/images/no-image.jpg"%>
+	<div class="panel panel-default panel_masonry image_gallery_panel">
+	 	<div class="panel-heading"><%= image_fragment.id %><%= image_fragment.media_name %></div>
+	 	<div class="panel-body">
+			<%= image_tag(image_fragment.image(:large), :alt=>"Story Image", :class=>"img-responsive image_gallery_img") %>
+			<div class="image_gallery_caption">
+				<% if !image_fragment.media_printcaption.nil? %>
+					<%= image_fragment.media_printcaption %>
+				<% else %>
+					ORIGINAL CAPTION: DO NOT SHOW
+				<% end %>
+			</div>
+	    </div>
+	</div>
+<% end %>
+

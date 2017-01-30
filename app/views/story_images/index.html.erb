@@ -2,12 +2,13 @@
 <span><%= @search_results.count %> results</span>
 <span><%= render :partial => 'search_images' %></span>
 
-<div id="story_images-page">
-	<% if @story_images %>
-		<div class="container-fluid">
-			<div class="row">
-				<%= render :partial => 'image_fragment', :collection => @story_images.results %>
+<div class="inner-box clearfix">
+	<div id="image-block" class="full_width">
+		<h3>Click images to view info ...</h3>
+		<% if @story_images %>
+			<div id="image-gallery" class="container-fluid">
+				<%= render :partial => 'image', :collection => @story_images.results %>
 			</div>
-		</div>
-	<% end %>
+		<% end %>
+	</div>
 </div>

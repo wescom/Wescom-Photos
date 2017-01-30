@@ -17,7 +17,7 @@ class StoryImagesController < ApplicationController
     if params[:search_query]
       begin
         @story_images = StoryImage.search(:include => [:story]) do
-          paginate(:page => params[:page], :per_page => 15)
+          paginate(:page => params[:page], :per_page => 30)
           fulltext params[:search_query]
           order_by :story_pubdate, :desc
           order_by :story_publication_name, :asc

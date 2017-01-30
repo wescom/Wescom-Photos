@@ -17,11 +17,22 @@
 //= require_tree .
 
 $(document).ready(function(){
+
+	// Image Gallery
+	var $container = $('#image-gallery');
+	$container.imagesLoaded( function(){
+		$container.masonry({
+			itemSelector : '.image_gallery_panel',
+/*			columnWidth : 250 */
+			fitWidth: true
+		});
+	});
+
 	$('.image_gallery_caption').hide();
-	$(".image_gallery_block").mouseenter(function() {
+	$(".image_gallery_panel").mouseenter(function() {
 		$(this).find('.image_gallery_caption').fadeIn('fast');
 	});
-	$(".image_gallery_block").mouseleave (function() {
+	$(".image_gallery_panel").mouseleave (function() {
 		$(this).find('.image_gallery_caption').fadeOut('fast')
 	});
 
