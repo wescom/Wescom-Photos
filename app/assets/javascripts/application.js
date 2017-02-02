@@ -11,23 +11,15 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap
 //= require jquery_ujs
 //= require turbolinks
+//= require tether
+//= require bootstrap
 //= require_tree .
 
 $(document).ready(function(){
 
 	// Image Gallery
-	var $container = $('#image-gallery');
-	$container.imagesLoaded( function(){
-		$container.masonry({
-			itemSelector : '.image_gallery_panel',
-/*			columnWidth : 250 */
-			fitWidth: true
-		});
-	});
-
 	$('.image_gallery_caption').hide();
 	$(".image_gallery_panel").mouseenter(function() {
 		$(this).find('.image_gallery_caption').fadeIn('fast');

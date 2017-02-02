@@ -1,4 +1,5 @@
 class StoryImagesController < ApplicationController
+
   def index
     @locations = Location.all.order('name')
     @pub_types = PublicationType.all.order('sort_order')
@@ -17,7 +18,7 @@ class StoryImagesController < ApplicationController
     if params[:search_query]
       begin
         @story_images = StoryImage.search(:include => [:story]) do
-          paginate(:page => params[:page], :per_page => 30)
+          paginate(:page => params[:page], :per_page => 24)
           fulltext params[:search_query]
           order_by :story_pubdate, :desc
           order_by :story_publication_name, :asc

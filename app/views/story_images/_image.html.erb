@@ -1,15 +1,5 @@
 <% if image.image.url != "/images/no-image.jpg"%>
-	<div class="image_gallery_panel">
-	 	<div class="panel-heading"></div>
-	 	<div class="panel-body">
-			<%= image_tag(image.image(:large), :alt=>"Story Image", :class=>"image_gallery_size image_gallery_img") %>
-			<div class="image_gallery_caption">
-				<% if !image.media_printcaption.nil? %>
-					<%= image.media_printcaption %>
-				<% else %>
-					ORIGINAL CAPTION: DO NOT SHOW
-				<% end %>
-			</div>
-	    </div>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 image_gallery_panel">
+		<%= image_tag(image.image(:large), :alt=>"Story Image", :class=>"image_gallery_img") %>
 	</div>
 <% end %>
