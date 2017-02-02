@@ -10,6 +10,9 @@
 
   <body>
     <%= render 'layouts/header' %>
-    <%= yield %>
+	<div class="content_block">
+	    <%= yield %>
+	</div>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
