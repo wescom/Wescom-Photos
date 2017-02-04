@@ -14,11 +14,10 @@
 @import "bootstrap";
 
 /*** Bootstrap custimation ***/
+.indent { text-indent: 50px; }
 .panel-heading {background: lightgrey;}
+.content_block { margin: 0px 10px; }
 
-.content_block { 
-	margin: 0px 10px;
-}
 
 /*** Branding ***/
 #branding h1 {
@@ -36,6 +35,7 @@
   font: italic 0.7em Georgia, "Times New Roman", Times, serif;
   color: #6da9d2;
 }
+
 
 /* Image Gallery Layout */
 .image_gallery_panel {
@@ -77,6 +77,12 @@ img.image_gallery_img {
 	bottom: 0;
     margin-left: -10px;
 }
+
+.modal_image {
+	width: 100%;
+	height: auto;
+}
+
 
 /*** Pagination ***/
 .pagination { margin: 0px 10px; }

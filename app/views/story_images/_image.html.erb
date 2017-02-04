@@ -1,12 +1,49 @@
 <% if image.image.url != "/images/no-image.jpg"%>
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 image_gallery_panel">
-		<%= image_tag(image.image(:large), :alt=>"Story Image", :class=>"image_gallery_img") %>
+		<%= link_to image_tag(image.image(:large), :alt=>"Story Image", :class=>"image_gallery_size"), story_image_path(image.id), { 
+			:remote => true, 'data-toggle' =>  "modal", 
+			'data-target' => "#imageGalleryModal#{image.id}", 
+			'data-type' => "html" } %>
+
 		<div class="image_gallery_caption">
 			<% if !image.media_printcaption.nil? %>
 				<%= image.media_printcaption %>
-			<% else %>
-				No caption
 			<% end %>
 		</div>
 	</div>
 <% end %>
+
+
+<div class="modal fade" id="imageGalleryModal<%= image.id %>" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+				<h4 class="modal-title">
+					<% if image.story.plan %>
+						<%= image.story.plan.pub_name unless image.story.plan.pub_name.nil? %>
+						- <%= image.story.pubdate.strftime('%m/%d/%y') unless image.story.pubdate.nil? %>
+					<% end %>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-7 col-lg-7">
+						<%= image_tag(image.image(:large), :alt=>"Story Image", :class=>"modal_image") %>
+					</div>
+					<div class="col-md-5 col-lg-5">
+						<% if !image.media_printcaption.nil? %>
+							<i>"<%= image.media_printcaption %>"</i>
+						<% else %>
+							No Caption
+						<% end %>
+						<br/>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

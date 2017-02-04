@@ -6,13 +6,15 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	<meta name="viewport" content="width=device-width">
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <%= render 'shared/header' %>
 	<div class="content_block">
 	    <%= yield %>
 	</div>
-    <%= render 'layouts/footer' %>
+	<br/>
+    <%= render 'shared/footer' %>
   </body>
 </html>
