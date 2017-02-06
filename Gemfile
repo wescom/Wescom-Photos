@@ -11,12 +11,15 @@ gem 'rails', '~> 5.0.1'
 gem 'mysql2'
 
 gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'font-awesome-sass', '~> 4.7.0'
 
 gem 'progress_bar'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem "paperclip", "~> 5.0.0"
+gem 'acts_as_shopping_cart', '~> 0.4.0'
 
+# Fulltext search indexing
 gem 'sunspot_rails'
 gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
 

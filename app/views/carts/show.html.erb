@@ -1,0 +1,30 @@
+<h1>My Cart</h1>
+
+<div class="container">
+	<table id="cart" class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				<th style="width:30%" class="text-center">Image</th>
+				<th style="width:20%" class="text-center">Price</th>
+				<th style="width:20%" class="text-center">Cost</th>
+				<th style="width:20%"></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<%= render :partial => 'cart_item', :collection => @cart.cart_items %>
+		</tbody>
+
+		<tfoot>
+			<tr>
+				<td><%= link_to('<i class="fa fa-angle-left"></i> Continue Shopping'.html_safe, root_path(), :class=>"btn btn-success btn-small") %></td>
+				<td colspan="1"></td>
+				<td class="text-center">
+					<strong>Total <%= number_to_currency @cart.total %></strong>
+				</td>
+				<td><a href="#" class="btn btn-success btn-small">Checkout <i class="fa fa-angle-right"></i></a></td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+

@@ -11,12 +11,16 @@
  * It is generally better to create a new file per style scope.
  *
  */
+@import "font-awesome-sprockets";
+@import "font-awesome";
 @import "bootstrap";
+
 
 /*** Bootstrap custimation ***/
 .indent { text-indent: 50px; }
 .panel-heading {background: lightgrey;}
 .content_block { margin: 0px 10px; }
+.img-thumb {width: 100px; height: auto;}
 
 
 /*** Branding ***/

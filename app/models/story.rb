@@ -4,13 +4,6 @@ class Story < ApplicationRecord
   belongs_to :paper
   belongs_to :plan
 
-  has_and_belongs_to_many :keywords
-  has_many :story_topics
-  has_many :topics, :through => :story_topics
-  has_many :correction_links
-  has_many :corrections, :through => :correction_links
-  has_many :inverse_correction_links, :class_name => 'CorrectionLink', :foreign_key => "correction_id"
-  has_many :corrected_stories, :through => :inverse_correction_links, :source => :story
   has_many :story_images, :dependent => :destroy
   has_many :logs, :dependent => :destroy
 
