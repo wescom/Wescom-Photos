@@ -1,0 +1,28 @@
+<%= form_tag story_images_path, :class => "form-inline", :method => :get do %>
+		<div class="form-group col-sm-4">
+			<label for="search_query"></label>
+	      	<span class="input-group">
+				<%= text_field_tag :search_query, params[:search_query], 
+									:class => "input-control", 
+									:placeholder => "Search for images", 
+									:autofocus => true %>
+			</span>
+		</div>
+		<div class="form-group col-sm-3">
+			<div  class="input-group">
+			<label for="date_from_select" class="input-control">Date From:</label>
+				<%= date_field_tag :date_from_select, params[:date_from_select], 
+									:class => 'input-control', 
+									:placeholder => "mm/dd/yyyy" %>
+			</div>
+		</div>
+		<div class="form-group col-sm-3">
+			<label for="date_to_select">Date To:</label>
+	      	<span class="input-group">
+				<%= date_field_tag :date_to_select, params[:date_to_select], 
+									:class => 'input-control', 
+									:placeholder => "mm/dd/yyyy" %>
+			</span>
+		</div>
+		<button type="submit" class="btn btn-default">Search</button>
+<% end %>

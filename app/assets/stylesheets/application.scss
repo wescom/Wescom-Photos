@@ -25,21 +25,92 @@
 
 /*** Branding ***/
 #branding h1 {
-  min-width: 300px;
+	min-width: 400px;
 }
 
 #branding h1 a {
-  font: italic 1.1em Georgia, "Times New Roman", Times, serif;
-  color: #fff;
-  margin: 0px;
-  padding: 0px;
+	font: italic 1.1em Georgia, "Times New Roman", Times, serif;
+	color: #fff;
+	margin: 0px;
+	padding: 0px;
 }
 
-#branding h1 span a {
-  font: italic 0.7em Georgia, "Times New Roman", Times, serif;
-  color: #6da9d2;
+#branding h1 a span {
+	font: italic 0.7em Georgia, "Times New Roman", Times, serif;
+	color: #6da9d2;
+}
+#branding a:link, #branding a:visited, #branding a:hover, #branding a:active,  { 
+    text-decoration:none; 
 }
 
+.page-head {
+	height: 500px;
+    min-height: 500px;
+    background: url('/images/Bend_Homes_cinemagraph.gif') no-repeat center center;
+    background-size: cover;
+    text-align: center;
+    position: relative;
+}
+.page-head .banner-search-wrap {
+	position: absolute;
+    top: 50%;
+    width: 100%;
+    background: rgba(0,0,0,.35);
+    height: 280px;
+    margin-top: -140px;
+    color: #fff;
+}
+
+.page-head .banner-search-wrap h1 {
+    color: #fff;
+    margin-top: 70px;
+    margin-bottom: 40px;
+    font-size: 58px;
+    text-transform: none;
+}
+
+.header-search {
+    background: rgba(0,0,0,.5);
+    border: 1px solid #222;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.header-search .form-search {
+	margin: 0;
+    padding: 10px;
+}
+
+.header-search .form-search > div {
+    width: 73%;
+}
+
+div.form-search-fields {
+    display: inline-block;
+    position: relative;
+}
+
+.header-search input[type=text].form-search-text {
+    height: 46px;
+    width: 98%;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: .05em;
+    text-indent: 10px;
+}
+
+.header-search .form-search button {
+    width: 25%;
+    border: 1px solid #02888f;
+    background: #02888f;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: .05em;
+    height: 46px;
+    text-transform: uppercase;
+}
 
 /* Image Gallery Layout */
 .image_gallery_panel {

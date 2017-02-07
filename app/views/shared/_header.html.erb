@@ -1,20 +1,16 @@
 <nav class="navbar navbar-dark bg-inverse navbar-toggleable-md">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" 
+		data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-  <div id="branding">
-	<h1>
-	<%= link_to "Wescom", root_path %>
-	<span><%= link_to "Photos", root_path %></span>
-	</h1>
-  </div>
-	<div class="collapse navbar-collapse">
-	  <ul class="nav navbar-nav mr-auto mt-2 mt-md-0">
-	  </ul>
-	  <ul class="nav navbar-nav navbar-right">
-	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Register</a></li>
-	      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
+	<div id="branding">
+		<h1>
+			<%= link_to root_path do %>
+				Wescom <span>Photos</span>
+			<% end %>
+		</h1>
 	</div>
+
 </nav>
+
