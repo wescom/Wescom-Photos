@@ -1,4 +1,4 @@
-<%= form_tag story_images_path, :class => "form-search", :method => :get do %>
+<%= form_tag story_images_path, :class => "form-inline", :method => :get do %>
 		<label for="search_query"></label>
       	<div class="form-search-fields">
 			<%= text_field_tag :search_query, params[:search_query], 
@@ -7,5 +7,5 @@
 								:autofocus => true %>
 		</div>
 
-		<button type="submit" class="btn btn-default">Search</button>
+		<button type="submit" class="btn btn-default form-search-button">Search</button>
 <% end %>

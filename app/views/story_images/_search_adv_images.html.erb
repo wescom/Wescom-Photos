@@ -1,28 +1,30 @@
 <%= form_tag story_images_path, :class => "form-inline", :method => :get do %>
-		<div class="form-group col-sm-4">
-			<label for="search_query"></label>
-	      	<span class="input-group">
-				<%= text_field_tag :search_query, params[:search_query], 
-									:class => "input-control", 
-									:placeholder => "Search for images", 
-									:autofocus => true %>
-			</span>
+	<div class="col-xs-9 col-sm-9 col-md-7 col-lg-7">
+		<label for="search_query"></label>
+   		<div class="form-search-fields">
+			<%= text_field_tag :search_query, params[:search_query], 
+								:class => "form-search-text", 
+								:placeholder => "Search for images", 
+								:autofocus => true %>
 		</div>
-		<div class="form-group col-sm-3">
-			<div  class="input-group">
-			<label for="date_from_select" class="input-control">Date From:</label>
-				<%= date_field_tag :date_from_select, params[:date_from_select], 
-									:class => 'input-control', 
-									:placeholder => "mm/dd/yyyy" %>
-			</div>
+	</div>
+	<div class=".hidden-xs col-sm-0 col-md-2 col-lg-2">
+		<label for="date_from_select" class="form-search-label">Date From:</label>
+      	<div class="form-search-fields">
+			<%= date_field_tag :date_from_select, params[:date_from_select], 
+								:class => 'form-search-date', 
+								:placeholder => "mm/dd/yyyy" %>
 		</div>
-		<div class="form-group col-sm-3">
-			<label for="date_to_select">Date To:</label>
-	      	<span class="input-group">
-				<%= date_field_tag :date_to_select, params[:date_to_select], 
-									:class => 'input-control', 
-									:placeholder => "mm/dd/yyyy" %>
-			</span>
+	</div>
+	<div class=".hidden-xs col-sm-0 col-md-2 col-lg-2">
+		<label for="date_to_select" class="form-search-label">Date To:</label>
+      	<div class="form-search-fields">
+			<%= date_field_tag :date_to_select, params[:date_to_select], 
+								:class => 'form-search-date', 
+								:placeholder => "mm/dd/yyyy" %>
 		</div>
-		<button type="submit" class="btn btn-default">Search</button>
+	</div>
+	<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+		<button type="submit" class="btn btn-default form-search-button">Search</button>
+	</div>
 <% end %>

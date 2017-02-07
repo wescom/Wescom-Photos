@@ -1,16 +1,19 @@
-<nav class="navbar navbar-dark bg-inverse navbar-toggleable-md">
-	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" 
-		data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-
-	<div id="branding">
-		<h1>
-			<%= link_to root_path do %>
-				Wescom <span>Photos</span>
-			<% end %>
-		</h1>
+<nav class="navbar navbar-dark bg-inverse">
+	<div class="container">
+		<div class="row">
+			<div id="branding" class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+				<h1>
+					<%= link_to root_path do %>
+						Wescom <span>Photos</span>
+					<% end %>
+				</h1>
+			</div>
+	
+			<div id="cart" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+				<%= link_to(
+					'<i class="fa fa-shopping-cart"> </i>'.html_safe + " " + cart_quantity(), 
+					cart_path(), :class=>"btn btn-success") %>
+			</div>
+		</div>
 	</div>
-
 </nav>
-

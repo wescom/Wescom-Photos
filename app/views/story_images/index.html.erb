@@ -1,26 +1,28 @@
-<div class="story_images_block">
-	<h1>Search Images</h1>
-	<%= render :partial => 'search_images' %>
-	<br/>
-	<div>
-		<% if @story_images %>
-			<div class="container-fluid">
-				<h3>Click images to view info ...</h3>
-				<div class="row">
-					<div class="col-xs-3 col-sm-3 col-md-5 col-lg-6"><%= @search_results.count %> results</div>
-					<div class="col-xs-9 col-sm-9 col-md-7 col-lg-6 flickr_pagination">
-						<div class="flickr_pagination float-right"><%= will_paginate @story_images.results %></div>
-					</div>
-				</div>
-			</div>
-
-			<div id="image-gallery" class="container-fluid">
-				<div class="row">
-					<%= render :partial => 'image', :collection => @story_images.results %>
-				</div>
-			</div>
-			
-			<div class="flickr_pagination float-right"><%= will_paginate @story_images.results %></div>
-		<% end %>
+<div class="image-gallery-search-wrap">
+	<div class="image-gallery-search">        
+		<%= render :partial => 'search_adv_images' %>
 	</div>
+</div>
+
+<br/>
+<div class="story_images_block">
+	<% if @story_images %>
+		<div class="container-fluid">
+			<h3>Click images to view info ...</h3>
+			<div class="row">
+				<div class="col-xs-3 col-sm-3 col-md-5 col-lg-6"><%= @search_results.count %> results</div>
+				<div class="col-xs-9 col-sm-9 col-md-7 col-lg-6 flickr_pagination">
+					<div class="flickr_pagination float-right"><%= will_paginate @story_images.results %></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="image-gallery" class="container-fluid">
+			<div class="row">
+				<%= render :partial => 'image', :collection => @story_images.results %>
+			</div>
+		</div>
+		
+		<div class="flickr_pagination float-right"><%= will_paginate @story_images.results %></div>
+	<% end %>
 </div>
