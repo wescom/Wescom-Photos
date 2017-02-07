@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark bg-inverse">
 	<div class="container">
 		<div class="row">
-			<div id="branding" class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+			<div id="branding" class="col-xs-7 col-sm-7 col-md-11 col-lg-11">
 				<h1>
 					<%= link_to root_path do %>
 						Wescom <span>Photos</span>
@@ -10,9 +10,21 @@
 			</div>
 	
 			<div id="cart" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-				<%= link_to(
-					'<i class="fa fa-shopping-cart"> </i>'.html_safe + " " + cart_quantity(), 
-					cart_path(), :class=>"btn btn-success") %>
+				<% if cart_quantity().to_i > 0 %>
+					<% if cart_quantity().to_i > 1 %>
+						<%= link_to(
+							'<i class="fa fa-shopping-cart"> </i>'.html_safe + " " + cart_quantity() + " items", 
+							cart_path(), :class=>"btn btn-success") %>
+					<% else %>
+						<%= link_to(
+							'<i class="fa fa-shopping-cart"> </i>'.html_safe + " " + cart_quantity() + " item", 
+							cart_path(), :class=>"btn btn-success") %>
+					<% end %>
+				<% else %>
+					<%= link_to(
+						'<i class="fa fa-shopping-cart"> </i>'.html_safe, 
+						cart_path(), :class=>"btn btn-success") %>
+				<% end %>
 			</div>
 		</div>
 	</div>

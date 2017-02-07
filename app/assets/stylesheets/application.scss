@@ -43,6 +43,8 @@
     text-decoration:none; 
 }
 
+
+/*** Welcome Page ***/
 .welcome-page-head {
 	height: 500px;
     min-height: 500px;
@@ -65,8 +67,9 @@
     color: #fff;
     margin-top: 70px;
     margin-bottom: 40px;
-    font-size: 58px;
+	font-size: calc(100% + 2.4vw);
     text-transform: none;
+    width: 100%;
 }
 
 .header-search {
@@ -86,15 +89,12 @@
 }
 
 .header-search .form-search-fields {
-    display: inline-block;
-    position: relative;
-	width: 75%;
 }
 
-.header-search input[type=text].form-search-text {
+.header-search .form-search-text {
     height: 46px;
     width: 98%;
-    margin: 0;
+    margin: 5px 0px 5px 0px;
     font-size: 16px;
     font-weight: 100;
     letter-spacing: .05em;
@@ -102,7 +102,6 @@
 }
 
 .header-search .form-search-button {
-    width: 25%;
     border: 1px solid #02888f;
     background: #02888f;
     color: #fff;
@@ -110,15 +109,19 @@
     font-weight: 100;
     letter-spacing: .05em;
     height: 46px;
+    margin: 5px 0px 5px 0px;
     text-transform: uppercase;
 }
 
 
 /* Image Gallery Layout */
 .image-gallery-search {
+	/*
     background: rgba(96, 125, 139, 0.55);
     border: 1px solid #222;
-    margin: 0 auto;
+	*/
+    text-align: center;
+    margin: 5px 0px 5px 0px;
 }
 
 .image-gallery-search .form-search {
@@ -143,7 +146,7 @@
 .image-gallery-search .form-search-text {
     height: 46px;
     width: 98%;
-    margin: 0;
+    margin: 5px 0px 5px 0px;
     font-size: 16px;
     font-weight: 100;
     letter-spacing: .05em;
@@ -153,7 +156,7 @@
 .image-gallery-search .form-search-date {
     height: 46px;
     width: 98%;
-    margin: 0;
+    margin: 5px 0px 5px 0px;
     font-size: 16px;
     font-weight: 100;
     letter-spacing: .05em;
@@ -167,6 +170,7 @@
     font-size: 16px;
     font-weight: 100;
     letter-spacing: .05em;
+    margin: 5px 0px 5px 0px;
     height: 46px;
     text-transform: uppercase;
 }
