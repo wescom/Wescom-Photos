@@ -215,10 +215,12 @@ img.image_gallery_img {
     margin-left: -10px;
 }
 
-.modal_image {
-	width: 100%;
-	height: auto;
-}
+
+/*** Image Modal ***/
+.modal_image { width: 100%;	height: auto; }
+.purchase_bar { position: absolute; bottom: 0; }
+.purchase_price { text-align: center; }
+.image_copyright { font-size: .5em; }
 
 
 /*** Pagination ***/

@@ -2,8 +2,8 @@
 	<td data-th="Product" align="center">
 		<%= image_tag(cart_item.item.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
 	</td>
-	<td data-th="Price" class="text-center">$1.00</td>
-	<td data-th="Cost" class="text-center"><%= number_to_currency(cart_item.quantity * 1.00) %></td>
+	<td data-th="Price" class="text-center"><%= number_to_currency(cart_item.price_cents.to_d/100) %></td>
+	<td data-th="Cost" class="text-center"><%= number_to_currency(cart_item.quantity * cart_item.price_cents.to_d/100) %></td>
 	<td class="actions" data-th="">
 		<%= link_to icon('remove'), 
 			remove_item_cart_path(:id => cart_item.item_id), :method=> :put, :action => 'remove_item_cart' %>
