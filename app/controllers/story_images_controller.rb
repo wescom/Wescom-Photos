@@ -36,7 +36,7 @@ class StoryImagesController < ApplicationController
         render :text => "Search Server Down\n\n\n It will be back online shortly"
       end
     end
-    @search_results = @story_images.results
+    @search_result_count = @story_images.total
     @total_images_count = StoryImage.count(:all)
   end
 
