@@ -27,24 +27,29 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</div>
 			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-7 col-lg-7">
-						<%= image_tag(image.image(:large), :alt=>"Story Image", :class=>"modal_image") %>
-					</div>
-					<div class="col-md-5 col-lg-5">
-						<% if !image.media_printcaption.nil? %>
-							<i>"<%= image.media_printcaption %>"</i>
-						<% else %>
-							No Caption
-						<% end %>
-						<br/>
-					 	<div class="purchase_bar">
-							<div class="row">
-								<div class="col-xs-4 col-sm-4 col-md-7 col-lg-7">
-									<div class="purchase_price">$9.99</div>
-								</div>
-								<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-									<%= link_to 'Add to cart', cart_path(:id => image), :method => 'POST', :class=>"btn btn-success" %>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-7 col-lg-7">
+							<div class="modal_image">
+								<%= image_tag(image.image(:large), :alt=>"Story Image", :class=>"") %>
+								<div id="watermark">&copy; Copyright - Western Communications, Inc.</div>
+							</div>
+						</div>
+						<div class="col-md-5 col-lg-5">
+							<% if !image.media_printcaption.nil? %>
+								<i>"<%= image.media_printcaption %>"</i>
+							<% else %>
+								No Caption
+							<% end %>
+							<br/>
+						 	<div class="purchase_bar">
+								<div class="row">
+									<div class="col-xs-4 col-sm-4 col-md-7 col-lg-7">
+										<div class="purchase_price">$9.99</div>
+									</div>
+									<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+										<%= link_to 'Add to cart', cart_path(:id => image), :method => 'POST', :class=>"btn btn-success" %>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -54,9 +59,13 @@
 			<div class="modal-footer">
 				<div class="container">
 					<div class="image_copyright text-center"> 
-						&copy; Copyright <%= Date.today.year %> 
-						- <%= image.story.plan.pub_name unless image.story.plan.pub_name.nil? %>
-						- Western Communications, Inc.
+						<% if image.story.plan %>
+							&copy; Copyright <%= image.story.pubdate.strftime('%Y') unless image.story.pubdate.nil? %> 
+							- <%= image.story.plan.pub_name unless image.story.plan.pub_name.nil? %>
+							- Western Communications, Inc.
+						<% else %>
+							&copy; Copyright - Western Communications, Inc.
+						<% end %>
 					</div>
 				</div>
 			</div>
