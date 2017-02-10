@@ -29,9 +29,16 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">
-					<% if image.story.plan %>
-						<%= image.story.plan.pub_name unless image.story.plan.pub_name.nil? %>
-						- <%= image.story.pubdate.strftime('%m/%d/%y') unless image.story.pubdate.nil? %>
+					<% if image.story %>
+						<% if image.story.plan %>
+							<%= image.story.plan.pub_name unless image.story.plan.pub_name.nil? %>
+							- <%= image.story.pubdate.strftime('%m/%d/%y') unless image.story.pubdate.nil? %>
+							<% if !image.story.hl1.nil? and image.story.hl1.length > 1 %>
+								<%= "- " + image.story.hl1 %>
+							<% end %>
+						<% else %>
+							<%= image.story.hl1 unless image.story.hl1.nil? %>
+						<% end %>
 					<% end %>
 				</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
