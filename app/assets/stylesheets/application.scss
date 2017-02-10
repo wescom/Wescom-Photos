@@ -105,6 +105,7 @@
     height: 46px;
     margin: 5px 0px 5px 0px;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 
@@ -260,8 +261,11 @@
 	transform:translate(-50%, -50%); 
 	&.max{ width:auto; height:100%;}
 }
-.purchase_bar { position: absolute; bottom: 0; }
-.purchase_price { text-align: center; }
+.modal_image_caption { margin-top: 30px; text-align: justify; }
+.floater { float: left; height: 30%; width: 100%; margin-bottom: -50px; }
+.purchase_bar { clear: both; text-align: center; min-height: 100px; }
+/*.purchase_bar { position: absolute; bottom: 0; }*/
+.purchase_price { margin: 0px 30px; }
 .image_copyright { font-size: .5em; }
 
 
