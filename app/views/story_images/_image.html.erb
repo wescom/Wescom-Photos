@@ -1,21 +1,26 @@
 <% if image.image.url != "/images/no-image.jpg"%>
-	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 image_gallery_panel">
-		<%= link_to image_tag(image.image(:large), :alt=>"Story Image", :class=>"image_gallery_size"), story_image_path(image.id), { 
-			:remote => true, 'data-toggle' =>  "modal", 
-			'data-target' => "#imageGalleryModal#{image.id}", 
-			'data-type' => "html" } %>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
+		<div class="image_gallery_panel">
+			<div class="crop">
+				<%= link_to image_tag(image.image(:large), :alt=>"Story Image", :id=>"#{image.id}", :class=>""), story_image_path(image.id), { 
+					:remote => true, 'data-toggle' =>  "modal", 
+					'data-target' => "#imageGalleryModal#{image.id}", 
+					'data-type' => "html" } %>
+				<div class="watermark">&copy; Copyright - Western Communications, Inc.</div>
+			</div>
 
-		<div class="image_gallery_caption">
-			<% if !image.media_printcaption.nil? %>
-				<%= image.media_printcaption %>
-			<% end %>
+			<div class="image_gallery_caption">
+				<% if !image.media_printcaption.nil? %>
+					<%= image.media_printcaption %>
+				<% end %>
+			</div>
 		</div>
 	</div>
 <% end %>
 
 
 <div class="modal fade" id="imageGalleryModal<%= image.id %>" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog ">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">
@@ -29,13 +34,13 @@
 			<div class="modal-body">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-7 col-lg-7">
-							<div class="modal_image">
+						<div class="col-md-8 col-lg-8">
+							<div class="modal_image2">
 								<%= image_tag(image.image(:large), :alt=>"Story Image", :class=>"") %>
-								<div id="watermark">&copy; Copyright - Western Communications, Inc.</div>
+								<div class="watermark">&copy; Copyright - Western Communications, Inc.</div>
 							</div>
 						</div>
-						<div class="col-md-5 col-lg-5">
+						<div class="col-md-4 col-lg-4">
 							<% if !image.media_printcaption.nil? %>
 								<i>"<%= image.media_printcaption %>"</i>
 							<% else %>
