@@ -206,6 +206,22 @@
 	bottom: 0;
     margin-left: -10px;
 }
+.image_gallery_hover_bar {
+	background-color: #eeeeee;
+	font: 0.8em Arial, Tahoma, sans-serif;
+	color: #33393c;
+	opacity: 0.95;
+	padding: 5px;
+	z-index: 100;
+	overflow: hidden;
+	display: inline-block;
+	position: absolute;
+	width: calc(100% - 40px); // 100% of column - 15px of gutters - 10px of padding
+	bottom: 0;
+    margin-bottom: 10px;
+}
+.bar_pub_info { -webkit-flex: 2 0 0; flex: 2 0 0; }
+.bar_icons { -webkit-flex: 1 0 0; flex: 1 0 0; }
 .image_gallery_panel .watermark{
     position: absolute;
     z-index: 1;
