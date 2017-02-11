@@ -7,13 +7,13 @@
 
 <div class="story_images_block">
 	<% if @story_images %>
-		<div class="container-fluid">
-			<h3>Click images to view info ...</h3>
-			<div class="row">
-				<div class="col-xs-3 col-sm-3 col-md-5 col-lg-6"><%= @search_result_count %> results of <%= @total_images_count %></div>
-				<div class="col-xs-9 col-sm-9 col-md-7 col-lg-6 flickr_pagination">
-					<div class="flickr_pagination float-right"><%= will_paginate @story_images.results %></div>
-				</div>
+		<div class="container search_results">
+			<div class="search_result_count"><i><%= @search_result_count %> results of <%= @total_images_count %></i></div>
+			<div class="flickr_pagination hidden-sm-down">
+				<%= will_paginate @story_images.results, :inner_window => 2, :outer_window => 0 %>
+			</div>
+			<div class="flickr_pagination hidden-md-up">
+				<%= will_paginate @story_images.results, :inner_window => 2, :outer_window => 0, :page_links => false %>
 			</div>
 		</div>
 
@@ -23,6 +23,14 @@
 			</div>
 		</div>
 		
-		<div class="flickr_pagination float-right"><%= will_paginate @story_images.results %></div>
+		<div class="container search_results">
+			<div class="search_result_count"><%= @search_result_count %> results of <%= @total_images_count %></div>
+			<div class="flickr_pagination hidden-sm-down">
+				<%= will_paginate @story_images.results, :inner_window => 2, :outer_window => 0 %>
+			</div>
+			<div class="flickr_pagination hidden-md-up">
+				<%= will_paginate @story_images.results, :inner_window => 2, :outer_window => 0, :page_links => false %>
+			</div>
+		</div>
 	<% end %>
 </div>
