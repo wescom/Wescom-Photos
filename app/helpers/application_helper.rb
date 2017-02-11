@@ -1,13 +1,33 @@
 module ApplicationHelper
 
-  def strip_subhead_tags(text)
-    text.html_safe.gsub(/<p class="hl2_chapterhead">/, '<p>')
-  end
-
 
   def cart_quantity
     @cart = Cart.find(session[:cart_id])
     quantity = @cart.total_unique_items
     return quantity.to_s
+  end
+
+  def cart_label
+    return '<i class="fa fa-shopping-cart"> </i>'.html_safe
+  end
+
+  def cart_label_quantity
+    if cart_quantity().to_i > 0
+      return '<i class="fa fa-shopping-cart"> </i>'.html_safe + " " + cart_quantity()
+		else
+      return '<i class="fa fa-shopping-cart"> </i>'.html_safe
+		end
+  end
+
+  def cart_label_quantity_items
+    if cart_quantity().to_i > 0
+			if cart_quantity().to_i > 1
+        return '<i class="fa fa-shopping-cart"> </i>'.html_safe + " " + cart_quantity() + " items"
+			else
+        return '<i class="fa fa-shopping-cart"> </i>'.html_safe + " " + cart_quantity() + " item"
+			end
+		else
+      return '<i class="fa fa-shopping-cart"> </i>'.html_safe
+		end
   end
 end
