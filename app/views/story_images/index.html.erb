@@ -2,13 +2,14 @@
 	<div class="image-gallery-search">        
 		<%= render :partial => 'search_images' %>
 	</div>
-	<hr/>
+
 </div>
 
 <div class="story_images_block">
 	<% if @story_images %>
 		<div class="container search_results">
-			<div class="search_result_count"><i><%= @search_result_count %> results of <%= @total_images_count %></i></div>
+			<div class="search_result_count hidden-sm-down"><i><%= @search_result_count %> results of <%= @total_images_count %></i></div>
+			<div class="search_result_count hidden-md-up"><i><%= @search_result_count %> results</i></div>
 			<div class="flickr_pagination hidden-sm-down">
 				<%= will_paginate @story_images.results, :inner_window => 2, :outer_window => 0 %>
 			</div>
