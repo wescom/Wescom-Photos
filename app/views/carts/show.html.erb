@@ -18,7 +18,7 @@
 		<tfoot>
 			<tr>
 				<td><%= link_to('<i class="fa fa-angle-left"></i> Continue Shopping'.html_safe, 
-						request.referer, :class=>"btn btn-success btn-small") %>
+						session[:referrer], :class=>"btn btn-success btn-small") %>
 				</td>
 				<td colspan="1"></td>
 				<td class="text-center">

@@ -14,6 +14,10 @@ class CartsController < ApplicationController
   end
 
   def show
+    if request.url != request.referrer
+      # save referring url to retain previous search page
+      session[:referrer] = request.referrer
+    end
 
   end
   
@@ -21,7 +25,7 @@ class CartsController < ApplicationController
     # remove item from cart
     @cart.remove(params[:id], 1)
     flash[:notice] = "Image removed"
-    redirect_to cart_path
+    redirect_to cart_path()
   end
 
   private
