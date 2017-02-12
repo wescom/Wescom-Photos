@@ -1,18 +1,15 @@
 <nav class="navbar navbar-dark bg-inverse">
-	<div class="container">
-		<div class="row">
-			<div id="branding" class="col-xs-7 col-sm-7 col-md-11 col-lg-11">
-				<h1>
-					<%= link_to root_path do %>
-						Wescom <span>Photos</span>
-					<% end %>
-				</h1>
-			</div>
-	
-			<div id="cart" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-				<%= link_to( cart_label_quantity_items(), cart_path(), :class=>"btn btn-success hidden-sm-down") %>
-				<%= link_to( cart_label_quantity(), cart_path(), :class=>"btn btn-success hidden-md-up") %>
-			</div>
+	<div class="d-flex justify-content-between align-items-center">
+		<div id="branding">
+			<h1>
+				<%= link_to root_path do %>
+					Wescom <span>Photos</span>
+				<% end %>
+			</h1>
+		</div>
+		<div id="cart">
+			<%= link_to( cart_label_quantity_items(), cart_path(), :class=>"btn btn-success hidden-sm-down") %>
+			<%= link_to( cart_label_quantity(), cart_path(), :class=>"btn btn-success hidden-md-up") %>
 		</div>
 	</div>
 </nav>
