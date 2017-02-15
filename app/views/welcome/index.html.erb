@@ -11,3 +11,42 @@
 		</div>
 	</div>
 </div>
+
+<div class="welcome-page-info">
+	<h3 class="">Popular Categories</h3>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+				<div class="card text-center">
+					<%= image_tag(@sports_image.image(:large), :alt=>"Sports Images", :class=>"card-img-top") %>
+					<div class="card-block">
+						<h4 class="card-title">High School Sports</h4>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<%= link_to( "Browse", story_images_path(:search_query => "sports"), :class=>"btn btn-primary") %>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+				<div class="card text-center">
+					<%= image_tag(@events_image.image(:large), :alt=>"Event Images", :class=>"card-img-top") %>
+					<div class="card-block">
+						<h4 class="card-title">Local Events</h4>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<%= link_to( "Browse", story_images_path(:search_query => "events"), :class=>"btn btn-primary") %>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+				<div class="card text-center">
+					<%= image_tag(@outdoors_image.image(:large), :alt=>"Outdoor Images", :class=>"card-img-top") %>
+					<div class="card-block">
+						<h4 class="card-title">Central Oregon Outdoors</h4>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<%= link_to( "Browse", story_images_path(:search_query => "outdoors"), :class=>"btn btn-primary") %>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
