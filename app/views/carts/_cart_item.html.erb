@@ -2,6 +2,14 @@
 	<td data-th="Product" align="center">
 		<%= image_tag(cart_item.item.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
 	</td>
+	<td data-th="Published" class="text-center">
+		<% if cart_item.item.story %>
+			<% if cart_item.item.story.plan %>
+				<%= cart_item.item.story.plan.pub_name unless cart_item.item.story.plan.pub_name.nil? %>
+				- <%= cart_item.item.story.pubdate.strftime('%m/%d/%y') unless cart_item.item.story.pubdate.nil? %>
+			<% end %>
+		<% end %>
+	</td>
 	<td data-th="Price" class="text-center"><%= number_to_currency(cart_item.price_cents.to_d/100) %></td>
 	<td data-th="Cost" class="text-center"><%= number_to_currency(cart_item.quantity * cart_item.price_cents.to_d/100) %></td>
 	<td class="actions" data-th="">
