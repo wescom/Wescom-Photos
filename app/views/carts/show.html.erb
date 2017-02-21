@@ -13,7 +13,11 @@
 		</thead>
 
 		<tbody>
-			<%= render :partial => 'cart_item', :collection => @cart.cart_items %>
+			<% if cart_quantity.to_i > 0 %>
+				<%= render :partial => 'cart_item', :collection => @cart.cart_items %>
+			<% else %>
+				<tr><td class="text-center">No images in cart</td></tr>
+			<% end %>
 		</tbody>
 
 		<tfoot>
@@ -25,7 +29,11 @@
 				<td class="text-center">
 					<strong>Total <%= number_to_currency @cart.total %></strong>
 				</td>
-				<td><a href="#" class="btn btn-success btn-small">Checkout <i class="fa fa-angle-right"></i></a></td>
+				<td>
+					<% if cart_quantity.to_i > 0 %>
+						<a href="#" class="btn btn-success btn-small">Checkout <i class="fa fa-angle-right"></i></a>
+					<% end %>
+				</td>
 			</tr>
 		</tfoot>
 	</table>

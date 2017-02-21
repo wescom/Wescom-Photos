@@ -2,9 +2,13 @@ module ApplicationHelper
 
 
   def cart_quantity
-    @cart = Cart.find(session[:cart_id])
-    quantity = @cart.total_unique_items
-    return quantity.to_s
+    if session[:cart_id]
+      @cart = Cart.find(session[:cart_id])
+      quantity = @cart.total_unique_items
+      return quantity.to_s
+    else
+      return "0"
+    end
   end
 
   def cart_label
