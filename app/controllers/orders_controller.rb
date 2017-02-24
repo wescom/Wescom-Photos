@@ -25,7 +25,8 @@ class OrdersController < ApplicationController
             @order_item.save
             puts @order_item.inspect
           end
-          redirect_to orders_path, notice: "Credit card been successfully charged." and return
+          @cart.clear
+          redirect_to session[:referrer], notice: "Credit card been successfully charged." and return
         else
           puts "********** CC Failed"
           render :new

@@ -31,12 +31,11 @@
 				</td>
 				<td>
 					<% if cart_quantity.to_i > 0 %>
-						<%= link_to('Checkout <i class="fa fa-angle-right"></i>'.html_safe, 
-								new_order_path, :class=>"btn btn-success btn-small") %>
+						<%= link_to 'Checkout <i class="fa fa-angle-right"></i>'.html_safe, new_order_path, 
+									{:class=>"btn btn-success btn-small" } %>
 					<% end %>
 				</td>
 			</tr>
 		</tfoot>
 	</table>
 </div>
-
