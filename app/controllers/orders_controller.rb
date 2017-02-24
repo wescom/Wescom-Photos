@@ -11,7 +11,8 @@ class OrdersController < ApplicationController
     def create
       @order = Order.new(order_params)
       @cart = Cart.find(session[:cart_id])
-
+      @order.amount = @cart.total
+      
       if @order.save
         if @order.process
           # Save contents of cart into Order for historical archive

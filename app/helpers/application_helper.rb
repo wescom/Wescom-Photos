@@ -34,4 +34,15 @@ module ApplicationHelper
       return '<i class="fa fa-shopping-cart"> </i>'.html_safe
 		end
   end
+  
+  def cart_total_amount
+    if session[:cart_id]
+      @cart = Cart.find(session[:cart_id])
+      total = @cart.total
+      return total
+    else
+      return 0
+    end
+  end
+  
 end

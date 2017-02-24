@@ -14,7 +14,6 @@ class Order < ApplicationRecord
   validates :credit_card_number, presence: true
   validates :expiration_month, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
   validates :expiration_year, presence: true
-  validates :amount, presence: true, numericality: { greater_than: 0 }
 
   validate :valid_card
 
