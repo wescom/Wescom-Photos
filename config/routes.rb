@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resource :cart do
     put 'remove_item'
   end
+  resources :orders, only: [:index, :new, :create]
   
   root 'welcome#index'
 

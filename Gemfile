@@ -18,6 +18,7 @@ gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem "paperclip", "~> 5.0.0"
 gem 'acts_as_shopping_cart', '~> 0.4.0'
+gem 'activemerchant'
 
 # Fulltext search indexing
 gem 'sunspot_rails'

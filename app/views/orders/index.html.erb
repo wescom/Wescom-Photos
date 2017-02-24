@@ -1,0 +1,57 @@
+<h1>Orders</h1>
+
+<div class="well">
+	<%= link_to "New Payment", new_order_path, class: "btn btn-primary" %>
+</div>
+
+<% if !flash[:notice].blank? %>
+	<div class="alert alert-success">
+		<%= flash[:notice] %>
+	</div>
+<% end %>
+
+<table id="order" class="table table-hover table-condensed">
+	<thead>
+		<tr>
+			<th class="text-center">Date</th>
+			<th class="">Name</th>
+			<th class="text-center">Items</th>
+			<th class="text-center">Total Amount</th>
+			<th class="text-center">Succeeded?</th>
+			<th class="text-center">Authorization Code</th>
+			<th class="text-center"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% if @orders.size > 0 %>
+			<% @orders.each do |order| %>
+				<tr>
+					<td class="text-center"><%= order.created_at.strftime('%m/%d/%y - %l:%M %P') %></td>
+					<td><%= order.first_name %> <%= order.last_name %></td>
+					<td class="text-center"><%= order.order_items.count %></td>
+					<td class="text-center"><%= number_to_currency order.amount %></td>
+					<td class="text-center"><%= order.success == true ? "Yes" : "No" %></td>
+					<td class="text-center"><%= order.authorization_code %></td>
+					<td class="text-center">
+						<% if order.order_items.count > 0 %><p class="show_order_items">Show Order</p><% end %>
+					</td>
+				</tr>
+				<tr class="order_items">
+					<td>
+						<table class="table table-sm">
+							<% order.order_items.each do |item| %>
+								<tr>
+									<td><%= image_tag(item.story_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %></td>
+									<td>Cost: <%= number_to_currency(item.quantity * item.price_cents.to_d/100) %></td>
+								</tr>
+							<% end %>
+						</table>
+					<td>
+				</tr>
+			<% end %>
+		<% else %>
+			<tr><td colspan="5">No orders have been attempted.</td></tr>
+		<% end %>
+	</tbody>
+</table>

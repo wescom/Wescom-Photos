@@ -50,5 +50,11 @@ $(document).ready(function(){
 	//	$(".image_gallery_panel").mouseleave (function() {
 	//		$(this).find('.image_gallery_caption').fadeOut('fast')
 	//	});
+	
+	$('.order_items').hide();
+	$(".show_order_items").click(function() {
+		$(this).closest("tr").next("tr").slideToggle("slow");
+		// alert($(this).closest("tr").next("tr").text());
+	});
 
 });
