@@ -1,8 +1,8 @@
 <tr>
-	<td data-th="Product" align="center">
+	<td data-th="Image" class="image_column text-center">
 		<%= image_tag(cart_item.item.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
 	</td>
-	<td data-th="Published" class="text-center">
+	<td data-th="Published" class="publish_column text-center">
 		<% if cart_item.item.story %>
 			<% if cart_item.item.story.plan %>
 				<%= cart_item.item.story.plan.pub_name unless cart_item.item.story.plan.pub_name.nil? %>
@@ -10,9 +10,14 @@
 			<% end %>
 		<% end %>
 	</td>
-	<td data-th="Price" class="text-center"><%= number_to_currency(cart_item.price_cents.to_d/100) %></td>
-	<td data-th="Cost" class="text-center"><%= number_to_currency(cart_item.quantity * cart_item.price_cents.to_d/100) %></td>
-	<td class="actions" data-th="">
+	<td data-th="Price" class="price_column text-center">
+		<div><%= number_to_currency(cart_item.price_cents.to_d/100) %></div>
+		<div class="mobile_action_row">
+			<%= link_to "Remove", 
+				remove_item_cart_path(:id => cart_item.item_id), :method=> :put, :action => 'remove_item_cart' %>
+		</div>
+	</td>
+	<td data-th="Action" class="action_column">
 		<%= link_to icon('remove'), 
 			remove_item_cart_path(:id => cart_item.item_id), :method=> :put, :action => 'remove_item_cart' %>
 	</td>

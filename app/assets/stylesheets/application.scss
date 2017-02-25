@@ -19,10 +19,22 @@
 /*** Main custimation ***/
 .indent { text-indent: 50px; }
 .panel-heading {background: lightgrey;}
-.content_block { margin: 0px 10px; }
+.content_block { margin: 0px 10px; min-height: 650px; }
 .img-thumb {width: 100px; height: auto;}
 .modal-dialog { max-height: 90%; max-width: 90%; }
+.cart_heading { margin: 20px 0px 0px 10% }
 
+@include media-breakpoint-down(xs) {
+	.image_column { }
+	.publish_column { }
+	.price_column { }	
+	.action_column { visibility: hidden; }
+	.colspan_column { display: none; }
+}
+
+@include media-breakpoint-up(sm) {
+	.mobile_action_row { visibility: hidden; }	
+}
 
 /*** Branding ***/
 #branding h1 { }

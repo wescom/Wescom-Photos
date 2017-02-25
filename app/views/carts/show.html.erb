@@ -1,41 +1,48 @@
-<h1>My Cart</h1>
+<div class="cart_heading">
+	<h1>My Cart</h1>
+</div>
 
 <div class="container">
-	<table id="cart" class="table table-hover table-condensed">
-		<thead>
-			<tr>
-				<th style="width:20%" class="text-center">Image</th>
-				<th style="width:20%" class="text-center">Published</th>
-				<th style="width:20%" class="text-center">Price</th>
-				<th style="width:20%" class="text-center">Cost</th>
-				<th style="width:20%"></th>
-			</tr>
-		</thead>
+	<div class="row">
+		<table id="cart" class="table table-hover table-condensed">
+			<thead>
+				<tr>
+					<th class="image_column text-center">Image</th>
+					<th class="publish_column text-center">Published</th>
+					<th class="price_column text-center">Price</th>
+					<th class="action_column" ></th>
+				</tr>
+			</thead>
 
-		<tbody>
+			<tbody>
+				<% if cart_quantity.to_i > 0 %>
+					<%= render :partial => 'cart_item', :collection => @cart.cart_items %>
+				<% else %>
+					<tr><td class="text-center">No images in cart</td></tr>
+				<% end %>
+			</tbody>
+
+			<tfoot>
+				<tr>
+					<td colspan="1"></td>
+					<td class="float-right"><strong>Total:</strong></td>
+					<td class="text-center"><strong><%= number_to_currency @cart.total %></strong></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="row justify-content-between">
+		<div class="col col-sm-2">
+			<%= link_to('<i class="fa fa-angle-left"></i> Continue Shopping'.html_safe, 
+				session[:referrer], :class=>"btn btn-success btn-small") %>
+		</div>
+		<div class="col col-sm-1 colspan_column"></div>
+		<div class="col col-sm-2">
 			<% if cart_quantity.to_i > 0 %>
-				<%= render :partial => 'cart_item', :collection => @cart.cart_items %>
-			<% else %>
-				<tr><td class="text-center">No images in cart</td></tr>
+				<%= link_to 'Checkout <i class="fa fa-angle-right"></i>'.html_safe, new_order_path, 
+					{:class=>"btn btn-success btn-small" } %>
 			<% end %>
-		</tbody>
-
-		<tfoot>
-			<tr>
-				<td><%= link_to('<i class="fa fa-angle-left"></i> Continue Shopping'.html_safe, 
-						session[:referrer], :class=>"btn btn-success btn-small") %>
-				</td>
-				<td colspan="2"></td>
-				<td class="text-center">
-					<strong>Total <%= number_to_currency @cart.total %></strong>
-				</td>
-				<td>
-					<% if cart_quantity.to_i > 0 %>
-						<%= link_to 'Checkout <i class="fa fa-angle-right"></i>'.html_safe, new_order_path, 
-									{:class=>"btn btn-success btn-small" } %>
-					<% end %>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
+		</div>
+	</div>
 </div>
