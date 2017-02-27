@@ -1,7 +1,5 @@
-<h1>Orders</h1>
-
-<div class="well">
-	<%= link_to "New Payment", new_order_path, class: "btn btn-primary" %>
+<div class="order_heading">
+	<h1>Orders</h1>
 </div>
 
 <% if !flash[:notice].blank? %>
@@ -10,48 +8,79 @@
 	</div>
 <% end %>
 
-<table id="order" class="table table-hover table-condensed">
-	<thead>
-		<tr>
-			<th class="text-center">Date</th>
-			<th class="">Name</th>
-			<th class="text-center">Items</th>
-			<th class="text-center">Total Amount</th>
-			<th class="text-center">Succeeded?</th>
-			<th class="text-center">Authorization Code</th>
-			<th class="text-center"></th>
-		</tr>
-	</thead>
+<div class="order_block" >
+	<table id="order" class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="text-center">Date</th>
+				<th class="">Name</th>
+				<th class="text-center">Items</th>
+				<th class="text-center">Total Amount</th>
+				<th class="succeed_col text-center">Succeeded?</th>
+				<th class="auth_col text-center">Authorization Code</th>
+				<th class="action_col text-center"></th>
+			</tr>
+		</thead>
 
-	<tbody>
-		<% if @orders.size > 0 %>
-			<% @orders.each do |order| %>
-				<tr>
-					<td class="text-center"><%= order.created_at.strftime('%m/%d/%y - %l:%M %P') %></td>
-					<td><%= order.first_name %> <%= order.last_name %></td>
-					<td class="text-center"><%= order.order_items.count %></td>
-					<td class="text-center"><%= number_to_currency order.amount %></td>
-					<td class="text-center"><%= order.success == true ? "Yes" : "No" %></td>
-					<td class="text-center"><%= order.authorization_code %></td>
-					<td class="text-center">
-						<% if order.order_items.count > 0 %><p class="show_order_items">Show Order</p><% end %>
-					</td>
-				</tr>
-				<tr class="order_items">
-					<td>
-						<table class="table table-sm">
-							<% order.order_items.each do |item| %>
-								<tr>
-									<td><%= image_tag(item.story_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %></td>
-									<td>Cost: <%= number_to_currency(item.quantity * item.price_cents.to_d/100) %></td>
-								</tr>
+		<tbody>
+			<% if @orders.size > 0 %>
+				<% @orders.each do |order| %>
+					<tr>
+						<td class="text-center"><%= order.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%m/%d/%y - %l:%M %P') %></td>
+						<td><%= order.first_name %> <%= order.last_name %></td>
+						<td class="text-center"><%= order.order_items.count %></td>
+						<td class="text-center"><%= number_to_currency order.amount %></td>
+						<td class="succeed_col text-center"><%= order.success == true ? "Yes" : "No" %></td>
+						<td class="auth_col text-center"><%= order.authorization_code %></td>
+						<td class="action_column text-center">
+							<% if order.order_items.count > 0 %>
+								<p class="show_order_items btn btn-outline-info">
+									<i class="fa fa-file-image-o"></i>
+								</p>
+								<p class="btn btn-outline-info">
+									<%= link_to '<i class="fa fa-shopping-cart"></i>'.html_safe, 
+										order_path(order.obscure_uniq_identifier) %>
+								</p>
 							<% end %>
-						</table>
-					<td>
-				</tr>
+						</td>
+					</tr>
+					<tr class="mobile_action_row">
+						<td colspan="6 justify-flex-end">
+							<% if order.order_items.count > 0 %>
+								<p class="show_order_items btn btn-outline-info">
+									<i class="fa fa-file-image-o"></i>
+								</p>
+								<p class="btn btn-outline-info">
+									<%= link_to '<i class="fa fa-shopping-cart"></i>'.html_safe, 
+										order_path(order.obscure_uniq_identifier) %>
+								</p>
+							<% end %>
+						</td>
+					</tr>
+					<tr class="order_items">
+						<td class="colspan_column"/>
+						<td colspan="5">
+							<div class="row">
+								<% order.order_items.each do |item| %>
+									<div>
+										<div class="col text-center"><%= image_tag(item.story_image.image(:large), :alt=>"Story Image", 
+											:class=>"img-thumb img-responsive") %></div>
+										<div class="col text-center">Cost: <%= number_to_currency(item.quantity * item.price_cents.to_d/100) %></div>
+									</div>
+								<% end %>
+							</div>
+						</td>
+					</tr>
+				<% end %>
+			<% else %>
+				<tr><td colspan="5">No orders have been attempted.</td></tr>
 			<% end %>
-		<% else %>
-			<tr><td colspan="5">No orders have been attempted.</td></tr>
-		<% end %>
-	</tbody>
-</table>
+		</tbody>
+	</table>
+<div>
+
+<br/>
+<div class="well">
+	<%= link_to "New Manual Payment", new_order_path, class: "btn btn-primary float-right" %>
+</div>
+<br/>
