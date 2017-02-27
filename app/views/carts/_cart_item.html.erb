@@ -11,7 +11,7 @@
 		<% end %>
 	</td>
 	<td data-th="Price" class="price_column text-center">
-		<div><%= number_to_currency(cart_item.price_cents.to_d/100) %></div>
+		<div class="align-top"><%= number_to_currency(cart_item.price_cents.to_d/100) %></div>
 		<div class="mobile_action_row">
 			<%= link_to "Remove", 
 				remove_item_cart_path(:id => cart_item.item_id), :method=> :put, :action => 'remove_item_cart',
@@ -19,7 +19,7 @@
 		</div>
 	</td>
 	<td data-th="Action" class="action_column">
-		<%= link_to icon('remove'), 
+		<%= link_to icon('remove fa-lg'), 
 			remove_item_cart_path(:id => cart_item.item_id), :method=> :put, :action => 'remove_item_cart',
 			data: {confirm:'Remove image from cart?'} %>
 	</td>

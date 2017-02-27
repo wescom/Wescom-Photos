@@ -79,31 +79,21 @@ ActiveRecord::Schema.define(version: 20170223184935) do
   end
 
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string   "obscure_uniq_identifier"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "last4"
-    t.decimal  "amount",             precision: 12, scale: 3
+    t.decimal  "amount",                  precision: 12, scale: 3
     t.boolean  "success"
     t.string   "authorization_code"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
   end
 
   create_table "papers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "payments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "last4"
-    t.decimal  "amount",             precision: 12, scale: 3
-    t.boolean  "success"
-    t.string   "authorization_code"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
   end
 
   create_table "pdf_images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|

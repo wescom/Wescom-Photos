@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
   require "active_merchant/billing/rails"
+  before_create :generate_guid
+  before_create :generate_random_id
   
   has_many :order_items, :dependent => :destroy
 
@@ -17,6 +19,18 @@ class Order < ApplicationRecord
 
   validate :valid_card
 
+  def to_param
+    obscure_uniq_identifier
+  end
+  
+  def generate_guid
+    self.obscure_uniq_identifier = SecureRandom.hex
+  end
+  
+  def generate_random_id
+    self.id = SecureRandom.random_number(1_000_000)
+  end
+  
   def credit_card
     ActiveMerchant::Billing::CreditCard.new(
       number:              credit_card_number,

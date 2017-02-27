@@ -1,0 +1,19 @@
+<tr>
+	<td data-th="Image" class="image_column text-center">
+		<%= image_tag(order_item.story_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
+	</td>
+	<td data-th="Published" class="publish_column text-center">
+		<% if order_item.story_image.story %>
+			<% if order_item.story_image.story.plan %>
+				<%= order_item.story_image.story.plan.pub_name unless order_item.story_image.story.plan.pub_name.nil? %>
+				- <%= order_item.story_image.story.pubdate.strftime('%m/%d/%y') unless order_item.story_image.story.pubdate.nil? %>
+			<% end %>
+		<% end %>
+	</td>
+	<td data-th="Price" class="price_column text-center">
+		<div class="align-top"><%= number_to_currency(order_item.price_cents.to_d/100) %></div>
+	</td>
+	<td data-th="Action" class="action_column">
+		<%= link_to icon('download fa-lg'), order_item.story_image.image.url %>
+	</td>
+</tr>

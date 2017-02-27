@@ -1,6 +1,7 @@
 class CreateOrders < ActiveRecord::Migration[5.0]
   def change
-      create_table :payments do |t|
+      create_table :orders do |t|
+        t.string :obscure_uniq_identifier
         t.string :first_name
         t.string :last_name
         t.string :last4
