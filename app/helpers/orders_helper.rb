@@ -1,6 +1,6 @@
 module OrdersHelper
   def months
-    (1..12).collect{|n| ["#{n} - #{Date::MONTHNAMES[n]}", n]}
+    (1..12).collect{|n| ["#{n}", n]}
   end
 
   def years

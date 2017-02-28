@@ -23,7 +23,8 @@
 .order_block { margin: 0px 10px; min-height: 300px; }
 .img-thumb {width: 100px; height: auto;}
 .modal-dialog { max-height: 90%; max-width: 90%; }
-.cart_heading, .order_heading { margin: 20px 0px 0px 10% }
+.cart_heading, .order_heading, .checkout_heading { margin: 20px 0px 0px 10% }
+#checkout_form { width: 100% }
 
 @include media-breakpoint-down(xs) {
 	.image_column { }

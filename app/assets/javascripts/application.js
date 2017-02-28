@@ -57,4 +57,26 @@ $(document).ready(function(){
 		// alert($(this).closest("tr").next("tr").text());
 	});
 
+	$('#order_credit_card_number').bind('input', function() {
+		// define tests of credit card numbers
+		var visa = new RegExp("^4");
+		var amex = new RegExp("^3[47]");
+		var mastercard = new RegExp("^5[1-5]");
+		var discover = new RegExp("^(6011|622(1(2[6-9]|[3-9][0-9])|[2-8][0-9][0-9]|9([0-1][0-9]|2[0-5]))|64[4-9]|65)");
+
+		// test inputted credit card number
+		var value = ($(this).val());
+		var visa_color = visa.test(value) ? "black" : "silver";
+		var amex_color = amex.test(value) ? "black" : "silver";
+		var mastercard_color = mastercard.test(value) ? "black" : "silver";
+		var discover_color = discover.test(value) ? "black" : "silver";
+
+		// set color based on what credit card number is inputted
+		$('.visa').css('color', visa_color);
+		$('.amex').css('color', amex_color);
+		$('.mastercard').css('color', mastercard_color);
+		$('.discover').css('color', discover_color);
+	});
+
 });
+
