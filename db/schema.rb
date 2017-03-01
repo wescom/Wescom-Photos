@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20170223184935) do
     t.decimal  "amount",                  precision: 12, scale: 3
     t.boolean  "success"
     t.string   "authorization_code"
+    t.string   "email"
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
   end

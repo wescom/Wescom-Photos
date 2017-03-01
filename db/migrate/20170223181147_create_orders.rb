@@ -8,6 +8,7 @@ class CreateOrders < ActiveRecord::Migration[5.0]
         t.decimal :amount, precision: 12, scale: 3
         t.boolean :success
         t.string :authorization_code
+        t.string :email
         t.timestamps
       end
     end

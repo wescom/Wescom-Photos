@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   attr_accessor :credit_card_number
   attr_accessor :expiration_month
   attr_accessor :expiration_year
+  attr_accessor :email
 
   validates :first_name, presence: true
   validates :last_name, presence: true
