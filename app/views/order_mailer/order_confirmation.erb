@@ -1,36 +1,56 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  </head>
-  <body>
-    <h1>Order #<%= @order.id %></h1>
-	Date: <%= @order.created_at.strftime('%m/%d/%Y') %><br/>
-		<p>
-			<table id="order" class="table table-hover table-condensed">
-				<thead>
-					<tr>
-						<th class="image_column text-center">Image</th>
-						<th class="publish_column text-center">Published</th>
-						<th class="price_column text-center">Price</th>
-						<th class="action_column" ></th>
-					</tr>
-				</thead>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+		<%= stylesheet_link_tag "emails" %>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+		    	<h2>Your Order has been been processed</h2>
+				<p>
+			      Thank you for your order. You can view your order online at <%= link_to @order.id, order_url(@order.obscure_uniq_identifier) %>.
+				</p>
+				<br/>
 
-				<tbody>
-					<%= render :partial => 'orders/order_item', :collection => @order.order_items %>
-				</tbody>
+				<h4>Order Info</h4>
+				<div class="indent">
+					<p><strong>Date: </strong><%= @order.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%m/%d/%y - %l:%M %P') %></p>
+					<p><strong>Name: </strong><%= @order.first_name %> <%= @order.last_name %></p>
+					<p><strong>Amount: </strong><%= number_to_currency(@order.amount) %></p>
+					<p><strong>Credit card charged: </strong>x<%= @order.last4 %></p>
+				</div>
+				<br/>
 
-				<tfoot>
-					<tr>
-						<td colspan="1"></td>
-						<td class="float-right"><strong>Total:</strong></td>
-						<td class="text-center"><strong><%= number_to_currency @order.amount %></strong></td>
-					</tr>
-				</tfoot>
-			</table>
-		</p>
-		<br/>
-		<p>Please do not reply to this email.</p>
-  </body>
+				<h4>Images Purchased</h4>
+				<i class="text-muted">Download links for images are listed below</i>
+				<div class="indent">
+					<ul class="list-unstyled">
+						<% @order.order_items.each_with_index do |order_item, index| %>
+							<li>
+								<span>Image<%= (index+1).to_s %></span>
+								<% if order_item.story_image.story %>
+									<% if order_item.story_image.story.plan %>
+										<span class="tab">
+											<%= order_item.story_image.story.plan.pub_name unless order_item.story_image.story.plan.pub_name.nil? %>
+											- <%= order_item.story_image.story.pubdate.strftime('%m/%d/%y') unless order_item.story_image.story.pubdate.nil? %>
+										</span>
+									<% end %>
+								<% end %>
+								<span class="tab">
+									<%= number_to_currency(order_item.price_cents.to_d/100) %>
+								</span>
+								<span class="tab">
+									<a href="#" class="card-link">Download link</a>
+								</span>
+							</li>
+						<% end %>
+					</ul>
+				</div>
+
+				<br/><br/>
+				<p>Please do not reply to this email. If you have any questions or concerns about your order, please contact us at info@wescomphotos. </p>
+			</div>
+		</div>
+	</body>
 </html>

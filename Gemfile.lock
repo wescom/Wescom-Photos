@@ -47,6 +47,8 @@ GEM
     acts_as_shopping_cart (0.4.1)
       money-rails (~> 1.5)
       rails (> 4)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     airbrussh (1.1.2)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (7.1.4)
@@ -81,6 +83,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.4)
+    css_parser (1.4.9)
+      addressable
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -92,6 +96,7 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     highline (1.7.8)
+    htmlentities (4.3.4)
     i18n (0.7.0)
     jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -140,9 +145,16 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
     pr_geohash (1.0.0)
+    premailer (1.10.0)
+      css_parser (>= 1.4.9)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.9.5)
+      actionmailer (>= 3, < 6)
+      premailer (~> 1.7, >= 1.7.9)
     progress_bar (1.1.0)
       highline (~> 1.6)
       options (~> 2.3.0)
+    public_suffix (2.0.5)
     puma (3.6.2)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -246,7 +258,9 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   mysql2
+  nokogiri
   paperclip (~> 5.0.0)
+  premailer-rails
   progress_bar
   puma (~> 3.0)
   rails (~> 5.0.1)

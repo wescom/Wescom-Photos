@@ -19,7 +19,10 @@ gem 'will_paginate-bootstrap'
 gem "paperclip", "~> 5.0.0"
 gem 'acts_as_shopping_cart', '~> 0.4.0'
 gem 'activemerchant'
+
 gem "figaro", ">= 0.5.3"  # use for environment variables
+gem 'nokogiri'
+gem 'premailer-rails' # use for css styling in mailer
 
 # Fulltext search indexing
 gem 'sunspot_rails'
