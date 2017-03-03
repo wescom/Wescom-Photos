@@ -52,8 +52,12 @@ $(document).ready(function(){
 	//	});
 	
 	$('.order_items').hide();
-	$(".show_order_items").click(function() {
+	$(".show_order_items_next").click(function() {
 		$(this).closest("tr").next("tr").slideToggle("slow");
+		// alert($(this).closest("tr").next("tr").text());
+	});
+	$(".show_order_items_prev").click(function() {
+		$(this).closest("tr").prev("tr").slideToggle("slow");
 		// alert($(this).closest("tr").next("tr").text());
 	});
 

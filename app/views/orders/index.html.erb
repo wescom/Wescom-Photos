@@ -12,6 +12,7 @@
 	<table id="order" class="table table-hover table-condensed">
 		<thead>
 			<tr>
+				<th class="text-center">OrderId</th>
 				<th class="text-center">Date</th>
 				<th class="">Name</th>
 				<th class="text-center">Items</th>
@@ -26,6 +27,7 @@
 			<% if @orders.size > 0 %>
 				<% @orders.each do |order| %>
 					<tr>
+						<td class="text-center"><%= order.id %></td>
 						<td class="text-center"><%= order.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%m/%d/%y - %l:%M %P') %></td>
 						<td><%= order.first_name %> <%= order.last_name %></td>
 						<td class="text-center"><%= order.order_items.count %></td>
@@ -34,7 +36,7 @@
 						<td class="auth_col text-center"><%= order.authorization_code %></td>
 						<td class="action_column text-center">
 							<% if order.order_items.count > 0 %>
-								<p class="show_order_items btn btn-outline-info">
+								<p class="show_order_items_next btn btn-outline-info">
 									<i class="fa fa-file-image-o"></i>
 								</p>
 								<p class="btn btn-outline-info">
@@ -63,7 +65,7 @@
 					<tr class="mobile_action_row">
 						<td colspan="6 justify-flex-end">
 							<% if order.order_items.count > 0 %>
-								<p class="show_order_items btn btn-outline-info">
+								<p class="show_order_items_prev btn btn-outline-info">
 									<i class="fa fa-file-image-o"></i>
 								</p>
 								<p class="btn btn-outline-info">
