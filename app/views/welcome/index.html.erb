@@ -24,7 +24,8 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 				<div class="card text-center">
-					<%= image_tag(@sports_image.image(:large), :alt=>"Sports Images", :class=>"card-img-top") %>
+					<%= link_to image_tag(@sports_image.image(:large), :alt=>"Sports Images", :class=>"card-img-top"), 
+						story_images_path(:search_query => "sports") %>
 					<div class="card-block">
 						<h4 class="card-title">High School Sports</h4>
 						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -34,7 +35,8 @@
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 				<div class="card text-center">
-					<%= image_tag(@events_image.image(:large), :alt=>"Event Images", :class=>"card-img-top") %>
+					<%= link_to image_tag(@events_image.image(:large), :alt=>"Event Images", :class=>"card-img-top"), 
+						story_images_path(:search_query => "events") %>
 					<div class="card-block">
 						<h4 class="card-title">Local Events</h4>
 						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -44,7 +46,8 @@
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 				<div class="card text-center">
-					<%= image_tag(@outdoors_image.image(:large), :alt=>"Outdoor Images", :class=>"card-img-top") %>
+					<%= link_to image_tag(@outdoors_image.image(:large), :alt=>"Outdoor Images", :class=>"card-img-top"), 
+						story_images_path(:search_query => "outdoors") %>
 					<div class="card-block">
 						<h4 class="card-title">Central Oregon Outdoors</h4>
 						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
