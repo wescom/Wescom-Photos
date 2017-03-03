@@ -256,7 +256,8 @@ DEPENDENCIES
   adauth
   bootstrap (~> 4.0.0.alpha6)
   byebug
-  capistrano-rails
+  capistrano (~> 3.6)
+  capistrano-rails (~> 1.2)
   coffee-rails (~> 4.2)
   figaro (>= 0.5.3)
   font-awesome-sass (~> 4.7.0)
