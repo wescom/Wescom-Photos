@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_filter :require_admin
+
   def index
     @orders = Order.all.order("created_at desc")
   end

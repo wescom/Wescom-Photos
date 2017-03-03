@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   
   def require_admin
     unless admin?
-      redirect_to '/search'
+      redirect_to root_path
       return false
     end
   end
