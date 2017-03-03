@@ -20,6 +20,9 @@ gem "paperclip", "~> 5.0.0"
 gem 'acts_as_shopping_cart', '~> 0.4.0'
 gem 'activemerchant'
 
+# Authentication
+gem 'adauth'
+
 gem "figaro", ">= 0.5.3"  # use for environment variables
 gem 'nokogiri'
 gem 'premailer-rails' # use for css styling in mailer

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'welcome/index'
   
   resources :story_images
@@ -11,6 +12,12 @@ Rails.application.routes.draw do
     get :download
   end
   
+  resources :sessions
+  match "/login" => "sessions#new", :via => [:get, :post]
+  match "/logout" => "sessions#destroy", :via => [:get, :post]
+  match "/adauth" => "sessions#create", :via => [:get, :post]
+  match "/admin" => "sessions#new", :via => [:get, :post]
+
   root 'welcome#index'
 
 end

@@ -7,9 +7,27 @@
 				<% end %>
 			</h1>
 		</div>
-		<div id="cart">
-			<%= link_to( cart_label_quantity_items(), cart_path(), :class=>"btn btn-success hidden-sm-down") %>
-			<%= link_to( cart_label_quantity(), cart_path(), :class=>"btn btn-success hidden-md-up") %>
+		
+		<div id="navMenu" class="d-flex justify-content-between align-items-center">
+			<div class="btn-group">
+				<% if admin? %>
+					<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Admin
+					</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#"><%= link_to "Orders", orders_path %></a>
+						<a class="dropdown-item" href="#"><%= link_to "Link2", orders_path %></a>
+						<a class="dropdown-item" href="#"><%= link_to "Link3", orders_path %></a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"><%= link_to "Logout", logout_path %></a>
+					</div>
+					&nbsp;
+				<% end %>
+				<div>
+					<%= link_to( cart_label_quantity_items(), cart_path(), :class=>"btn btn-success hidden-sm-down") %>
+					<%= link_to( cart_label_quantity(), cart_path(), :class=>"btn btn-success hidden-md-up") %>
+				</div>
+			</div>
 		</div>
 	</div>
 </nav>

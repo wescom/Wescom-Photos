@@ -1,5 +1,40 @@
 module ApplicationHelper
 
+  def admin?
+    if !session[:user_id].nil?
+      if User.find(session[:user_id]).role == "Admin"
+        return true
+      else
+        return false
+      end
+      return false
+    end
+  end
+  
+  def edit?
+    if User.find(session[:user_id]).role == "Edit"
+      return true
+    else
+      return false
+    end
+  end
+  
+  def error_messages(object, field)   # ie: error_messages(@object, @object.field)
+    if object.present?
+      messages = object.errors["#{field}"].map { |msg| content_tag(:p, msg) }.join
+      messages.gsub! "<p>", ""
+      messages.gsub! "</p>", ""
+      if messages.length > 0
+        html = <<-HTML
+        <span id="text-error">
+          <img src = "/images/icons/exclamation.png" alt = "exclamation" /> #{messages}
+        </span>
+        HTML
+        html.html_safe
+      end
+    end
+  end
+
   def cart_quantity
     if session[:cart_id]
       @cart = Cart.find(session[:cart_id])

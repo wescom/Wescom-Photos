@@ -1,0 +1,36 @@
+<!-- <%= default_adauth_form %> -->
+
+<div id="login-page">
+	<div id="page-content" class="clearfix">
+		<div class="inner-box clearfix">
+			<h1>Login <span>(Using your Spark or Computer username/password)</span></h1>
+		  <div id="login-content" class="form-horizontal">
+				<%= adauth_form do %>
+					<div class="indent">
+						<br/><br/>
+				        <div class="form-group row">
+							<%= label :username, 'Username', class: "col-md-3 col-lg-2 col-form-label" %>
+					        <div class="col-sm-8 col-md-5">
+								<%= text_field_tag :username, nil, :class => 'form-control' %></p>
+							</div>
+				        </div>
+				        <div class="form-group row">
+							<%= label :password, 'Password', class: "col-md-3 col-lg-2  col-form-label" %>
+					        <div class="col-sm-8 col-md-5">
+								<%= password_field_tag :password, nil, :class => 'form-control' %></p>
+							</div>
+				        </div>
+					    <div class="form-group row">
+					      <div class="offset-sm-4 col-sm-8">
+							<%= submit_tag "Login", :class => 'btn btn-primary' %>
+					      </div>
+					    </div>
+					</div>
+				<% end %>
+			</div>
+			<div class="9">
+
+			<div>
+		</div>
+	</div>
+</div>
