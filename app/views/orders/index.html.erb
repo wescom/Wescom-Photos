@@ -44,6 +44,22 @@
 							<% end %>
 						</td>
 					</tr>
+					<tr class="order_items">
+						<td class="colspan_column"/>
+						<td colspan="5">
+							<div class="row">
+								<% order.order_items.each do |item| %>
+									<div class="text-center">
+										<div class="col text-center"><%= image_tag(item.story_image.image(:large), :alt=>"Story Image", 
+											:class=>"img-thumb img-responsive") %></div>
+										<div class="col text-center">Cost: <%= number_to_currency(item.quantity * item.price_cents.to_d/100) %></div>
+										<%= link_to('<i class="fa fa-download"> </i>'.html_safe, order_download_path(item.item_id), 
+											:class=>"btn btn-sm btn-primary text-center") %>
+									</div>
+								<% end %>
+							</div>
+						</td>
+					</tr>
 					<tr class="mobile_action_row">
 						<td colspan="6 justify-flex-end">
 							<% if order.order_items.count > 0 %>
@@ -55,20 +71,6 @@
 										order_path(order.obscure_uniq_identifier) %>
 								</p>
 							<% end %>
-						</td>
-					</tr>
-					<tr class="order_items">
-						<td class="colspan_column"/>
-						<td colspan="5">
-							<div class="row">
-								<% order.order_items.each do |item| %>
-									<div>
-										<div class="col text-center"><%= image_tag(item.story_image.image(:large), :alt=>"Story Image", 
-											:class=>"img-thumb img-responsive") %></div>
-										<div class="col text-center">Cost: <%= number_to_currency(item.quantity * item.price_cents.to_d/100) %></div>
-									</div>
-								<% end %>
-							</div>
 						</td>
 					</tr>
 				<% end %>
