@@ -53,7 +53,7 @@ class OrdersController < ApplicationController
   
   def download
     @image = StoryImage.find(params[:order_id])
-    send_file @image.image.path
+    send_file @image.image.path, :filename => "image_"+@image.id.to_s
     puts "***** Image Downloaded ***** " + @image.image.path
   end
 
