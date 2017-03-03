@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'welcome/index'
+  get 'home/index'
   
   resources :story_images
 
@@ -18,6 +18,6 @@ Rails.application.routes.draw do
   match "/adauth" => "sessions#create", :via => [:get, :post]
   match "/admin" => "sessions#new", :via => [:get, :post]
 
-  root 'welcome#index'
+  root 'home#index'
 
 end

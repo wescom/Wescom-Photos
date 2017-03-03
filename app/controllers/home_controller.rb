@@ -1,4 +1,4 @@
-class WelcomeController < ApplicationController
+class HomeController < ApplicationController
   def index
     @sports_image = StoryImage.joins(:story).where('subcategoryname = ?','High School').order('created_date DESC').first
     @events_image = StoryImage.joins(:story).where('subcategoryname = ?','Community Sports').order('created_date DESC').first

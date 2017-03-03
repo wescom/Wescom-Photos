@@ -89,8 +89,8 @@
 }
 
 
-/*** Welcome Page ***/
-.welcome-page-head {
+/*** Home Page ***/
+.home-page-head {
 	height: 500px;
     min-height: 500px;
     background: url('/images/Bend_Homes_cinemagraph.gif') no-repeat center center;
@@ -98,7 +98,7 @@
     text-align: center;
     position: relative;
 }
-.welcome-page-head .banner-search-wrap {
+.home-page-head .banner-search-wrap {
 	position: absolute;
     top: 50%;
     width: 100%;
@@ -107,7 +107,7 @@
     margin-top: -140px;
     color: #fff;
 }
-.welcome-page-head .banner-search-wrap h1 {
+.home-page-head .banner-search-wrap h1 {
     color: #fff;
     margin-top: 70px;
     margin-bottom: 40px;
@@ -154,7 +154,7 @@
     text-transform: uppercase;
     cursor: pointer;
 }
-.welcome-page-info {
+.home-page-info {
 	margin: 50px 50px;
     text-align: center;
 }
