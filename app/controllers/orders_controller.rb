@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @cart = session[:cart_id]
+    @order.expiration_month = Date.today.month.to_s
   end
 
   def create
@@ -28,7 +29,12 @@ class OrdersController < ApplicationController
           puts @order_item.inspect
         end
         @cart.clear
-        OrderMailer.order_confirmation(@order).deliver_now
+        if @order.email.nil?
+          puts "No confirmation email requested"
+        else
+          OrderMailer.order_confirmation(@order).deliver_now
+          flash[:notice] = "Order confirmation email sent"
+        end
         redirect_to order_path(@order), notice: "Credit card been successfully charged." and return
       else
         puts "********** CC Failed"
@@ -41,7 +47,6 @@ class OrdersController < ApplicationController
     
   def show
     @order = Order.find_by_obscure_uniq_identifier(params[:id])
-OrderMailer.order_confirmation(@order).deliver_now
   end
 
 private
