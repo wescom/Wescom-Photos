@@ -48,6 +48,12 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find_by_obscure_uniq_identifier(params[:id])
   end
+  
+  def download
+    @image = StoryImage.find(params[:order_id])
+    send_file @image.image.path
+    puts "***** Image Downloaded ***** " + @image.image.path
+  end
 
 private
   def order_params

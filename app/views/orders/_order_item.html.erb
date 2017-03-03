@@ -14,6 +14,6 @@
 		<div class="align-top"><%= number_to_currency(order_item.price_cents.to_d/100) %></div>
 	</td>
 	<td data-th="Action" class="action_column">
-		<%= link_to icon('download fa-lg'), order_item.story_image.image.url %>
+		<%= link_to icon('download fa-lg'), order_download_path(order_item.story_image) %>
 	</td>
 </tr>
