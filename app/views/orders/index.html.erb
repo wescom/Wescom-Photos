@@ -1,5 +1,17 @@
 <div class="order_heading">
-	<h1>Orders</h1>
+	<%= form_tag orders_path, :class => "form-inline", :method => :get do %>
+		<div class="container search_container">
+			<div class="row justify-content-between">
+				<h1>Orders</h1>
+				<div class="input-group">
+					<%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search", autofocus: true %>
+					<%= button_tag(type: "submit", class: "btn btn-primary") do %>
+					    <i class="fa fa-search"></i>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	<% end %>
 </div>
 
 <% if !flash[:notice].blank? %>
@@ -8,7 +20,7 @@
 	</div>
 <% end %>
 
-<div class="order_block" >
+<div class="orders_block" >
 	<table id="order" class="table table-hover table-condensed">
 		<thead>
 			<tr>
@@ -77,14 +89,22 @@
 					</tr>
 				<% end %>
 			<% else %>
-				<tr><td colspan="5">No orders have been attempted.</td></tr>
+				<tr><td colspan="5">No orders</td></tr>
 			<% end %>
 		</tbody>
 	</table>
+	<div class="container search_container">
+		<div class="row justify-content-between">
+			<div>
+				<%= link_to "New Manual Payment", new_order_path, class: "btn btn-primary" %>
+			</div>
+			<div class="flickr_pagination hidden-sm-down">
+				<%= will_paginate @order, :inner_window => 2, :outer_window => 0 %>
+			</div>
+			<div class="flickr_pagination hidden-md-up">
+				<%= will_paginate @order, :inner_window => 2, :outer_window => 0, :page_links => false %>
+			</div>
+		</div>
+	</div>
 <div>
 
-<br/>
-<div class="well">
-	<%= link_to "New Manual Payment", new_order_path, class: "btn btn-primary float-right" %>
-</div>
-<br/>

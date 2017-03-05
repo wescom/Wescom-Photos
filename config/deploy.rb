@@ -17,7 +17,7 @@ set :branch,      "origin/master"
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-# set :deploy_to, "/var/www/my_app_name"
+set :deploy_to, "/u/apps/wescomphotos"
 
 ARCHIVE1 = "archive1.wescompapers.com"
 ARCHIVE2 = "archive2.wescompapers.com"
@@ -25,6 +25,8 @@ ARCHIVE3 = "archive3.wescompapers.com"
 
 role :web, ARCHIVE1
 role :app, ARCHIVE1
+#role :app, ARCHIVE2, :solr => true
+#role :db,  ARCHIVE3, :primary => true
 
 set :migration_role, :app
 

@@ -3,6 +3,11 @@ class OrdersController < ApplicationController
 
   def index
     @orders = Order.all.order("created_at desc")
+    if params[:search].present?
+      @orders = @orders.where("id = ? or first_name = ? or last_name = ?", params[:search], params[:search], params[:search])
+    end
+    @orders = @orders.where(:success => true)
+    @orders = @orders.paginate(:page => params[:page], :per_page => 20)
   end
 
   def new
