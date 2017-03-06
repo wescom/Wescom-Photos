@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     get :download
   end
   
+  resources :admin_orders, only: [:index, :edit, :update]
+  match  "/dashboard" => "admin_orders#dashboard", :via => [:get]
+  
   resources :sessions
   match "/login" => "sessions#new", :via => [:get, :post]
   match "/logout" => "sessions#destroy", :via => [:get, :post]

@@ -1,0 +1,3 @@
+class AdminOrder < ApplicationRecord
+
+end

@@ -5,7 +5,7 @@
 				<h1>Orders</h1>
 				<div class="input-group">
 					<%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search", autofocus: true %>
-					<%= button_tag(type: "submit", class: "btn btn-primary") do %>
+					<%= button_tag(type: "submit", class: "btn btn-primary", name: nil) do %>
 					    <i class="fa fa-search"></i>
 					<% end %>
 				</div>

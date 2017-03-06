@@ -1,0 +1,43 @@
+<div class="admin_heading">
+	<div class="container search_container">
+		<div class="row justify-content-between">
+			<h1>Global Settings</h1>
+		</div>
+		<h6>These settings control site-wide settings...</h6>
+	</div>
+
+</div>
+
+<% if !flash[:notice].blank? %>
+	<div class="alert alert-success">
+		<%= flash[:notice] %>
+	</div>
+<% end %>
+
+<div class="admin_block" >
+	<h5>Pricing:</h5>
+	<%= form_for(@admin_order) do |f| %>
+		<div class="form-group row">
+			<label for="image_price" class="col-3 col-form-label">Image Price:</label>
+			<div class="col-3">
+				<%= f.number_field :image_price, class: "form-control", :step => "0.01", :required => "true" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="image_price" class="col-3 col-form-label">PDF Price:</label>
+			<div class="col-3">
+				<%= f.number_field :pdf_price, class: "form-control", :step => "0.01", :required => "true" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="image_price" class="col-3 col-form-label">Confirmation From Email:</label>
+			<div class="col-4">
+				<%= f.text_field :confirmation_from_email, class: "form-control", :placeholder => "Confirmation from email", :required => "true" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<%= f.submit "Update", :class => 'submit medium float_left'%>
+			<%= f.submit "Cancel", :name => 'cancel_button', :class => 'submit medium float_left'%>
+		</div>
+	<% end %>
+</div>
