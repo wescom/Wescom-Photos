@@ -2,16 +2,16 @@
 lock "3.7.1"
 
 set :application, "wescomphotos"
-set :repo_url, "git@example.com:me/Wescom-Photos.git"
+set :repo_url, "git@github.com:wescom/Wescom-Photos.git"
 #set :ssh_options, { :forward_agent => true }
 set :rails_env,   "production"
-set :scm,         :git
+#set :scm,         :git
 set :scm_username,    "wescomarchive"     # Git user
-set :scm_passphrase,  "Go2cmdarchive"  # Git password
+set :scm_passphrase,  "Go2cmdarchive"     # Git password
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
-set :branch,      "origin/master"
+set :branch,      "master"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -50,4 +50,4 @@ set :migration_role, :app
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 5
