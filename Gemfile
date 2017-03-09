@@ -19,6 +19,7 @@ gem 'will_paginate-bootstrap'
 gem "paperclip", "~> 5.0.0"
 gem 'acts_as_shopping_cart', '~> 0.4.0'
 gem 'activemerchant'
+gem 'rmagick'   # load ImageMagick library
 
 # Authentication
 gem 'adauth'
