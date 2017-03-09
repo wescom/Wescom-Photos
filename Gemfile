@@ -61,6 +61,7 @@ end
 group :development do
   gem 'capistrano', '~> 3.6'
   gem 'capistrano-rails', '~> 1.2'
+  gem 'capistrano-rvm'
 end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
