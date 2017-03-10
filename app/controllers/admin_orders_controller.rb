@@ -30,7 +30,7 @@ class AdminOrdersController < ApplicationController
   
   private
     def admin_order_params
-      params.require(:admin_order).permit(:image_price, :pdf_price, :confirmation_email)
+      params.require(:admin_order).permit(:image_price, :pdf_price, :confirmation_from_email)
     end
 
 end

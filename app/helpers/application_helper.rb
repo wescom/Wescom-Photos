@@ -35,6 +35,16 @@ module ApplicationHelper
     end
   end
 
+  def image_price
+    settings = AdminOrder.first
+    return settings.image_price
+  end
+  
+  def pdf_price
+    settings = AdminOrder.first
+    return settings.pdf_price
+  end
+  
   def cart_quantity
     if session[:cart_id]
       @cart = Cart.find(session[:cart_id])
