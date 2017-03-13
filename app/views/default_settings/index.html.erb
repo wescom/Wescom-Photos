@@ -1,0 +1,71 @@
+<div class="default_heading">
+	<div class="container search_container">
+		<div class="row justify-content-between">
+			<h1>Global Settings</h1>
+			<div><%= link_to 'Edit', edit_default_setting_path(@default_setting), :class=>"btn btn-primary btn-small" %></div>
+		</div>
+		<h6>These settings control site-wide defaults...</h6>
+	</div>
+
+</div>
+
+<% if !flash[:notice].blank? %>
+	<div class="alert alert-success">
+		<%= flash[:notice] %>
+	</div>
+<% end %>
+
+<div class="default_block" >
+	<% @default_settings.each do |f| %>
+		<h5>Pricing defaults:</h5>
+		<div class="form-group row offset-1">
+			<label for="image_price" class="col-3 col-form-label">Image Price:</label>
+			<div class="col-3 default_fields">
+				<%= number_to_currency(f.image_price) %>
+			</div>
+		</div>
+		<div class="form-group row offset-1">
+			<label for="image_price" class="col-3 col-form-label">PDF Price:</label>
+			<div class="col-3 default_fields">
+				<%= number_to_currency(f.pdf_price) %>
+			</div>
+
+		</div>
+		<hr/>
+		
+		<h5>Orders:</h5>
+		<div class="form-group row offset-1">
+			<label for="image_use_license" class="col-3 col-form-label">Image use license:</label>
+			<div class="col-8 default_fields default_fields_textarea">
+				<%= f.image_use_license %>
+			</div>
+		</div>
+		<div class="form-group row offset-1">
+			<label for="confirmation_from_email" class="col-3 col-form-label">Confirmation From Email:</label>
+			<div class="col-8 default_fields">
+				<%= f.confirmation_from_email %>
+			</div>
+		</div>
+		<hr/>
+
+		<h5>Home page:</h5>
+		<div class="form-group row offset-1">
+			<label for="home_welcome_text" class="col-3 col-form-label">Welcome text:</label>
+			<div class="col-8 default_fields default_fields_textarea">
+				<%= f.home_welcome_text %>
+			</div>
+		</div>
+		<div class="form-group row offset-1">
+			<label for="home_image_cat1" class="col-3 col-form-label">Image categories:</label>
+			<div class="col-2 default_fields">
+				<%= f.home_image_cat1 %>
+			</div>
+			<div class="col-2 default_fields">
+				<%= f.home_image_cat2 %>
+			</div>
+			<div class="col-2 default_fields">
+				<%= f.home_image_cat3 %>
+			</div>
+		</div>
+	<% end %>
+</div>

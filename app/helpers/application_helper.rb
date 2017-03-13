@@ -36,12 +36,12 @@ module ApplicationHelper
   end
 
   def image_price
-    settings = AdminOrder.first
+    settings = DefaultSetting.first
     return settings.image_price
   end
   
   def pdf_price
-    settings = AdminOrder.first
+    settings = DefaultSetting.first
     return settings.pdf_price
   end
   

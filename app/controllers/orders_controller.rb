@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :require_admin, :except => [:show, :download]
+  before_action :require_admin, only: [:index]
 
   def index
     @orders = Order.all.order("created_at desc")

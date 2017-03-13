@@ -1,5 +1,5 @@
 class OrderMailer < ApplicationMailer
-  default :from => AdminOrder.first.confirmation_from_email
+  default :from => DefaultSetting.first.confirmation_from_email
 
   # Confirmation of submission
   def order_confirmation(order)

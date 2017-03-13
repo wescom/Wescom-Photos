@@ -10,15 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305214321) do
-
-  create_table "admin_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.decimal  "image_price",             precision: 12, scale: 3
-    t.decimal  "pdf_price",               precision: 12, scale: 3
-    t.string   "confirmation_from_email"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-  end
+ActiveRecord::Schema.define(version: 20170312060817) do
 
   create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "owner_id"
@@ -42,6 +34,19 @@ ActiveRecord::Schema.define(version: 20170305214321) do
     t.integer  "correction_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "default_settings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.decimal  "image_price",                           precision: 12, scale: 3
+    t.decimal  "pdf_price",                             precision: 12, scale: 3
+    t.text     "image_use_license",       limit: 65535
+    t.string   "confirmation_from_email"
+    t.text     "home_welcome_text",       limit: 65535
+    t.string   "home_image_cat1"
+    t.string   "home_image_cat2"
+    t.string   "home_image_cat3"
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
   end
 
   create_table "keywords", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|

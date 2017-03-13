@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AdminOrderTest < ActiveSupport::TestCase
+class DefaultSettingTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

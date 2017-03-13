@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 puts 'Creating ADMIN ORDERS RECORD...'
-admin_orders = AdminOrder.create([
+admin_orders = DefaultSetting.create([
   { image_price: 9.99, pdf_price: 9.99, confirmation_from_email: "" }
   ])
 
