@@ -42,8 +42,11 @@ ActiveRecord::Schema.define(version: 20170312060817) do
     t.text     "image_use_license",       limit: 65535
     t.string   "confirmation_from_email"
     t.text     "home_welcome_text",       limit: 65535
+    t.string   "home_image_cat1_name"
     t.string   "home_image_cat1"
+    t.string   "home_image_cat2_name"
     t.string   "home_image_cat2"
+    t.string   "home_image_cat3_name"
     t.string   "home_image_cat3"
     t.datetime "created_at",                                                     null: false
     t.datetime "updated_at",                                                     null: false

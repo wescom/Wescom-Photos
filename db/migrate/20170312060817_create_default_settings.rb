@@ -9,8 +9,11 @@ class CreateDefaultSettings < ActiveRecord::Migration[5.0]
       t.string :confirmation_from_email
 
       t.text    :home_welcome_text
+      t.string  :home_image_cat1_name
       t.string  :home_image_cat1
+      t.string  :home_image_cat2_name
       t.string  :home_image_cat2
+      t.string  :home_image_cat3_name
       t.string  :home_image_cat3
       
       t.timestamps

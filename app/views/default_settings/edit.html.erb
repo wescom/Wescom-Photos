@@ -18,13 +18,13 @@
 	<%= form_for(@default_setting) do |f| %>
 		<h5>Pricing defaults:</h5>
 		<div class="form-group row">
-			<label for="image_price" class="col-3 col-form-label">Image Price:</label>
+			<label for="image_price" class="offset-1 col-3 col-form-label">Image Price:</label>
 			<div class="col-3">
 				<%= f.number_field :image_price, class: "form-control", :step => "0.01", :required => "true" %>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="image_price" class="col-3 col-form-label">PDF Price:</label>
+			<label for="image_price" class="offset-1 col-3 col-form-label">PDF Price:</label>
 			<div class="col-3">
 				<%= f.number_field :pdf_price, class: "form-control", :step => "0.01", :required => "true" %>
 			</div>
@@ -33,13 +33,13 @@
 
 		<h5>Orders:</h5>
 		<div class="form-group row">
-			<label for="image_use_license" class="col-3 col-form-label">Image use license:</label>
+			<label for="image_use_license" class="offset-1 col-3 col-form-label">Image use license:</label>
 			<div class="col-8">
 				<%= f.text_area :image_use_license, class: "form-control", :placeholder => "", :required => "true" %>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="confirmation_from_email" class="col-3 col-form-label">Confirmation From Email:</label>
+			<label for="confirmation_from_email" class="offset-1 col-3 col-form-label">Confirmation From Email:</label>
 			<div class="col-4">
 				<%= f.text_field :confirmation_from_email, class: "form-control", :placeholder => "Confirmation from email", :required => "true" %>
 			</div>
@@ -48,26 +48,38 @@
 
 		<h5>Home page:</h5>
 		<div class="form-group row">
-			<label for="home_welcome_text" class="col-3 col-form-label">Welcome text:</label>
+			<label for="home_welcome_text" class="offset-1 col-3 col-form-label">Welcome text:</label>
 			<div class="col-8">
 				<%= f.text_area :home_welcome_text, class: "form-control", :placeholder => "Welcome text for the Home page" %>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="home_image_cat1" class="offset-1 col-form-label">Image categories:</label>
-			<div class="col-3">
-				<%= f.text_field :home_image_cat1, class: "form-control", :placeholder => "Category 1", :required => "true" %>
+			<label for="home_image_cat1" class="offset-1 col-3 col-form-label">Image category names:</label>
+			<div class="col-2">
+				<%= f.text_field :home_image_cat1_name, class: "form-control", :placeholder => "Category 1 name", :required => "true" %>
 			</div>
-			<div class="col-3">
-				<%= f.text_field :home_image_cat2, class: "form-control", :placeholder => "Category 2", :required => "true" %>
+			<div class="col-2">
+				<%= f.text_field :home_image_cat2_name, class: "form-control", :placeholder => "Category 2 name", :required => "true" %>
 			</div>
-			<div class="col-3">
-				<%= f.text_field :home_image_cat3, class: "form-control", :placeholder => "Category 3", :required => "true" %>
+			<div class="col-2">
+				<%= f.text_field :home_image_cat3_name, class: "form-control", :placeholder => "Category 3 name", :required => "true" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="home_image_cat1" class="offset-1 col-3 col-form-label">Image search categories:</label>
+			<div class="col-2">
+				<%= f.text_field :home_image_cat1, class: "form-control", :placeholder => "Category 1 search text", :required => "true" %>
+			</div>
+			<div class="col-2">
+				<%= f.text_field :home_image_cat2, class: "form-control", :placeholder => "Category 2 search text", :required => "true" %>
+			</div>
+			<div class="col-2">
+				<%= f.text_field :home_image_cat3, class: "form-control", :placeholder => "Category 3 search text", :required => "true" %>
 			</div>
 		</div>
 		<hr/>
 
-		<div class="form-group row">
+		<div class="form-group row d-flex justify-content-end">
 			<%= f.submit "Cancel", :name => 'cancel_button', :class => 'btn btn-primary'%>
 			<%= f.submit "Update", :class => 'btn btn-primary'%>
 		</div>

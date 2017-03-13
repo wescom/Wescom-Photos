@@ -14,7 +14,7 @@
 
 <div class="home-page-info">
 	<div class="text-center">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<%= @default_settings.home_welcome_text %>
 	</div>
 </div>
 
@@ -24,34 +24,34 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 				<div class="card text-center">
-					<%= link_to image_tag(@sports_image.image(:large), :alt=>"Sports Images", :class=>"card-img-top"), 
-						story_images_path(:search_query => "sports") %>
+					<%= link_to image_tag(@cat1_image.image(:large), :class=>"card-img-top"), 
+						story_images_path(:search_query => @default_settings.home_image_cat1) unless @cat1_image.nil? %>
 					<div class="card-block">
-						<h4 class="card-title">High School Sports</h4>
+						<h4 class="card-title"><%= @default_settings.home_image_cat1_name.titlecase %></h4>
 						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<%= link_to( "Browse", story_images_path(:search_query => "sports"), :class=>"btn btn-primary") %>
+						<%= link_to( "Browse", story_images_path(:search_query => @default_settings.home_image_cat1), :class=>"btn btn-primary") %>
 					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 				<div class="card text-center">
-					<%= link_to image_tag(@events_image.image(:large), :alt=>"Event Images", :class=>"card-img-top"), 
-						story_images_path(:search_query => "events") %>
+					<%= link_to image_tag(@cat2_image.image(:large), :class=>"card-img-top"), 
+						story_images_path(:search_query => @default_settings.home_image_cat2) unless @cat2_image.nil?  %>
 					<div class="card-block">
-						<h4 class="card-title">Local Events</h4>
+						<h4 class="card-title"><%= @default_settings.home_image_cat2_name.titlecase %></h4>
 						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<%= link_to( "Browse", story_images_path(:search_query => "events"), :class=>"btn btn-primary") %>
+						<%= link_to( "Browse", story_images_path(:search_query => @default_settings.home_image_cat2), :class=>"btn btn-primary") %>
 					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 				<div class="card text-center">
-					<%= link_to image_tag(@outdoors_image.image(:large), :alt=>"Outdoor Images", :class=>"card-img-top"), 
-						story_images_path(:search_query => "outdoors") %>
+					<%= link_to image_tag(@cat3_image.image(:large), :class=>"card-img-top"), 
+						story_images_path(:search_query => @default_settings.home_image_cat3) unless @cat3_image.nil?  %>
 					<div class="card-block">
-						<h4 class="card-title">Central Oregon Outdoors</h4>
+						<h4 class="card-title"><%= @default_settings.home_image_cat3_name.titlecase %></h4>
 						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<%= link_to( "Browse", story_images_path(:search_query => "outdoors"), :class=>"btn btn-primary") %>
+						<%= link_to( "Browse", story_images_path(:search_query => @default_settings.home_image_cat3), :class=>"btn btn-primary") %>
 					</div>
 				</div>
 			</div>
