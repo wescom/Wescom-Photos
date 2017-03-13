@@ -14,6 +14,8 @@ class OrdersController < ApplicationController
     @order = Order.new
     @cart = session[:cart_id]
     @order.expiration_month = Date.today.month.to_s
+
+    @default_settings = DefaultSetting.first
   end
 
   def create
