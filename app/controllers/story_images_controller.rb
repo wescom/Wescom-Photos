@@ -18,19 +18,15 @@ class StoryImagesController < ApplicationController
     if params[:search_query]
       begin
         @story_images = StoryImage.search(:include => [:story]) do
-          paginate(:page => params[:page], :per_page => 24)
           fulltext params[:search_query]
+          any_of do
+            with :story_location_id, params[:location] if params[:location].present?
+            with :story_publication_name, params[:pub_select] if params[:pub_select].present?
+            with :story_section_name, params[:section_select] if params[:section_select].present?
+          end
+          paginate(:page => params[:page], :per_page => 24)
           order_by :story_pubdate, :desc
           order_by :story_publication_name, :asc
-          order_by :story_section_name, :asc
-          order_by :story_page, :asc
-          with(:story_pubdate).greater_than_or_equal_to(params[:date_from_select]) if params[:date_from_select].present?
-          with(:story_pubdate).less_than_or_equal_to(params[:date_to_select]) if params[:date_to_select].present?
-          with :image_type, params[:image_type] if params[:image_type].present?
-          with :story_location_id, params[:location] if params[:location].present?
-          with :story_pub_type_id, params[:pub_type] if params[:pub_type].present?
-          with :story_publication_name, params[:pub_select] if params[:pub_select].present?
-          with :story_section_name, params[:section_select] if params[:section_select].present?
       end
       rescue Errno::ECONNREFUSED
         render :text => "Search Server Down\n\n\n It will be back online shortly"

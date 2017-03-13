@@ -21,6 +21,12 @@ class StoryImage < ApplicationRecord
     text :media_project_group, :default_boost => 3.0
     text :publish_status
     text :image_content_type
+    text :story_category_name do
+      story.categoryname
+    end
+    text :story_subcategory_name do
+      story.subcategoryname
+    end
 
     # Sort fields - must use 'string' instead of 'text'
     integer :story_location_id do
