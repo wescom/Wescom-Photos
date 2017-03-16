@@ -1,17 +1,8 @@
 # config valid only for current version of Capistrano
 lock "3.7.1"
 
-set :application, "wescomphotos"
-set :repo_url, "git@github.com:wescom/Wescom-Photos.git"
 set :rails_env,   "production"
 
-# Settings for Git
-set :scm_username,    "wescomarchive"     # Git user
-set :scm_passphrase,  "Go2cmdarchive"     # Git password
-set :branch,      "master"
-
-# set :deploy_user, "archive"
-set :deploy_to, "/u/apps/wescomphotos"
 set :migration_role, :app
 
 # Default value for :format is :airbrussh.
@@ -25,10 +16,10 @@ set :migration_role, :app
 # set :pty, true
 
 # Default value for :linked_files is []
-# append :linked_files, "config/database.yml", "config/secrets.yml"
+append :linked_files, "config/database.yml", "config/application.yml"
 
 # Default value for linked_dirs is []
-# append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -36,30 +27,47 @@ set :migration_role, :app
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
-##### Need change to your own configs BEGIN: #####
-server 'wescomphotos.wescompapers.com', port: 22, roles: [:web, :app, :db], primary: true
-set :user,            'shoffmann'  
-set :puma_threads,    [4, 16]  
-set :puma_workers,    0  
-##### Need change to your own configs END: #####
+##### Need change to your own configs #####
+server 'wescomphotos.wescompapers.com', port: 7171, roles: [:web, :app, :db], primary: true
+
+set :repo_url, "git@github.com:wescom/Wescom-Photos.git"
+set :application, "wescomphotos"
+
+# Settings for Git
+set :scm_username,    "wescomarchive"     # Git user
+set :scm_passphrase,  "Go2cmdarchive"     # Git password
+
+set :puma_threads,    [4, 16]
+set :puma_workers,    0
 
 # Don't change these unless you know what you're doing
-set :rbenv_ruby,      '2.2.3'  
-set :pty,             true  
-set :use_sudo,        false  
-set :stage,           :production  
-set :deploy_via,      :remote_cache  
-set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"  
-set :puma_state,      "#{shared_path}/tmp/pids/puma.state"  
-set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"  
-set :puma_access_log, "#{release_path}/log/puma.error.log"  
-set :puma_error_log,  "#{release_path}/log/puma.access.log"  
-set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }  
-set :puma_preload_app, true  
-set :puma_worker_timeout, nil  
-set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+set :pty,             true
+set :use_sudo,        false
+set :stage,           :production
+set :deploy_via,      :remote_cache
+set :deploy_to,       "/u/apps/#{fetch(:application)}"
+set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
+set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
+set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
+set :puma_access_log, "#{release_path}/log/puma.error.log"
+set :puma_error_log,  "#{release_path}/log/puma.access.log"
+set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
+set :puma_preload_app, true
+set :puma_worker_timeout, nil
+set :puma_init_active_record, false  # Change to true if using ActiveRecord
 
-namespace :puma do  
+## Defaults:
+# set :scm,           :git
+# set :branch,        :master
+# set :format,        :pretty
+# set :log_level,     :debug
+# set :keep_releases, 5
+
+## Linked Files & Directories (Default None):
+# set :linked_files, %w{config/database.yml}
+# set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+
+namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
   task :make_dirs do
     on roles(:app) do
@@ -71,7 +79,7 @@ namespace :puma do
   before :start, :make_dirs
 end
 
-namespace :deploy do  
+namespace :deploy do
   desc "Make sure local git is in sync with remote."
   task :check_revision do
     on roles(:app) do
@@ -82,22 +90,7 @@ namespace :deploy do
       end
     end
   end
-
-  desc 'Initial Deploy'
-  task :initial do
-    on roles(:app) do
-      before 'deploy:restart', 'puma:start'
-      invoke 'deploy'
-    end
-  end
-
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      invoke 'puma:restart'
-    end
-  end
-
+  
   desc "Upload files not included in GitHub repository due to security"
   before :deploy, :upload_files do
     on roles(:web) do
@@ -119,8 +112,27 @@ namespace :deploy do
     end
   end
   
+  desc 'Initial Deploy'
+  task :initial do
+    on roles(:app) do
+      before 'deploy:restart', 'puma:start'
+      invoke 'deploy'
+    end
+  end
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      invoke 'puma:restart'
+    end
+  end
+
   before :starting,     :check_revision
-#  after  :finishing,    :compile_assets
+  after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
 end
+
+# ps aux | grep puma    # Get puma pid
+# kill -s SIGUSR2 pid   # Restart puma
+# kill -s SIGTERM pid   # Stop puma
