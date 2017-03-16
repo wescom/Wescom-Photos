@@ -16,6 +16,7 @@ set :migration_role, :app
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
+# set :format, :pretty
 
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
@@ -28,7 +29,7 @@ set :migration_role, :app
 append :linked_files, "config/database.yml", "config/application.yml"
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -65,6 +66,26 @@ namespace :deploy do
       execute "ln -s /WescomArchive/solr #{release_path}/solr"
       execute "mkdir -p #{release_path}/public && ln -s #{shared_path}/system #{release_path}/public/system"
       execute "ln -s #{shared_path}/log #{release_path}/log"
+    end
+  end
+  
+  desc 'Precompile assets locally and then rsync to web servers'
+  after :finished, :custom_compile_assets do
+    # The command inside this block will run in our local machine
+    run_locally do
+      execute 'RAILS_ENV=production bundle exec rake assets:precompile'
+      execute 'tar -zcvf assets.tar.tgz public/assets/'
+      execute 'rm -rf public/assets'
+       
+       # This command will copy and transfer the assets.tar.tgz to username@servername.com:#{release_path}/
+      execute "scp assets.tar.tgz wescomphotos.wescompapers.com:#{release_path}/assets.tar.tgz"
+      execute 'rm -rf assets.tar.tgz'
+    end
+    on roles(:all) do |host|
+      # this command extracts assets.tar.tgz
+      execute "cd #{release_path}; tar zxvf assets.tar.tgz"
+
+      execute "cd #{release_path}; rm -rf assets.tar.tgz"
     end
   end
 
