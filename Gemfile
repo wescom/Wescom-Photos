@@ -63,6 +63,8 @@ group :development do
   gem 'capistrano', '~> 3.6'
   gem 'capistrano-rails', '~> 1.2'
   gem 'capistrano-rvm'
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
 end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

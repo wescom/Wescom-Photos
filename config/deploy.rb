@@ -16,7 +16,6 @@ set :migration_role, :app
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
-# set :format, :pretty
 
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
@@ -26,10 +25,10 @@ set :migration_role, :app
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, "config/database.yml", "config/application.yml"
+# append :linked_files, "config/database.yml", "config/secrets.yml"
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+# append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -37,14 +36,65 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
-namespace :deploy do
+##### Need change to your own configs BEGIN: #####
+server 'wescomphotos.wescompapers.com', port: 22, roles: [:web, :app, :db], primary: true
+set :user,            'shoffmann'  
+set :puma_threads,    [4, 16]  
+set :puma_workers,    0  
+##### Need change to your own configs END: #####
 
-  desc "Makes sure local git is in sync with remote."
-  before :deploy, :check_revision do
-    unless `git rev-parse HEAD` == `git rev-parse origin/master`
-      puts "WARNING: HEAD is not the same as origin/master"
-      puts "Run `git push` to sync changes."
-      exit
+# Don't change these unless you know what you're doing
+set :rbenv_ruby,      '2.2.3'  
+set :pty,             true  
+set :use_sudo,        false  
+set :stage,           :production  
+set :deploy_via,      :remote_cache  
+set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"  
+set :puma_state,      "#{shared_path}/tmp/pids/puma.state"  
+set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"  
+set :puma_access_log, "#{release_path}/log/puma.error.log"  
+set :puma_error_log,  "#{release_path}/log/puma.access.log"  
+set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }  
+set :puma_preload_app, true  
+set :puma_worker_timeout, nil  
+set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+
+namespace :puma do  
+  desc 'Create Directories for Puma Pids and Socket'
+  task :make_dirs do
+    on roles(:app) do
+      execute "mkdir #{shared_path}/tmp/sockets -p"
+      execute "mkdir #{shared_path}/tmp/pids -p"
+    end
+  end
+
+  before :start, :make_dirs
+end
+
+namespace :deploy do  
+  desc "Make sure local git is in sync with remote."
+  task :check_revision do
+    on roles(:app) do
+      unless `git rev-parse HEAD` == `git rev-parse origin/master`
+        puts "WARNING: HEAD is not the same as origin/master"
+        puts "Run `git push` to sync changes."
+        exit
+      end
+    end
+  end
+
+  desc 'Initial Deploy'
+  task :initial do
+    on roles(:app) do
+      before 'deploy:restart', 'puma:start'
+      invoke 'deploy'
+    end
+  end
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      invoke 'puma:restart'
     end
   end
 
@@ -69,54 +119,8 @@ namespace :deploy do
     end
   end
   
-  desc 'Precompile assets locally and then rsync to web servers'
-  after :finished, :custom_compile_assets do
-    # The command inside this block will run in our local machine
-    run_locally do
-      execute 'RAILS_ENV=production bundle exec rake assets:precompile'
-      execute 'tar -zcvf assets.tar.tgz public/assets/'
-      execute 'rm -rf public/assets'
-       
-       # This command will copy and transfer the assets.tar.tgz to username@servername.com:#{release_path}/
-      execute "scp assets.tar.tgz wescomphotos.wescompapers.com:#{release_path}/assets.tar.tgz"
-      execute 'rm -rf assets.tar.tgz'
-    end
-    on roles(:all) do |host|
-      # this command extracts assets.tar.tgz
-      execute "cd #{release_path}; tar zxvf assets.tar.tgz"
-
-      execute "cd #{release_path}; rm -rf assets.tar.tgz"
-    end
-  end
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
-
-  #  %w[start stop restart].each do |command|
-  #    desc "#{command} Unicorn server."
-  #    task command do
-  #      on roles(:app) do
-  #        execute "/etc/init.d/unicorn_#{fetch(:application)} #{command}"
-  #      end
-  #    end
-  #  end
-  #  after :deploy, "deploy:restart"
-  #  after :rollback, "deploy:restart"
-
+  before :starting,     :check_revision
+#  after  :finishing,    :compile_assets
+  after  :finishing,    :cleanup
+  after  :finishing,    :restart
 end
-
-# Unicorn tasks
-#require 'capistrano-unicorn'
-#after 'deploy:restart', 'unicorn:reload'    # app IS NOT preloaded
-#after 'deploy:restart', 'unicorn:restart'   # app preloaded
-
-#after 'deploy:restart' do
-#  run "echo 'Setting permissions on unicorn.pid' && sleep 2 && chmod 777 #{shared_path}/pids/unicorn.pid"
-#  run "echo 'Change group on unicorn.pid' && chown :ads #{shared_path}/pids/unicorn.pid"
-#end
