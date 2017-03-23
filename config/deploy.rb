@@ -28,7 +28,7 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 set :keep_releases, 5
 
 ##### Need change to your own configs #####
-server 'wescomphotos.wescompapers.com', port: 7171, roles: [:web, :app, :db], primary: true
+server 'wescomphotos.wescompapers.com', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url, "git@github.com:wescom/Wescom-Photos.git"
 set :application, "wescomphotos"
@@ -55,17 +55,6 @@ set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, false  # Change to true if using ActiveRecord
-
-## Defaults:
-# set :scm,           :git
-# set :branch,        :master
-# set :format,        :pretty
-# set :log_level,     :debug
-# set :keep_releases, 5
-
-## Linked Files & Directories (Default None):
-# set :linked_files, %w{config/database.yml}
-# set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
@@ -94,11 +83,9 @@ namespace :deploy do
   desc "Upload files not included in GitHub repository due to security"
   before :deploy, :upload_files do
     on roles(:web) do
-      within "#{current_path}" do
-        execute "mkdir -p #{shared_path}/config"
-        upload! StringIO.new(File.read("config/database.yml")), "#{shared_path}/config/database.yml"
-        upload! StringIO.new(File.read("config/application.yml")), "#{shared_path}/config/application.yml"
-      end
+      execute "mkdir -p #{shared_path}/config"
+      upload! StringIO.new(File.read("config/database.yml")), "#{shared_path}/config/database.yml"
+      upload! StringIO.new(File.read("config/application.yml")), "#{shared_path}/config/application.yml"
     end
   end
 
@@ -108,6 +95,7 @@ namespace :deploy do
       execute "rm -rf #{release_path}/solr #{release_path}/log #{release_path}/public/system #{release_path}/tmp/pids"
       execute "ln -s /WescomArchive/solr #{release_path}/solr"
       execute "mkdir -p #{release_path}/public && ln -s #{shared_path}/system #{release_path}/public/system"
+      execute "mkdir -p #{release_path}/system && ln -s /WescomArchive/db_images #{release_path}/system/db_images && ln -s /WescomArchive/pdf_images #{release_path}/system/pdf_images"
       execute "ln -s #{shared_path}/log #{release_path}/log"
     end
   end
@@ -128,7 +116,7 @@ namespace :deploy do
   end
 
   before :starting,     :check_revision
-  after  :finishing,    :compile_assets
+#  after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
 end
