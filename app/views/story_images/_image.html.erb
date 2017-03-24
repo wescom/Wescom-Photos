@@ -74,7 +74,7 @@
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
-							<% if !image.media_webcaption.nil? %>
+							<% if !image.media_webcaption.nil? && image.media_webcaption.length > 1 %>
 								<p class="modal_image_caption"><i><%= image.media_webcaption %></i></p>
 							<% else %>
 								<p class="modal_image_caption"><i><%= image.media_printcaption %></i></p>
