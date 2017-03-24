@@ -74,11 +74,10 @@
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
-							<% if !image.media_printcaption.nil? %>
-								<p class="modal_image_caption"><i><%= image.media_printcaption %></i></p>
+							<% if !image.media_webcaption.nil? %>
+								<p class="modal_image_caption"><i><%= image.media_webcaption %></i></p>
 							<% else %>
-								<p class="modal_image_caption"><i>No Caption</i></p>
-								
+								<p class="modal_image_caption"><i><%= image.media_printcaption %></i></p>
 							<% end %>
 							<div class="floater"></div>
 							<div class="purchase_bar">
