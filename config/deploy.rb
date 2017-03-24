@@ -95,7 +95,7 @@ namespace :deploy do
       execute "rm -rf #{release_path}/solr #{release_path}/log #{release_path}/public/system #{release_path}/tmp/pids"
       execute "ln -s /WescomArchive/solr #{release_path}/solr"
       execute "mkdir -p #{release_path}/public && ln -s #{shared_path}/system #{release_path}/public/system"
-      execute "ln -s /WescomArchive/db_images #{shared_path}/system/db_images && ln -s /WescomArchive/pdf_images #{shared_path}/system/pdf_images"
+      #execute "mkdir -p #{shared_path}/system && ln -s /WescomArchive/db_images #{shared_path}/system/db_images && ln -s /WescomArchive/pdf_images #{shared_path}/system/pdf_images"
       execute "ln -s #{shared_path}/log #{release_path}/log"
     end
   end
