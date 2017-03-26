@@ -13,14 +13,15 @@ class StoryImage < ApplicationRecord
       
   searchable :auto_index => true, :auto_remove => true do
     # Search fields
+    # text fields will be full-text searchable. Other fields (e.g., integer and string) can be used to scope queries.
+    # Sort fields - must use 'string' instead of 'text'.
+    text :media_webcaption
     text :media_printcaption
     text :media_originalcaption
     text :media_printproducer, :default_boost => 2.0
     text :media_byline, :default_boost => 2.0
     text :media_name, :default_boost => 3.0
     text :media_project_group, :default_boost => 3.0
-    text :publish_status
-    text :image_content_type
     text :story_category_name do
       story.categoryname
     end
@@ -28,7 +29,9 @@ class StoryImage < ApplicationRecord
       story.subcategoryname
     end
 
-    # Sort fields - must use 'string' instead of 'text'
+    string :publish_status
+    string :priority
+    string :image_content_type
     integer :story_location_id do
       story.plan.location_id if story.present? and story.plan.present?
     end
@@ -50,7 +53,6 @@ class StoryImage < ApplicationRecord
     string :image_type do
       self.image_type?
     end
-
   end
 
   def self.order_by_pubdate
