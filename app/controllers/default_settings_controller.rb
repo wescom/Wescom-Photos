@@ -6,8 +6,15 @@ class DefaultSettingsController < ApplicationController
   end
 
   def index
-    @default_settings = DefaultSetting.all
-    @default_setting = DefaultSetting.first
+    if DefaultSetting.exists?
+      @default_settings = DefaultSetting.all
+      @default_setting = DefaultSetting.first
+    else  # If no default settings record, then create one and send user to edit
+      @default_setting = DefaultSetting.new
+      @default_setting.save
+      flash[:notice] = "Default settings have not been set. Please update defaults."
+      redirect_to edit_default_setting_url(@default_setting)
+    end
   end
   
   def edit
@@ -32,6 +39,7 @@ class DefaultSettingsController < ApplicationController
     def default_setting_params
       params.require(:default_setting).permit(:image_price, :pdf_price, :confirmation_from_email, 
         :image_use_license, :home_welcome_text, :home_image_cat1_name, :home_image_cat2_name, :home_image_cat3_name, 
-        :home_image_cat1, :home_image_cat2, :home_image_cat3)
+        :home_image_cat1, :home_image_cat2, :home_image_cat3, 
+        :search_for_publish_status, :search_for_priority, :search_for_caption_text)
     end
 end

@@ -16,6 +16,10 @@ class CreateDefaultSettings < ActiveRecord::Migration[5.0]
       t.string  :home_image_cat3_name
       t.string  :home_image_cat3
       
+      t.string  :search_for_publish_status
+      t.string  :search_for_priority
+      t.string  :search_for_caption_text
+      
       t.timestamps
     end
   end

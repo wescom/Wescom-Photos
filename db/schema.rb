@@ -37,19 +37,22 @@ ActiveRecord::Schema.define(version: 20170312060817) do
   end
 
   create_table "default_settings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.decimal  "image_price",                           precision: 12, scale: 3
-    t.decimal  "pdf_price",                             precision: 12, scale: 3
-    t.text     "image_use_license",       limit: 65535
+    t.decimal  "image_price",                             precision: 12, scale: 3
+    t.decimal  "pdf_price",                               precision: 12, scale: 3
+    t.text     "image_use_license",         limit: 65535
     t.string   "confirmation_from_email"
-    t.text     "home_welcome_text",       limit: 65535
+    t.text     "home_welcome_text",         limit: 65535
     t.string   "home_image_cat1_name"
     t.string   "home_image_cat1"
     t.string   "home_image_cat2_name"
     t.string   "home_image_cat2"
     t.string   "home_image_cat3_name"
     t.string   "home_image_cat3"
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
+    t.string   "search_for_publish_status"
+    t.string   "search_for_priority"
+    t.string   "search_for_caption_text"
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
   end
 
   create_table "keywords", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|

@@ -79,6 +79,27 @@
 		</div>
 		<hr/>
 
+		<h5>Search:</h5>
+		<small class="form-text text-muted">Search filtering to include on all searches in database.</small>
+		<div class="form-group row offset-1">
+			<label for="search_for_publish_status" class="col-3 col-form-label">Include 'Publish Status':</label>
+			<div class="col-6">
+				<%= f.text_field :search_for_publish_status, class: "form-control", :placeholder => "Publish Status to filter by" %>
+			</div>
+		</div>
+		<div class="form-group row offset-1">
+			<label for="search_for_priority" class="col-3 col-form-label">Include 'Priority':</label>
+			<div class="col-6">
+				<%= f.text_field :search_for_priority, class: "form-control", :placeholder => "Priority to filter by" %>
+			</div>
+		</div>
+		<div class="form-group row offset-1">
+			<label for="search_for_caption_text" class="col-3 col-form-label">Include image caption text:</label>
+			<div class="col-6">
+				<%= f.text_field :search_for_caption_text, class: "form-control", :placeholder => "Caption text to to filter by" %>
+			</div>
+		</div>		<hr/>
+
 		<div class="form-group row d-flex justify-content-end">
 			<%= f.submit "Cancel", :name => 'cancel_button', :class => 'btn btn-primary'%>
 			<%= f.submit "Update", :class => 'btn btn-primary'%>

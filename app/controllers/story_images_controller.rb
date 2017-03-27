@@ -1,6 +1,8 @@
 class StoryImagesController < ApplicationController
 
   def index
+    @default_settings = DefaultSetting.first
+
     if params[:search_query]
       begin
         @story_images = StoryImage.search(:include => [:story]) do
