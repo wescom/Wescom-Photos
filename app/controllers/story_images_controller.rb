@@ -1,21 +1,21 @@
 class StoryImagesController < ApplicationController
 
   def index
-    @default_settings = DefaultSetting.first
+    default_settings = DefaultSetting.first
 
     if params[:search_query]
       begin
         @story_images = StoryImage.search(:include => [:story]) do
           all do
             fulltext params[:search_query]
-            any do
-              fulltext 'Bulletin', :fields => :media_webcaption
-              fulltext 'Bulletin', :fields => :media_printcaption
-              fulltext 'Bulletin', :fields => :media_originalcaption
+            any do  # Filter all searches by caption text, set within default_settings
+              fulltext default_settings.search_for_caption_text, :fields => :media_webcaption
+              fulltext default_settings.search_for_caption_text, :fields => :media_printcaption
+              fulltext default_settings.search_for_caption_text, :fields => :media_originalcaption
             end
-            any_of do
-              with(:publish_status, 'Published')
-              with(:priority, 'Web Ready')
+            any_of do  # Filter all searches by publish status and priority, set within default_settings
+              with(:publish_status, default_settings.search_for_publish_status)
+              with(:priority, default_settings.search_for_priority)
             end
           end
           paginate(:page => params[:page], :per_page => 24)
