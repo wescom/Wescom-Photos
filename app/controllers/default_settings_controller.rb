@@ -39,7 +39,7 @@ class DefaultSettingsController < ApplicationController
     def default_setting_params
       params.require(:default_setting).permit(:image_price, :pdf_price, :confirmation_from_email, 
         :image_use_license, :home_welcome_text, :home_image_cat1_name, :home_image_cat2_name, :home_image_cat3_name, 
-        :home_image_cat1, :home_image_cat2, :home_image_cat3, 
+        :home_main_images, :home_image_cat1, :home_image_cat2, :home_image_cat3, 
         :search_for_publish_status, :search_for_priority, :search_for_caption_text)
     end
 end

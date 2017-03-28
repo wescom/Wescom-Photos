@@ -2,7 +2,12 @@ class HomeController < ApplicationController
   def index
     if DefaultSetting.exists? 
       @default_settings = DefaultSetting.first
-    
+
+      # Get random image from home_main_images for display on Home page
+      random_image = @default_settings.home_main_images.split(/\s*,\s*/).shuffle.first
+      @main_image = StoryImage.find(random_image)
+
+      # Get sample image category info
       @cat1_image = StoryImage.joins(:story)
       @cat1_image = @cat1_image.published.where('categoryname = ? OR subcategoryname = ?',@default_settings.home_image_cat1, @default_settings.home_image_cat1)
       @cat1_image = @cat1_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")

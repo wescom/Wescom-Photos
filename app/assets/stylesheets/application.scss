@@ -112,12 +112,18 @@
 
 /*** Home Page ***/
 .home-page-head {
-	height: 500px;
+/***	height: 500px;
     min-height: 500px;
-    background: url('/images/Bend_Homes_cinemagraph.gif') no-repeat center center;
-    background-size: cover;
+    background: url('/images/Bend_Homes_cinemagraph.gif') no-repeat center center; 
+    background-size: cover; ***/
     text-align: center;
     position: relative;
+}
+.home-page-head img {
+	height: 500px;
+    min-height: 500px;
+	width: 100%;
+    object-fit: cover;
 }
 .home-page-head .banner-search-wrap {
 	position: absolute;

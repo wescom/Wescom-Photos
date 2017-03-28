@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20170312060817) do
     t.decimal  "pdf_price",                               precision: 12, scale: 3
     t.text     "image_use_license",         limit: 65535
     t.string   "confirmation_from_email"
+    t.string   "home_main_images"
     t.text     "home_welcome_text",         limit: 65535
     t.string   "home_image_cat1_name"
     t.string   "home_image_cat1"

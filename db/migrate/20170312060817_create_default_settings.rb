@@ -8,6 +8,7 @@ class CreateDefaultSettings < ActiveRecord::Migration[5.0]
       t.text  :image_use_license
       t.string :confirmation_from_email
 
+      t.string  :home_main_images
       t.text    :home_welcome_text
       t.string  :home_image_cat1_name
       t.string  :home_image_cat1
