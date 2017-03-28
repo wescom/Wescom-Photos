@@ -12,10 +12,13 @@ class CreateDefaultSettings < ActiveRecord::Migration[5.0]
       t.text    :home_welcome_text
       t.string  :home_image_cat1_name
       t.string  :home_image_cat1
+      t.string  :home_image_cat1_description
       t.string  :home_image_cat2_name
       t.string  :home_image_cat2
+      t.string  :home_image_cat2_description
       t.string  :home_image_cat3_name
       t.string  :home_image_cat3
+      t.string  :home_image_cat3_description
       
       t.string  :search_for_publish_status
       t.string  :search_for_priority
