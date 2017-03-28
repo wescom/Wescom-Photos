@@ -47,6 +47,7 @@ class OrdersController < ApplicationController
         redirect_to order_path(@order), notice: "Credit card been successfully charged." and return
       else
         puts "********** CC Failed"
+        flash[:notice] = "Credit card authorization failed"
         render :new
       end
     else
