@@ -4,7 +4,7 @@ class HomeController < ApplicationController
       @default_settings = DefaultSetting.first
 
       # Get random image from home_main_images for display on Home page
-      if !@default_settings.home_main_images.nil?
+      if !@default_settings.home_main_images.empty?
         random_image = @default_settings.home_main_images.split(/\s*,\s*/).shuffle.first
         @main_image = StoryImage.find(random_image)
       else
