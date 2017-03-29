@@ -21,11 +21,10 @@
 .btn { margin-left: 5px; }
 .panel-heading {background: lightgrey;}
 .content_block { margin: 0px 10px; min-height: 650px; }
-.order_block { margin: 0px 10px; min-height: 300px; }
+.order_block, .image_block { margin: 0px 10px; min-height: 300px; }
 .img-thumb {width: 100px; height: auto;}
-.modal-dialog { max-height: 90%; max-width: 90%; }
 .cart_heading, .checkout_heading { margin: 20px 0px 0px 10%;}
-.order_heading, .default_heading { margin: 20px 10% 10px 10%; }
+.image_heading, .order_heading, .default_heading { margin: 20px 10% 10px 10%; }
 #checkout_form { width: 100% }
 
 .default_block { 
@@ -313,6 +312,7 @@
 
 
 /*** Image Modal ***/
+.modal-dialog { max-height: 90%; max-width: 90%; }
 .modal_image { 
 	height: 400px;
 	width: 400px;
@@ -352,7 +352,7 @@
 	transform:translate(-50%, -50%); 
 	&.max{ width:auto; height:100%;}
 }
-.modal_image_caption { margin-top: 30px; text-align: justify; }
+.modal_image_caption { margin-top: 30px; font-size: .8rem; text-align: justify; }
 .floater { float: left; height: 30%; width: 100%; margin-bottom: -50px; }
 .purchase_bar { clear: both; text-align: center; min-height: 100px; }
 /*.purchase_bar { position: absolute; bottom: 0; }*/

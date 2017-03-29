@@ -75,9 +75,16 @@
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
 							<% if !image.media_webcaption.nil? && image.media_webcaption.length > 1 %>
-								<p class="modal_image_caption"><i><%= image.media_webcaption %></i></p>
-							<% else %>
-								<p class="modal_image_caption"><i><%= image.media_printcaption %></i></p>
+								<div class="modal_image_caption">
+									<h6>Web Caption:</h6>
+									<p><i><%= image.media_webcaption %></i></p>
+								</div>
+							<% end %>
+							<% if !image.media_printcaption.nil? && image.media_printcaption.length > 1 %>
+								<div class="modal_image_caption">
+									<h6>Print Caption:</h6>
+									<p><i><%= image.media_printcaption %></i></p>
+								</div>
 							<% end %>
 							<div class="floater"></div>
 							<div class="purchase_bar">
