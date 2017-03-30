@@ -1,0 +1,15 @@
+<% if !flash.empty? %>
+	<div class="alert alert-success" role="alert">
+		<a class="close" data-dismiss="alert">&#215;</a>
+		<% if flash[:notice] %>
+			<p id="flash_notice" class="messages notice"><%= flash[:notice] %></p>
+		<% end %>
+	</div>
+	<div class="alert alert-warning" role="alert">
+		<a class="close" data-dismiss="alert">&#215;</a>
+		<% if flash[:error] || flash[:errors] %>
+			<p id="flash_errors" class="messages errors"><%= flash[:error] || flash[:errors] %></p>
+		<% end %>
+	</div>
+  <% flash.clear %>
+<% end %>

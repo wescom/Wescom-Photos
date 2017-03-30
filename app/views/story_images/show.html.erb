@@ -1,21 +1,72 @@
-<a data-toggle="modal" href="#storyModal" class="btn btn-primary btn-lg">Launch demo modal</a>
+<%= render :partial => 'shared/messages' %>
 
-
-
-<div class="modal fade" id="storyModal" tabindex="-1" role="dialog" aria-labelledby="storyModalLabel" aria-hidden="true">  
-	<div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title"><%= @story_image.media_name %></h4>
-	      </div>
-	      <div class="modal-body">
-	        <%= image_tag(@story_image.image(:large), :alt=>"Story Image", :class=>"") %>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div>
+<h4 class="image_heading">
+	<% if @story_image.story %>
+		<% if @story_image.story.plan %>
+			<%= @story_image.story.plan.pub_name unless @story_image.story.plan.pub_name.nil? %>
+			- <%= @story_image.story.pubdate.strftime('%m/%d/%y') unless @story_image.story.pubdate.nil? %>
+			<% if !@story_image.story.hl1.nil? and @story_image.story.hl1.length > 1 %>
+				<%= "- " + @story_image.story.hl1 %>
+			<% end %>
+		<% else %>
+			<%= @story_image.story.hl1 unless @story_image.story.hl1.nil? %>
+		<% end %>
+	<% end %>
+</h4>
+<div class="container">
+	<div class="row image_block">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+			<div class="modal_image2">
+				<%= image_tag(@story_image.image(:large), :alt=>"Story Image", :class=>"") %>
+				<div class="watermark">&copy; Copyright - Western Communications, Inc.</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+			<% if !@story_image.media_webcaption.nil? && @story_image.media_webcaption.length > 1 %>
+				<div class="modal_image_caption">
+					<h6>Web Caption:</h6>
+					<p><i><%= @story_image.media_webcaption %></i></p>
+				</div>
+			<% end %>
+			<% if !@story_image.media_printcaption.nil? && @story_image.media_printcaption.length > 1 %>
+				<div class="modal_image_caption">
+					<h6>Print Caption:</h6><% if @story_image.story %><%= @story_image.story.web_published_at %><% end %>
+					<p><i><%= @story_image.media_printcaption %></i></p>
+				</div>
+			<% end %>
+			<div class=""></div>
+			<div class="purchase_bar">
+				<span class="purchase_price"><%= number_to_currency(image_price) %></span>
+				<span class="purchase_btn">
+					<% if image_in_cart?(@story_image.id) %>
+						<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
+							:class=>"btn btn-success" %>
+					<% else %>
+						<%= link_to 'Add to cart', cart_path(:id => @story_image), :method => 'POST', :class=>"btn btn-success" %>
+					<% end %>
+				</span>
+			</div>
+		</div>
 	</div>
+	<% if admin? %>
+		<br/>
+		<div class="card">
+			<div class="card-block">
+				<div class="card-header">Admin Info:</div>
+				<div class="card-block">
+					<p><strong>Original caption</strong> - <i><%= @story_image.media_originalcaption.to_s %></i></p>
+					<p><strong>ID</strong> - <i><%= @story_image.media_id %></i></p>
+					<p><strong>Media Name</strong> - <i><%= @story_image.media_name %></i></p>
+					<p><strong>Original Filename</strong> - <i><%= @story_image.image_file_name %></i></p>
+					<p><strong>Image Size</strong> - <i><%= @story_image.media_width %>x<%= @story_image.media_height %></i></p>
+					<p><strong>Project Group</strong> - <i><%= @story_image.media_project_group %></i></p>
+					<p><strong>Status</strong> - <i><%= @story_image.media_status %></i></p>
+					<p><strong>Priority (web status)</strong> - <i><%= @story_image.priority %></i></p>
+					<p><strong>Type</strong> - <i><%= @story_image.image_content_type %></i></p>
+					<p><strong>Created</strong> - <i><%= @story_image.created_date.strftime('%m/%d/%y %I:%M%p') unless @story_image.created_date.nil? %></i></p>
+					<p><strong>Last Refreshed</strong> - <i><%= @story_image.last_refreshed_time.strftime('%m/%d/%y %I:%M%p') unless @story_image.last_refreshed_time.nil? %></i></p>
+				</div>
+			</div>
+		</div>
+	<% end %>
 </div>
