@@ -12,7 +12,7 @@ class DefaultSettingsController < ApplicationController
     else  # If no default settings record, then create one and send user to edit
       @default_setting = DefaultSetting.new
       @default_setting.save
-      flash[:notice] = "Default settings have not been set. Please update defaults."
+      flash_message :notice, "Default settings have not been set. Please update defaults."
       redirect_to edit_default_setting_url(@default_setting)
     end
   end
@@ -27,7 +27,7 @@ class DefaultSettingsController < ApplicationController
       redirect_to default_settings_url
     else
       if @default_setting.update_attributes(default_setting_params)
-        flash[:notice] = "Settings updated"
+        flash_message :notice, "Settings updated"
         redirect_to default_settings_url
       else
         render :action => :edit

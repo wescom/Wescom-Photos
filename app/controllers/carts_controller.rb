@@ -6,7 +6,7 @@ class CartsController < ApplicationController
     @cart_item = CartItem.where(:item_id => @story_image.id)
     # Check whether item is already in cart
     if @cart_item.exists?
-      flash[:notice] = "Image already in cart"
+      flash_message :notice, "Image already in cart"
     else
       @cart.add(@story_image, image_price)
     end
@@ -24,7 +24,7 @@ class CartsController < ApplicationController
   def remove_item
     # remove item from cart
     @cart.remove(params[:id], 1)
-    flash[:notice] = "Image removed"
+    flash_message :notice, "Image removed from cart"
     redirect_to cart_path()
   end
 

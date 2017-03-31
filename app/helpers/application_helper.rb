@@ -19,20 +19,9 @@ module ApplicationHelper
     end
   end
   
-  def error_messages(object, field)   # ie: error_messages(@object, @object.field)
-    if object.present?
-      messages = object.errors["#{field}"].map { |msg| content_tag(:p, msg) }.join
-      messages.gsub! "<p>", ""
-      messages.gsub! "</p>", ""
-      if messages.length > 0
-        html = <<-HTML
-        <span id="text-error">
-          <img src = "/images/icons/exclamation.png" alt = "exclamation" /> #{messages}
-        </span>
-        HTML
-        html.html_safe
-      end
-    end
+  def flash_message(name, msg)
+      flash[name] ||= []
+      flash[name] << msg
   end
 
   def image_price

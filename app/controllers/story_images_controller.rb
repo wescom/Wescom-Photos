@@ -41,7 +41,7 @@ class StoryImagesController < ApplicationController
     # Check whether image is for sale
     if !image_for_sale?(@story_image)
       if admin?
-        flash[:notice] = "Image not for sale: Admin only."
+        flash_message :notice, "Image not for sale: Admin only."
       else
     	  redirect_to root_path, :error => "Image not available"
     	end
@@ -59,7 +59,7 @@ class StoryImagesController < ApplicationController
       caption_text_okay = true
     else
       caption_text_okay = false
-      flash[:error] = "Caption text '"+default_settings.search_for_caption_text+"' missing"
+      flash_message :error, "Caption text '"+default_settings.search_for_caption_text+"' missing"
     end
       
     # Check image priority for default_settings.search_for_priority
@@ -67,7 +67,7 @@ class StoryImagesController < ApplicationController
       image_priority_okay = true
     else
       image_priority_okay = false
-      flash[:error] = "Priority = "+image.priority
+      flash_message :error, "Priority = "+image.priority
     end
       
     # Check image whether image published based on default_settings.search_for_publish_status
@@ -75,7 +75,7 @@ class StoryImagesController < ApplicationController
       image_published = true
     else
       image_published = false
-      flash[:error] = "Publish status = "+image.publish_status
+      flash_message :error, "Publish status = "+image.publish_status
     end
       
     # Return TRUE if image is for sale based on default settings

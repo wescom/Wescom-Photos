@@ -8,12 +8,6 @@
 
 </div>
 
-<% if !flash[:notice].blank? %>
-	<div class="alert alert-success">
-		<%= flash[:notice] %>
-	</div>
-<% end %>
-
 <div class="default_block" >
 	<%= form_for(@default_setting) do |f| %>
 		<h5>Pricing defaults:</h5>

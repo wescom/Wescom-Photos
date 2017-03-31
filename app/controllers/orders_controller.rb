@@ -38,16 +38,17 @@ class OrdersController < ApplicationController
           puts @order_item.inspect
         end
         @cart.clear
+        flash_message :notice, "Credit card been successfully charged"
         if @order.email.nil?
           puts "No confirmation email requested"
         else
           OrderMailer.order_confirmation(@order).deliver_now
-          flash[:notice] = "Order confirmation email sent"
+          flash_message :notice, "Order confirmation email sent"
         end
-        redirect_to order_path(@order), notice: "Credit card been successfully charged." and return
+        redirect_to order_path(@order)
       else
         puts "********** CC Failed"
-        flash[:notice] = "Credit card authorization failed"
+        flash_message :error, "Credit card authorization failed"
         render :new
       end
     else

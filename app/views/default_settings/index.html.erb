@@ -9,12 +9,6 @@
 
 </div>
 
-<% if !flash[:notice].blank? %>
-	<div class="alert alert-success">
-		<%= flash[:notice] %>
-	</div>
-<% end %>
-
 <div class="default_block" >
 	<% @default_settings.each do |f| %>
 		<h5>Pricing defaults:</h5>
