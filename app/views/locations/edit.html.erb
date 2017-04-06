@@ -1,0 +1,32 @@
+<div class="location_heading">
+	<h1><%= @location.name %></h1>
+</div>
+
+<div class="location_block" >
+	<%= form_for(@location) do |f| %>
+		<div class="form-group row">
+			<label for="newspaper_name" class="offset-1 col-3 col-form-label">Location's newspaper name:</label>
+			<div class="col-3">
+				<%= f.text_field :newspaper_name, class: "form-control", :required => "true" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="short_url_newspaper_name" class="offset-1 col-3 col-form-label">Short URL name:</label>
+			<div class="col-3">
+				<%= f.text_field :short_url_newspaper_name, class: "form-control", :required => "true" %>
+				<small class="form-text text-muted">Name used within URL for location's images'</small>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="location_no" class="offset-1 col-3 col-form-label">Location Number:</label>
+			<div class="col-3">
+				<%= f.number_field :location_no, class: "form-control", :required => "true" %>
+				<small class="form-text text-muted">Number used to search for this location's images</small>
+			</div>
+		</div>
+		<div class="form-group row d-flex justify-content-end">
+			<%= f.submit "Cancel", :name => 'cancel_button', :class => 'btn btn-primary'%>
+			<%= f.submit "Update", :class => 'btn btn-primary'%>
+		</div>
+	<% end %>
+</div>

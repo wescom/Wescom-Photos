@@ -1,0 +1,39 @@
+<div class="location_heading">
+	<h1>Locations</h1>
+</div>
+
+<div class="location_block" >
+	<table id="locations" class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">Name</th>
+				<th class="text-center">Newspaper</th>
+				<th class="text-center">URL Name</th>
+				<th class="succeed_col text-center">Location #</th>
+				<th class="action_col text-center"></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% if @locations.size > 0 %>
+				<% @locations.each do |location| %>
+					<tr>
+						<td><%= location.name %></td>
+						<td class="text-center"><%= location.newspaper_name %></td>
+						<td class="text-center"><%= location.short_url_newspaper_name %></td>
+						<td class="text-center"><%= location.location_no %></td>
+						<td class="text-center">
+							<p class="btn btn-outline-info">
+								<%= link_to '<i class="fa fa-edit"></i>'.html_safe, 
+									edit_location_path(location.id) %>
+							</p>
+						</td>
+					</tr>
+				<% end %>
+			<% else %>
+				<tr><td colspan="5">No orders</td></tr>
+			<% end %>
+		</tbody>
+	</table>
+<div>
+
