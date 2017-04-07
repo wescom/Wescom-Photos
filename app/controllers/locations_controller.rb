@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :require_admin, only: [:edit, :update, :show]
+  before_action :require_admin, only: [:index, :edit, :update, :show]
 
   def index
     @locations = Location.all
