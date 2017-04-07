@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :require_admin, only: [:show, :edit, :update]
+  before_action :require_admin, only: [:edit, :update, :show]
 
   def index
     @locations = Location.all
@@ -9,15 +9,15 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
   end
 
-  def edit
-    @location = Location.find(params[:id])
-  end
+    def edit
+      @location = Location.find(params[:id])
+    end
 
   def update
-    @location = Location.find(params[:id])
     if params[:cancel_button]
       redirect_to locations_url
     else
+      @location = Location.find(params[:id])
       if @location.update_attributes(location_params)
         flash_message :notice, "Location updated"
         redirect_to locations_url

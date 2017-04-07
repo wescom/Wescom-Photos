@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170331232826) do
     t.string   "newspaper_name"
     t.string   "short_url_newspaper_name"
     t.index ["name"], name: "index_locations_on_name", using: :btree
+    t.index ["short_url_newspaper_name"], name: "index_locations_on_short_url_newspaper_name", unique: true, using: :btree
   end
 
   create_table "logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|

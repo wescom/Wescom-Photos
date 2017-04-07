@@ -2,11 +2,8 @@ Rails.application.routes.draw do
 
   get 'home/index'
   
-resources :locations
-#  resources :locations, :path => ''
-#  resources :locations, :path => '', :only => [] do
-    resources :story_images , :path => 'images', :only => [:index, :show]
-#  end
+  resources :locations, :only => [:index, :edit, :update, :show]
+  resources :story_images , :path => 'images', :only => [:index, :show]
 
   resource :cart do
     put 'remove_item'
