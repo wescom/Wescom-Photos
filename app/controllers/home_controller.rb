@@ -26,6 +26,8 @@ class HomeController < ApplicationController
       @cat3_image = @cat3_image.published.where('categoryname = ? OR subcategoryname = ?',@default_settings.home_image_cat3, @default_settings.home_image_cat3)
       @cat3_image = @cat3_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
       @cat3_image = @cat3_image.order_by_pubdate.first
+      
+      @locations = Location.all.order("location_no")
 
     else  # If no default settings record, then create one and send user to edit
       @default_setting = DefaultSetting.new

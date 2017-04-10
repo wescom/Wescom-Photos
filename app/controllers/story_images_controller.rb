@@ -2,6 +2,7 @@ class StoryImagesController < ApplicationController
 
   def index
     default_settings = DefaultSetting.first
+    @locations = Location.all.order("location_no")
 
     if params[:search_query]
       begin

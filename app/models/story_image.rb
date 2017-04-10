@@ -33,7 +33,13 @@ class StoryImage < ApplicationRecord
     string :priority
     string :image_content_type
     integer :story_location_id do
-      story.plan.location_id if story.present? and story.plan.present?
+      if story.present? 
+        if story.plan.present?
+          story.plan.location_id
+        else
+          story.web_pubnum
+        end
+      end
     end
     integer :story_pub_type_id do
       story.plan.publication_type_id if story.present? and story.plan.present?
