@@ -25,7 +25,7 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 				<div class="card text-center">
-					<%= link_to image_tag(@cat1_image.image(:large), :class=>"card-img-top"), 
+					<%= link_to image_tag(@cat1_image.image(:large), :class=>"card-img-top card_section_img"), 
 						story_images_path(:search_query => @default_settings.home_image_cat1) unless @cat1_image.nil? %>
 					<div class="card-block">
 						<h4 class="card-title"><%= @default_settings.home_image_cat1_name.titlecase %></h4>
@@ -36,7 +36,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 				<div class="card text-center">
-					<%= link_to image_tag(@cat2_image.image(:large), :class=>"card-img-top"), 
+					<%= link_to image_tag(@cat2_image.image(:large), :class=>"card-img-top card_section_img"), 
 						story_images_path(:search_query => @default_settings.home_image_cat2) unless @cat2_image.nil?  %>
 					<div class="card-block">
 						<h4 class="card-title"><%= @default_settings.home_image_cat2_name.titlecase %></h4>
@@ -47,7 +47,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 				<div class="card text-center">
-					<%= link_to image_tag(@cat3_image.image(:large), :class=>"card-img-top"), 
+					<%= link_to image_tag(@cat3_image.image(:large), :class=>"card-img-top card_section_img"), 
 						story_images_path(:search_query => @default_settings.home_image_cat3) unless @cat3_image.nil?  %>
 					<div class="card-block">
 						<h4 class="card-title"><%= @default_settings.home_image_cat3_name.titlecase %></h4>
@@ -56,7 +56,30 @@
 					</div>
 				</div>
 			</div>
-			
+		</div>
+	</div>
+</div>
+
+<div class="home-page-info">
+	<h3 class="">Latest Section Fronts</h3>
+	<div class="container">
+		<div class="row">
+			<% @pdf_images.each do |pdf| %>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<div class="card text-center">
+						<%= link_to image_tag(pdf.image(:large), :class=>"card-img-top card_pdf_image"), story_images_path() %>
+						<div class="card-block">
+							<h4 class="card-title"><%= pdf.publication %></h4>
+							<p class="card-text">
+								<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %>
+								<br/>
+								<%= pdf.section_letter %><%= pdf.page %>
+							</p>
+							<%= link_to( "Browse", story_images_path(), :class=>"btn btn-primary") %>
+						</div>
+					</div>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>

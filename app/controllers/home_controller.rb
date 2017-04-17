@@ -27,6 +27,9 @@ class HomeController < ApplicationController
       @cat3_image = @cat3_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
       @cat3_image = @cat3_image.order_by_pubdate.first
       
+      @pdf_images = PdfImage.where('publication like ? and page = ?', "The Bulletin", 1)
+      @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(3)
+      
       @locations = Location.all.order("location_no")
 
     else  # If no default settings record, then create one and send user to edit
