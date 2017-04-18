@@ -67,7 +67,7 @@
 			<% @pdf_images.each do |pdf| %>
 				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 					<div class="card text-center">
-						<%= link_to image_tag(pdf.image(:large), :class=>"card-img-top card_pdf_image"), story_images_path() %>
+						<%= link_to image_tag(pdf.image(:large), :class=>"card-img-top card_pdf_image"), pdf_images_path(:search_query=>"") %>
 						<div class="card-block">
 							<h4 class="card-title"><%= pdf.publication %></h4>
 							<p class="card-text">
@@ -75,7 +75,7 @@
 								<br/>
 								<%= pdf.section_letter %><%= pdf.page %>
 							</p>
-							<%= link_to( "Browse", story_images_path(), :class=>"btn btn-primary") %>
+							<%= link_to( "Browse", pdf_images_path(), :class=>"btn btn-primary") %>
 						</div>
 					</div>
 				</div>

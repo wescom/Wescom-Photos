@@ -1,0 +1,37 @@
+<div class="pdf-gallery-search-wrap">
+	<div class="pdf-gallery-search">        
+		<%= render :partial => 'search_pdfs' %>
+	</div>
+
+</div>
+
+<div class="pdf_images_block">
+	<% if @pdf_images %>
+		<div class="container search_results">
+			<div class="search_result_count hidden-sm-down"><i><%= @search_result_count %> results</i></div>
+			<div class="search_result_count hidden-md-up"><i><%= @search_result_count %> results</i></div>
+			<div class="flickr_pagination hidden-sm-down">
+				<%= will_paginate @pdf_images.results, :inner_window => 2, :outer_window => 0 %>
+			</div>
+			<div class="flickr_pagination hidden-md-up">
+				<%= will_paginate @pdf_images.results, :inner_window => 2, :outer_window => 0, :page_links => false %>
+			</div>
+		</div>
+
+		<div id="pdf-gallery" class="container-fluid">
+			<div class="row">
+				<%= render :partial => 'pdf', :collection => @pdf_images.results %>
+			</div>
+		</div>
+		
+		<div class="container search_results">
+			<div class="search_result_count"><%= @search_result_count %> results</div>
+			<div class="flickr_pagination hidden-sm-down">
+				<%= will_paginate @pdf_images.results, :inner_window => 2, :outer_window => 0 %>
+			</div>
+			<div class="flickr_pagination hidden-md-up">
+				<%= will_paginate @pdf_images.results, :inner_window => 2, :outer_window => 0, :page_links => false %>
+			</div>
+		</div>
+	<% end %>
+</div>

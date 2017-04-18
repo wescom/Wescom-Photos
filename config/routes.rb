@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   
   resources :locations, :only => [:index, :edit, :update, :show]
   resources :story_images , :path => 'images', :only => [:index, :show]
+  resources :pdf_images , :path => 'pdfs', :only => [:index, :show]
 
   resource :cart do
     put 'remove_item'
+    post 'add_pdf'
   end
 
   resources :orders, only: [:index, :new, :create, :show] do

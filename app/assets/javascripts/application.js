@@ -28,12 +28,6 @@ $(document).ready(function(){
         return false;
     });
 
-	// Image Gallery - add class to image based on landscape or portrait
-	//	$('.modal_image2 img').each(function(){
-	//		alert((this.width) + " " +(this.height));
-	//	    $(this).addClass(this.width > this.height ? 'image_gallery_landscape' : 'image_gallery_portrait');
-	//	});
-
 	// Image Gallery
 	$('.image_gallery_hover_bar').hide();
 	$(".image_gallery_panel").mouseenter(function() {
@@ -42,14 +36,16 @@ $(document).ready(function(){
 	$(".image_gallery_panel").mouseleave (function() {
 		$(this).find('.image_gallery_hover_bar').fadeOut('fast')
 	});
-
 	$('.image_gallery_caption').hide();
-	//	$(".image_gallery_panel").mouseenter(function() {
-	//		$(this).find('.image_gallery_caption').fadeIn('fast');
-	//	});
-	//	$(".image_gallery_panel").mouseleave (function() {
-	//		$(this).find('.image_gallery_caption').fadeOut('fast')
-	//	});
+
+	// PDF Gallery
+	$('.pdf_gallery_hover_bar').hide();
+	$(".pdf_gallery_panel").mouseenter(function() {
+		$(this).find('.pdf_gallery_hover_bar').fadeIn('fast');
+	});
+	$(".pdf_gallery_panel").mouseleave (function() {
+		$(this).find('.pdf_gallery_hover_bar').fadeOut('fast')
+	});
 	
 	$('.order_items').hide();
 	$(".show_order_items_next").click(function() {

@@ -1,0 +1,91 @@
+<% if pdf.image.url != "/images/no-image.jpg"%>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
+		<div class="pdf_gallery_panel">
+			<div class="pdf_gallery_image">
+				<%= link_to image_tag(pdf.image(:large), :alt=>"Story Image", :id=>"#{pdf.id}", :class=>""), pdf_image_path(pdf.id), { 
+					:remote => true, 'data-toggle' =>  "modal", 
+					'data-target' => "#imageGalleryModal#{pdf.id}", 
+					'data-type' => "html" } %>
+				<%= link_to "<i class='fa fa-copyright'> </i>".html_safe + " Copyright - Western Communications, Inc.", 
+					story_image_path(pdf.id), { 
+					:class => "watermark",
+					:remote => true, 'data-toggle' =>  "modal", 
+					'data-target' => "#imageGalleryModal#{pdf.id}", 
+					'data-type' => "html" } %>
+			</div>
+
+			<div class="pdf_gallery_hover_bar">
+				<span class="bar_pub_info">
+					<strong><%= pdf.publication %></strong> - 
+					<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %> - 
+					<%= pdf.section_letter %><%= pdf.page %>
+				</span>
+				<span class="bar_icons float-right">
+					<% if admin? %>
+						<%= link_to('<i class="fa fa-download"> </i>'.html_safe, order_download_path(pdf), :class=>"btn btn-sm btn-primary") %>
+					<% end %>
+					<%= link_to "<i class='fa fa-dollar'> </i>".html_safe, pdf_image_path(pdf.id), { 
+						:class => "btn btn-sm btn-success",
+						:remote => true, 'data-toggle' =>  "modal", 
+						'data-target' => "#imageGalleryModal#{pdf.id}", 
+						'data-type' => "html" } %>
+					<%= link_to('<i class="fa fa-shopping-cart"> </i>'.html_safe, cart_path(), :class=>"btn btn-sm btn-success") %>
+				</span>
+			</div>
+		</div>
+	</div>
+<% end %>
+
+<div class="modal fade" id="imageGalleryModal<%= pdf.id %>" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+					<strong><%= pdf.publication %></strong> - 
+					<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %> - 
+					<%= pdf.section_letter %><%= pdf.page %>
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+							<div class="modal_PDF_image">
+								<%= image_tag(pdf.image(:large), :alt=>"Newspaper Image", :class=>"") %>
+								<div class="watermark">&copy; Copyright - Western Communications, Inc.</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+							<div class="floater"></div>
+							<div class="purchase_bar">
+								<span class="purchase_price"><%= number_to_currency(pdf_price) %></span>
+								<span class="purchase_btn">
+									<% if image_in_cart?(pdf.id) %>
+										<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
+											:class=>"btn btn-success" %>
+									<% else %>
+										<%= link_to 'Add to cart', add_pdf_cart_path(:id => pdf), :method => 'POST', :class=>"btn btn-success" %>
+									<% end %>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="container">
+					<div class="image_copyright text-center"> 
+						<% if pdf.plan %>
+							&copy; Copyright <%= pdf.pubdate.strftime('%Y') unless pdf.pubdate.nil? %> 
+							- <%= pdf.plan.pub_name unless pdf.plan.pub_name.nil? %>
+							- Western Communications, Inc.
+						<% else %>
+							&copy; Copyright - Western Communications, Inc.
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

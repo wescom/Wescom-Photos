@@ -13,6 +13,18 @@ class CartsController < ApplicationController
     redirect_to cart_path
   end
 
+  def add_pdf
+    @pdf_image = StoryImage.find(params[:id])
+    @cart_item = CartItem.where(:item_id => @pdf_image.id)
+    # Check whether item is already in cart
+    if @cart_item.exists?
+      flash_message :notice, "News page already in cart"
+    else
+      @cart.add(@pdf_image, pdf_price)
+    end
+    redirect_to cart_path
+  end
+
   def show
     if request.url != request.referrer
       # save referring url to retain previous search page
@@ -24,7 +36,7 @@ class CartsController < ApplicationController
   def remove_item
     # remove item from cart
     @cart.remove(params[:id], 1)
-    flash_message :notice, "Image removed from cart"
+    flash_message :notice, "Item removed from cart"
     redirect_to cart_path()
   end
 
