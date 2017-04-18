@@ -58,8 +58,13 @@
 							<div class="row">
 								<% order.order_items.each do |item| %>
 									<div class="text-center">
-										<div class="col text-center"><%= image_tag(item.story_image.image(:large), :alt=>"Story Image", 
-											:class=>"img-thumb img-responsive") %></div>
+										<% if item.item_type == "StoryImage" %>
+											<div class="col text-center"><%= image_tag(item.story_image.image(:large), :alt=>"Story Image", 
+												:class=>"img-thumb img-responsive") %></div>
+										<% else %>
+											<div class="col text-center"><%= image_tag(item.pdf_image.image(:large), :alt=>"Story Image", 
+												:class=>"img-thumb img-responsive") %></div>
+										<% end %>
 										<div class="col text-center">Cost: <%= number_to_currency(item.quantity * item.price_cents.to_d/100) %></div>
 										<%= link_to('<i class="fa fa-download"> </i>'.html_safe, order_download_path(item.item_id), 
 											:class=>"btn btn-sm btn-primary text-center") %>
