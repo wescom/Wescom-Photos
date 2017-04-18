@@ -8,6 +8,8 @@ class PdfImagesController < ApplicationController
         @pdf_images = PdfImage.search do
           paginate(:page => params[:page], :per_page => 18)
           fulltext params[:search_query]
+          with(:pdf_image_pub_type_id, [1, 4, 5])
+          
           order_by :pubdate, :desc
           order_by :publication, :asc
           order_by :section_letter, :asc
