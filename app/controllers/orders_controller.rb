@@ -31,6 +31,7 @@ class OrdersController < ApplicationController
         @cart.cart_items.each do |item|
           @order_item = OrderItem.new(:order_id => @order.id)
           @order_item.item_id = item.item_id
+          @order_item.item_type = item.item_type
           @order_item.quantity = item.quantity
           @order_item.price_cents = item.price_cents
           @order_item.price_currency = item.price_currency
@@ -61,9 +62,15 @@ class OrdersController < ApplicationController
   end
   
   def download
-    @image = StoryImage.find(params[:order_id])
-    send_file @image.image.path, :filename => "image_"+@image.id.to_s
-    puts "***** Image Downloaded ***** " + @image.image.path
+    if params[:item_type] == "StoryImage"
+      @image = StoryImage.find(params[:order_id])
+      send_file @image.image.path, :filename => "image_"+@image.id.to_s
+      puts "***** Image Downloaded ***** " + @image.image.path
+    else
+      @pdf = PdfImage.find(params[:order_id])
+      send_file @pdf.image.path, :filename => "image_"+@pdf.id.to_s
+      puts "***** News Page Downloaded ***** " + @pdf.image.path
+    end
   end
 
 private

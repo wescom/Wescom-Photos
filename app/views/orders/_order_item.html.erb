@@ -1,12 +1,24 @@
 <tr>
 	<td data-th="Image" class="image_column text-center">
-		<%= image_tag(order_item.story_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
+		<% if order_item.item_type == "StoryImage" %>
+			<%= image_tag(order_item.story_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
+		<% else %>
+			<%= image_tag(order_item.pdf_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
+		<% end %>
 	</td>
 	<td data-th="Published" class="publish_column text-center">
-		<% if order_item.story_image.story %>
-			<% if order_item.story_image.story.plan %>
-				<%= order_item.story_image.story.plan.pub_name unless order_item.story_image.story.plan.pub_name.nil? %>
-				- <%= order_item.story_image.story.pubdate.strftime('%m/%d/%y') unless order_item.story_image.story.pubdate.nil? %>
+		<% if order_item.item_type == "StoryImage" %>
+			<% if order_item.story_image.story %>
+				<% if order_item.story_image.story.plan %>
+					<%= order_item.story_image.story.plan.pub_name unless order_item.story_image.story.plan.pub_name.nil? %>
+					- <%= order_item.story_image.story.pubdate.strftime('%m/%d/%y') unless order_item.story_image.story.pubdate.nil? %>
+				<% end %>
+			<% end %>
+		<% else %>
+			<% if order_item.pdf_image.plan %>
+				<strong><%= order_item.pdf_image.publication %></strong><br/> 
+				<%= order_item.pdf_image.pubdate.strftime('%m/%d/%y') unless order_item.pdf_image.pubdate.nil? %><br/> 
+				<%= order_item.pdf_image.section_letter %><%= order_item.pdf_image.page %>
 			<% end %>
 		<% end %>
 	</td>
@@ -14,6 +26,10 @@
 		<div class="align-top"><%= number_to_currency(order_item.price_cents.to_d/100) %></div>
 	</td>
 	<td data-th="Action" class="action_column">
-		<%= link_to icon('download fa-lg'), order_download_path(order_item.story_image) %>
+		<% if order_item.item_type == "StoryImage" %>
+			<%= link_to icon('download fa-lg'), order_download_path(order_item.story_image,:item_type=>"StoryImage") %>
+		<% else %>
+			<%= link_to icon('download fa-lg'), order_download_path(order_item.pdf_image,:item_type=>"PdfImage") %>
+		<% end %>
 	</td>
 </tr>
