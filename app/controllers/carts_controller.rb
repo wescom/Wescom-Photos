@@ -1,7 +1,7 @@
 class CartsController < ApplicationController
   before_filter :extract_cart
 
-  def create
+  def create   # Add image item to cart
     @story_image = StoryImage.find(params[:id])
     @cart_item = CartItem.where(:item_id => @story_image.id)
     # Check whether item is already in cart
@@ -13,8 +13,8 @@ class CartsController < ApplicationController
     redirect_to cart_path
   end
 
-  def add_pdf
-    @pdf_image = StoryImage.find(params[:id])
+  def add_pdf   # Add PDF item to cart
+    @pdf_image = PdfImage.find(params[:id])
     @cart_item = CartItem.where(:item_id => @pdf_image.id)
     # Check whether item is already in cart
     if @cart_item.exists?

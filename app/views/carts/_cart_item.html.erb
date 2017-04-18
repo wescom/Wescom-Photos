@@ -3,10 +3,18 @@
 		<%= image_tag(cart_item.item.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
 	</td>
 	<td data-th="Published" class="publish_column text-center">
-		<% if cart_item.item.story %>
-			<% if cart_item.item.story.plan %>
-				<%= cart_item.item.story.plan.pub_name unless cart_item.item.story.plan.pub_name.nil? %>
-				- <%= cart_item.item.story.pubdate.strftime('%m/%d/%y') unless cart_item.item.story.pubdate.nil? %>
+		<% if cart_item.item_type == "StoryImage" %>
+			<% if cart_item.item.story %>
+				<% if cart_item.item.story.plan %>
+					<%= cart_item.item.story.plan.pub_name unless cart_item.item.story.plan.pub_name.nil? %>
+					- <%= cart_item.item.story.pubdate.strftime('%m/%d/%y') unless cart_item.item.story.pubdate.nil? %>
+				<% end %>
+			<% end %>
+		<% else %>
+			<% if cart_item.item.plan %>
+				<strong><%= cart_item.item.publication %></strong><br/> 
+				<%= cart_item.item.pubdate.strftime('%m/%d/%y') unless cart_item.item.pubdate.nil? %><br/> 
+				<%= cart_item.item.section_letter %><%= cart_item.item.page %>
 			<% end %>
 		<% end %>
 	</td>
