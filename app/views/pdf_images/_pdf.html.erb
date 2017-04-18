@@ -58,6 +58,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
 							<div class="floater"></div>
+							Plan Id: <%= pdf.plan.id %><br/>
+							Plan type: <%= pdf.plan.publication_type.name %>
 							<div class="purchase_bar">
 								<span class="purchase_price"><%= number_to_currency(pdf_price) %></span>
 								<span class="purchase_btn">
