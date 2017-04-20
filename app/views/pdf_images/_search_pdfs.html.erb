@@ -3,13 +3,42 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<div class="input-group">
+					<span class="input-group-btn">
+					 	<button id="advanced_search_toggle" class="btn-secondary form-search-button" ><i class="fa fa-bars"></i></button>
+					</span>
 					<%= text_field_tag :search_query, params[:search_query], 
-						:class => " form-search-text", 
-						:placeholder => "Search for news pages", 
+						:class => "form-search-text", 
+						:placeholder => "Search news page text", 
 						:autofocus => true %>
 					<span class="input-group-btn">
 					 	<button class="btn-secondary form-search-button" type="submit"><i class="fa fa-search"></i></button>
 					</span>
+				</div>
+			</div>
+		</div>
+		<div id="advanced_search">
+			<div class="d-flex flex-wrap justify-content-center">
+				<label for="date_select" class="col-form-label form-search-label">Advanced Filter: </label>
+				<div>
+					<div class="input-group date form-search-date" data-provide="datepicker">
+					    <%= text_field_tag :date_select, params[:date_select], 
+							:placeholder => "mm/dd/yyyy" %>
+					    <div class="input-group-addon">
+					        <i class='fa fa-calendar'></i>
+					    </div>
+					</div>
+				</div>
+				<div>
+					<%= select_tag 'pub_select', 
+						options_from_collection_for_select(@publications, 'pub_name', 'pub_name', 
+						:selected => params[:pub_select]), 
+						{:class => "form-search-select", 
+						:prompt => "- Publication -"} %>
+					<%= select_tag 'sectionletter', 
+						options_from_collection_for_select(@section_letters, 'section_letter', 'section_letter', 
+						:selected => params[:sectionletter]), 
+						{:class => "form-search-select",
+						:prompt => "- Section -"} %>
 				</div>
 			</div>
 		</div>

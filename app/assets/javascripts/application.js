@@ -13,10 +13,18 @@
 //= require jquery
 //= require jquery_ujs
 //= require tether
+//= require bootstrap-datepicker
 //= require bootstrap
 //= require_tree .
 
 $(document).ready(function(){
+	
+	$('.datepicker').datepicker({
+	    todayBtn: true,
+		todayHighlight: true,
+	    autoclose: true,
+		assumeNearbyYear: true
+	});
 
 	//Disable cut copy paste on images
     $('img').bind('cut copy paste', function (e) {
@@ -46,7 +54,20 @@ $(document).ready(function(){
 	$(".pdf_gallery_panel").mouseleave (function() {
 		$(this).find('.pdf_gallery_hover_bar').fadeOut('fast')
 	});
+	if (document.getElementById("date_select").value == "" &&
+	 	document.getElementById("pub_select").value == "" &&
+		document.getElementById("sectionletter").value == "") {
+		$('#advanced_search').hide();
+	}
+	$("#advanced_search_toggle").click(function () {
+	    $("#advanced_search").slideToggle("medium");
+//		alert(document.getElementById("pub_select").value);
+//		alert(document.getElementById("sectionletter").value);
+//		alert(document.getElementById("date_select").value);
+	    return false;
+	});
 	
+	// Orders list
 	$('.order_items').hide();
 	$(".show_order_items_next").click(function() {
 		$(this).closest("tr").next("tr").slideToggle("slow");
