@@ -8,7 +8,7 @@ class PdfImagesController < ApplicationController
     if !(params[:location].nil? or params[:location] == "")
       scope = scope.where(:location_id => params[:location])
     end
-    scope = scope.where(:publication_type_id => 1)  # filter to Editorial type only
+    scope = scope.where(:publication_type_id => 5)  # filter to Editorial type only
     @publications = scope.uniq.order('pub_name')
 
     if params[:search_query]
