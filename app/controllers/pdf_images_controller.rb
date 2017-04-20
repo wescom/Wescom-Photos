@@ -17,6 +17,9 @@ class PdfImagesController < ApplicationController
           paginate(:page => params[:page], :per_page => 18)
           fulltext params[:search_query]
           with(:pdf_image_pub_type_id, [5])   # filter to Editorial type only
+          with(:pubdate).greater_than_or_equal_to("01/01/2008")
+
+          # Filter by params
           with(:pubdate).greater_than_or_equal_to(Date.strptime(params[:date_select], "%m/%d/%Y")) if params[:date_select].present?
           with(:pubdate).less_than_or_equal_to(Date.strptime(params[:date_select], "%m/%d/%Y")) if params[:date_select].present?
           with(:publication, params[:pub_select]) if params[:pub_select].present?
