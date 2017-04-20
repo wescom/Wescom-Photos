@@ -100,15 +100,15 @@
 		<hr/>
 
 		<h5>Search:</h5>
-		<small class="form-text text-muted">Search filtering to include on all searches in database. These settings determine which images are searchable, otherwise they are excluded from the results.</small>
+		<small class="form-text text-muted">Filtering to include on all searches in database. These settings determine which items are searchable, otherwise they are excluded from the results.</small>
 		<div class="form-group row offset-1">
-			<label for="search_for_publish_status" class="col-3 col-form-label">Include 'Publish Status':</label>
+			<label for="search_for_publish_status" class="col-3 col-form-label">Include image 'Publish Status':</label>
 			<div class="col-6 default_fields">
 				<%= f.search_for_publish_status %>
 			</div>
 		</div>
 		<div class="form-group row offset-1">
-			<label for="search_for_priority" class="col-3 col-form-label">Include 'Priority':</label>
+			<label for="search_for_priority" class="col-3 col-form-label">Include image 'Priority':</label>
 			<div class="col-6 default_fields">
 				<%= f.search_for_priority %>
 			</div>
@@ -117,6 +117,19 @@
 			<label for="search_for_caption_text" class="col-3 col-form-label">Include image caption text:</label>
 			<div class="col-6 default_fields">
 				<%= f.search_for_caption_text %>
+			</div>
+		</div>
+		<hr class="form-group row offset-1"/>
+		<div class="form-group row offset-1">
+			<label for="search_for_pdf_pubdate" class="col-3 col-form-label">PDF pubdate greater than:</label>
+			<div class="col-6 default_fields">
+				<%= f.search_for_pdf_pubdate %>
+			</div>
+		</div>
+		<div class="form-group row offset-1">
+			<label for="search_for_pdf_pubtype" class="col-3 col-form-label">PDF publication type:</label>
+			<div class="col-6 default_fields">
+				<%= f.search_for_pdf_pubtype %>
 			</div>
 		</div>
 	<% end %>

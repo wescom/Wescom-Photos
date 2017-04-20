@@ -19,6 +19,7 @@ class DefaultSettingsController < ApplicationController
   
   def edit
     @default_setting = DefaultSetting.find(params[:id])
+    @publication_type = PublicationType.all.order("sort_order")
   end
 
   def update
@@ -42,6 +43,7 @@ class DefaultSettingsController < ApplicationController
         :home_image_cat1_name, :home_image_cat2_name, :home_image_cat3_name, 
         :home_image_cat1, :home_image_cat2, :home_image_cat3, 
         :home_image_cat1_description, :home_image_cat2_description, :home_image_cat3_description, 
-        :search_for_publish_status, :search_for_priority, :search_for_caption_text)
+        :search_for_publish_status, :search_for_priority, :search_for_caption_text,
+        :search_for_pdf_pubdate, :search_for_pdf_pubtype)
     end
 end
