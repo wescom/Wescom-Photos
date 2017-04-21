@@ -8,10 +8,10 @@ class PdfImagesController < ApplicationController
 #    @publications = @publications.where(:publication_type_id => default_settings.search_for_pdf_pubtypeId)  # filter by pub_type
 #    @publications = @publications.uniq.order('pub_name')
 
-    @publications = PdfImage.left_outer_joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
+    @publications = PdfImage.joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
     @publications = @publications.select("publication as pub_name").uniq.order(:publication)
 
-    @section_letters = PdfImage.left_outer_joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
+    @section_letters = PdfImage.joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
     @section_letters = @section_letters.select(:section_letter).uniq.order(:section_letter)
 
     if params[:search_query]
