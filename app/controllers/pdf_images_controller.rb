@@ -1,6 +1,7 @@
 class PdfImagesController < ApplicationController
 
   def index
+    default_settings = DefaultSetting.first
     @locations = Location.all.order("name")
     @section_letters = PdfImage.select('section_letter').where("section_letter is not null and section_letter<>''").uniq
 
@@ -8,7 +9,7 @@ class PdfImagesController < ApplicationController
     if !(params[:location].nil? or params[:location] == "")
       scope = scope.where(:location_id => params[:location])
     end
-    scope = scope.where(:publication_type_id => 5)  # filter to Editorial type only
+    scope = scope.where(:publication_type_id => default_settings.search_for_pdf_pubtypeId)  # filter by pub_type
     @publications = scope.uniq.order('pub_name')
 
     if params[:search_query]
@@ -16,8 +17,8 @@ class PdfImagesController < ApplicationController
         @pdf_images = PdfImage.search do
           paginate(:page => params[:page], :per_page => 18)
           fulltext params[:search_query]
-          with(:pdf_image_pub_type_id, [5])   # filter to Editorial type only
-          with(:pubdate).greater_than_or_equal_to("01/01/2008")
+          with(:pdf_image_pub_type_id, default_settings.search_for_pdf_pubtypeId)
+          with(:pubdate).greater_than_or_equal_to(Date.strptime(default_settings.search_for_pdf_pubdate, "%m/%d/%Y")) unless default_settings.search_for_pdf_pubdate.empty?
 
           # Filter by params
           with(:pubdate).greater_than_or_equal_to(Date.strptime(params[:date_select], "%m/%d/%Y")) if params[:date_select].present?

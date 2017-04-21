@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20170420230646) do
     t.datetime "created_at",                                                         null: false
     t.datetime "updated_at",                                                         null: false
     t.string   "search_for_pdf_pubdate"
-    t.string   "search_for_pdf_pubtype"
+    t.integer  "search_for_pdf_pubtypeId"
   end
 
   create_table "keywords", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
