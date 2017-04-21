@@ -20,7 +20,7 @@
 </div>
 
 <div class="home-page-info">
-	<h3 class="">Popular Categories</h3>
+	<h3 class="">Popular Image Categories</h3>
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
@@ -61,25 +61,38 @@
 </div>
 
 <div class="home-page-info">
-	<h3 class="">Latest Section Fronts</h3>
+	<h3 class="">Latest Publications</h3>
 	<div class="container">
 		<div class="row">
 			<% @pdf_images.each do |pdf| %>
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
 					<div class="card text-center">
-						<%= link_to image_tag(pdf.image(:large), :class=>"card-img-top card_pdf_image"), pdf_images_path(:search_query=>"") %>
+						<%= link_to image_tag(pdf.image(:large), :class=>"card-img-top card_pdf_image"), 
+						 	pdf_images_path(:pub_select => pdf.publication, 
+							:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
+							:search_query => "") %>
 						<div class="card-block">
-							<h4 class="card-title"><%= pdf.publication %></h4>
 							<p class="card-text">
 								<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %>
+							</p>
+<!--
+							<h4 class="card-title"><%= pdf.publication %></h4>
+							<p class="card-text">
+								<%= pdf.section_name %>
 								<br/>
 								<%= pdf.section_letter %><%= pdf.page %>
 							</p>
-							<%= link_to( "Browse", pdf_images_path(), :class=>"btn btn-primary") %>
+-->
+							<%= link_to( "Browse", pdf_images_path(:pub_select => pdf.publication, 
+								:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
+								:search_query => ""),
+								:class=>"btn btn-primary") %>
 						</div>
 					</div>
 				</div>
 			<% end %>
 		</div>
 	</div>
+	<br/>
+	<%= link_to( "Search all publication dates", pdf_images_path(:search_query => ""), :class=>"btn btn-primary") %>
 </div>
