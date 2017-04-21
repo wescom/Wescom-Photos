@@ -3,14 +3,16 @@ class PdfImagesController < ApplicationController
   def index
     default_settings = DefaultSetting.first
     @locations = Location.all.order("name")
-    @section_letters = PdfImage.select('section_letter').where("section_letter is not null and section_letter<>''").uniq
 
-    scope = Plan.select(:pub_name).where("pub_name is not null and pub_name<>''")
-    if !(params[:location].nil? or params[:location] == "")
-      scope = scope.where(:location_id => params[:location])
-    end
-    scope = scope.where(:publication_type_id => default_settings.search_for_pdf_pubtypeId)  # filter by pub_type
-    @publications = scope.uniq.order('pub_name')
+#    @publications = Plan.select(:pub_name).where("pub_name is not null and pub_name<>''")
+#    @publications = @publications.where(:publication_type_id => default_settings.search_for_pdf_pubtypeId)  # filter by pub_type
+#    @publications = @publications.uniq.order('pub_name')
+
+    @publications = PdfImage.left_outer_joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
+    @publications = @publications.select("publication as pub_name").uniq.order(:publication)
+
+    @section_letters = PdfImage.left_outer_joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
+    @section_letters = @section_letters.select(:section_letter).uniq.order(:section_letter)
 
     if params[:search_query]
       begin
