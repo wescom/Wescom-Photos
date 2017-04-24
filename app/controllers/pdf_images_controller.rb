@@ -4,15 +4,9 @@ class PdfImagesController < ApplicationController
     default_settings = DefaultSetting.first
     @locations = Location.all.order("name")
 
-#    @publications = PdfImage.joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
-#    @publications = @publications.select("publication as pub_name").uniq.order(:publication)
-
-#    @section_letters = PdfImage.joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
-#    @section_letters = @section_letters.select(:section_letter).uniq.order(:section_letter)
-
     @plans = Plan.where("publication_type_id" => default_settings.search_for_pdf_pubtypeId)
     @publications = @plans.select(:pub_name).uniq.order(:pub_name)
-    @section_letters = @plans.select("import_section_letter as section_letter").uniq.order(:import_section_letter)
+    @section_letters = @plans.joins(:pdf_images).select("pdf_images.section_letter").uniq.order("pdf_images.section_letter")
 
     if params[:search_query]
       begin
