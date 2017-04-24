@@ -19,6 +19,8 @@
 
 $(document).ready(function(){
 	
+	$('[data-toggle="tooltip"]').tooltip()
+	
 	$('.datepicker').datepicker({
 	    todayBtn: true,
 		todayHighlight: true,
