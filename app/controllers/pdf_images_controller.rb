@@ -5,6 +5,7 @@ class PdfImagesController < ApplicationController
     @locations = Location.all.order("name")
 
     @plans = Plan.where("publication_type_id" => default_settings.search_for_pdf_pubtypeId)
+    @plans = @plans.where("location_id" => 1)
     @publications = @plans.select(:pub_name).uniq.order(:pub_name)
     @section_letters = @plans.joins(:pdf_images).select("pdf_images.section_letter").uniq.order("pdf_images.section_letter")
 
