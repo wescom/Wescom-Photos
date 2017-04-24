@@ -37,16 +37,20 @@ class StoryImagesController < ApplicationController
   end
 
   def show
-    @story_image = StoryImage.find(params[:id])
-
-    # Check whether image is for sale
-    if !image_for_sale?(@story_image)
-      if admin?
-        flash_message :notice, "Image not for sale: Admin only."
-      else
-    	  redirect_to root_path, :error => "Image not available"
-    	end
-    end
+    @story_image = StoryImage.where(:media_id => params[:id])
+puts "***********"+@story_image.inspect
+    if @story_image.present?
+      # Check whether image is for sale
+      if !image_for_sale?(@story_image)
+        if admin?
+          flash_message :notice, "Image not for sale: Admin only."
+        else
+      	  redirect_to root_path, :error => "Image not available"
+      	end
+      end
+    else
+  	  redirect_to root_path, :error => "Image not available"
+  	end
   end
   
   
