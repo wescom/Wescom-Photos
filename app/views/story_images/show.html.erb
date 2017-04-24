@@ -50,8 +50,13 @@
 		<br/>
 		<div class="card">
 			<div class="card-block">
-				<div class="card-header">Admin Info:</div>
-				<div class="card-block">
+				<div class="card-header">
+					<button class="btn btn-secondary image_admin_info_toggle">
+						<i class="fa fa-info" ></i>
+					</button>
+					Admin Info:
+				</div>
+				<div class="image_admin_info card-block">
 					<p><strong>Original caption</strong> - <i><%= @story_image.media_originalcaption.to_s %></i></p>
 					<p><strong>ID</strong> - <i><%= @story_image.media_id %></i></p>
 					<p><strong>Media Name</strong> - <i><%= @story_image.media_name %></i></p>
@@ -62,7 +67,8 @@
 					<p><strong>Priority (web status)</strong> - <i><%= @story_image.priority %></i></p>
 					<p><strong>Type</strong> - <i><%= @story_image.image_content_type %></i></p>
 					<p><strong>Created</strong> - <i><%= @story_image.created_date.strftime('%m/%d/%y %I:%M%p') unless @story_image.created_date.nil? %></i></p>
-					<p><strong>Last Refreshed</strong> - <i><%= @story_image.last_refreshed_time.strftime('%m/%d/%y %I:%M%p') unless @story_image.last_refreshed_time.nil? %></i></p>
+					<p><strong>Last Refreshed</strong> - 
+						<i><%= @story_image.last_refreshed_time.strftime('%m/%d/%y %I:%M%p') unless @story_image.last_refreshed_time.nil? %></i></p>
 				</div>
 			</div>
 		</div>

@@ -48,12 +48,17 @@ $(document).ready(function(){
 	});
 	$('.image_gallery_caption').hide();
 
+	$('.image_admin_info').hide();
+	$(".image_admin_info_toggle").click(function() {
+		$('.image_admin_info').slideToggle("slow");
+	});
+
 	// PDF Gallery
 	$('.pdf_gallery_hover_bar').hide();
-	$(".pdf_gallery_panel").mouseenter(function() {
+	$(".image_admin_info_toggle").mouseenter(function() {
 		$(this).find('.pdf_gallery_hover_bar').fadeIn('fast');
 	});
-	$(".pdf_gallery_panel").mouseleave (function() {
+	$(".image_admin_info_toggle").mouseleave (function() {
 		$(this).find('.pdf_gallery_hover_bar').fadeOut('fast')
 	});
 	if (document.getElementById("date_select").value == "" &&
