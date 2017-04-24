@@ -4,15 +4,15 @@ class PdfImagesController < ApplicationController
     default_settings = DefaultSetting.first
     @locations = Location.all.order("name")
 
-#    @publications = Plan.select(:pub_name).where("pub_name is not null and pub_name<>''")
-#    @publications = @publications.where(:publication_type_id => default_settings.search_for_pdf_pubtypeId)  # filter by pub_type
-#    @publications = @publications.uniq.order('pub_name')
+#    @publications = PdfImage.joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
+#    @publications = @publications.select("publication as pub_name").uniq.order(:publication)
 
-    @publications = PdfImage.joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
-    @publications = @publications.select("publication as pub_name").uniq.order(:publication)
+#    @section_letters = PdfImage.joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
+#    @section_letters = @section_letters.select(:section_letter).uniq.order(:section_letter)
 
-    @section_letters = PdfImage.joins(:plan).where("plans.publication_type_id" => default_settings.search_for_pdf_pubtypeId)
-    @section_letters = @section_letters.select(:section_letter).uniq.order(:section_letter)
+    @plans = Plan.where("publication_type_id" => default_settings.search_for_pdf_pubtypeId)
+    @publications = @plans.select(:pub_name).uniq.order(:pub_name)
+    @section_letters = @plans.select("import_section_letter as section_letter").uniq.order(:import_section_letter)
 
     if params[:search_query]
       begin
@@ -32,7 +32,6 @@ class PdfImagesController < ApplicationController
           order_by :publication, :asc
           order_by :section_letter, :asc
           order_by :page, :asc
-          with :pdf_image_location_id, params[:location] if params[:location].present?
       end
       rescue Errno::ECONNREFUSED
         render :text => "Search Server Down\n\n\n It will be back online shortly"
