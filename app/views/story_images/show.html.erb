@@ -34,7 +34,7 @@
 			<% end %>
 			<div class=""></div>
 			<div class="purchase_bar">
-				<span class="purchase_price"><%= number_to_currency(image_price) %></span>
+				<span class="purchase_price">Digital Download - <%= number_to_currency(image_price) %></span>
 				<span class="purchase_btn">
 					<% if image_in_cart?(@story_image.id) %>
 						<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
