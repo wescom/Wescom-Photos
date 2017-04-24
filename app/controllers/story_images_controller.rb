@@ -37,8 +37,7 @@ class StoryImagesController < ApplicationController
   end
 
   def show
-    @story_image = StoryImage.where(:media_id => params[:id])
-puts "***********"+@story_image.inspect
+    @story_image = StoryImage.find_by_media_id(params[:id])
     if @story_image.present?
       # Check whether image is for sale
       if !image_for_sale?(@story_image)
@@ -57,7 +56,7 @@ puts "***********"+@story_image.inspect
   private
   def image_for_sale?(image)
     default_settings = DefaultSetting.first
-    
+
     # Check captions for default_settings.search_for_caption_text
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
     if default_settings.search_for_caption_text.empty? or (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase)
