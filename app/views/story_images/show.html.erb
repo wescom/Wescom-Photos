@@ -54,7 +54,7 @@
 	<div class="container">
 		<h5>Related items</h5>
 		<div class="row">
-			<div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
+			<div class="col-6 col-sm-4 col-md-3 col-lg-3">
 				<% @pdf_images.each_with_index do |pdf, index| %>
 					<div class="card text-center">
 						<div class="card-img-top">
@@ -75,8 +75,22 @@
 					</div>
 				<% end %>
 			</div>
-			<div class="col-xs-4 col-sm-8 col-md-9 col-lg-9">
+			<div class="col-6 col-sm-8 col-md-9 col-lg-9">
 				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="card text-center">
+							<div class="card-block">
+								<div class="card-title">
+									Search for similar images:
+								</div>
+								<div class="image-gallery-search-wrap">
+									<div class="image-gallery-search">        
+										<%= render :partial => 'story_images/search_images' %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<% @related_story_images.each_with_index do |image, index| %>
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 							<div class="card text-center">
@@ -94,24 +108,8 @@
 							</div>
 						</div>
 					<% end %>
-
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<div class="card text-center">
-							<div class="card-block">
-								<div class="card-title">
-									Search for similar images:
-								</div>
-								<div class="image-gallery-search-wrap">
-									<div class="image-gallery-search">        
-										<%= render :partial => 'story_images/search_images' %>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
