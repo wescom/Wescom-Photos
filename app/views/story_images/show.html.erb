@@ -46,40 +46,101 @@
 			</div>
 		</div>
 	</div>
-	
-	<br/>
-	<div class="image-gallery-search-wrap">
-		<div class="image-gallery-search">        
-			<div>Search for similar images: </div>
-			<%= render :partial => 'story_images/search_images' %>
-		</div>
-	</div>
-	
-	<% if admin? %>
-		<br/>
-		<div class="card">
-			<div class="card-block">
-				<div class="card-header">
-					<button class="btn btn-secondary image_admin_info_toggle">
-						<i class="fa fa-info" ></i>
-					</button>
-					Admin Info:
-				</div>
-				<div class="image_admin_info card-block">
-					<p><strong>Original caption</strong> - <i><%= @story_image.media_originalcaption.to_s %></i></p>
-					<p><strong>ID</strong> - <i><%= @story_image.media_id %></i></p>
-					<p><strong>Media Name</strong> - <i><%= @story_image.media_name %></i></p>
-					<p><strong>Original Filename</strong> - <i><%= @story_image.image_file_name %></i></p>
-					<p><strong>Image Size</strong> - <i><%= @story_image.media_width %>x<%= @story_image.media_height %></i></p>
-					<p><strong>Project Group</strong> - <i><%= @story_image.media_project_group %></i></p>
-					<p><strong>Status</strong> - <i><%= @story_image.media_status %></i></p>
-					<p><strong>Priority (web status)</strong> - <i><%= @story_image.priority %></i></p>
-					<p><strong>Type</strong> - <i><%= @story_image.image_content_type %></i></p>
-					<p><strong>Created</strong> - <i><%= @story_image.created_date.strftime('%m/%d/%y %I:%M%p') unless @story_image.created_date.nil? %></i></p>
-					<p><strong>Last Refreshed</strong> - 
-						<i><%= @story_image.last_refreshed_time.strftime('%m/%d/%y %I:%M%p') unless @story_image.last_refreshed_time.nil? %></i></p>
+</div>
+<br/>
+<br/>
+
+<div class="image_related">
+	<div class="container">
+		<h5>Related items</h5>
+		<div class="row">
+			<div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
+				<% @pdf_images.each_with_index do |pdf, index| %>
+					<div class="card text-center">
+						<div class="card-img-top">
+							<%= link_to image_tag(pdf.image(:large), :class=>"card_section_img"), 
+							 	pdf_images_path(:pub_select => pdf.publication, 
+								:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
+								:search_query => "") %>
+						</div>
+						<div class="card-block">
+							<p class="card-text">
+								<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %>
+							</p>
+							<%= link_to( "Browse", pdf_images_path(:pub_select => pdf.publication, 
+								:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
+								:search_query => ""),
+								:class=>"btn btn-primary") %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+			<div class="col-xs-4 col-sm-8 col-md-9 col-lg-9">
+				<div class="row">
+					<% @related_story_images.each_with_index do |image, index| %>
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+							<div class="card text-center">
+								<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"), story_image_path(image.media_id) %>
+								<div class="card-block">
+									<p class="card-text">
+										<% if !image.media_webcaption.empty? %>
+											<i class="modal_image_caption"><%= truncate image.media_webcaption, :length => 60, :separator => /\s/ %></i>
+										<% else %>
+											<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 60, :separator => /\s/ %></i>
+										<% end %>
+									</p>
+									<%= link_to( "View", story_image_path(image.media_id), :class=>"btn btn-primary") %>
+								</div>
+							</div>
+						</div>
+					<% end %>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="card text-center">
+							<div class="card-block">
+								<div class="card-title">
+									Search for similar images:
+								</div>
+								<div class="image-gallery-search-wrap">
+									<div class="image-gallery-search">        
+										<%= render :partial => 'story_images/search_images' %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
+
 		</div>
-	<% end %>
+	</div>
 </div>
+	
+<% if admin? %>
+	<br/>
+	<div class="card">
+		<div class="card-block">
+			<div class="card-header">
+				<button class="btn btn-secondary image_admin_info_toggle">
+					<i class="fa fa-info" ></i>
+				</button>
+				Admin Info:
+			</div>
+			<div class="image_admin_info card-block">
+				<p><strong>Original caption</strong> - <i><%= @story_image.media_originalcaption.to_s %></i></p>
+				<p><strong>ID</strong> - <i><%= @story_image.media_id %></i></p>
+				<p><strong>Media Name</strong> - <i><%= @story_image.media_name %></i></p>
+				<p><strong>Original Filename</strong> - <i><%= @story_image.image_file_name %></i></p>
+				<p><strong>Image Size</strong> - <i><%= @story_image.media_width %>x<%= @story_image.media_height %></i></p>
+				<p><strong>Project Group</strong> - <i><%= @story_image.media_project_group %></i></p>
+				<p><strong>Status</strong> - <i><%= @story_image.media_status %></i></p>
+				<p><strong>Priority (web status)</strong> - <i><%= @story_image.priority %></i></p>
+				<p><strong>Type</strong> - <i><%= @story_image.image_content_type %></i></p>
+				<p><strong>Created</strong> - <i><%= @story_image.created_date.strftime('%m/%d/%y %I:%M%p') unless @story_image.created_date.nil? %></i></p>
+				<p><strong>Last Refreshed</strong> - 
+					<i><%= @story_image.last_refreshed_time.strftime('%m/%d/%y %I:%M%p') unless @story_image.last_refreshed_time.nil? %></i></p>
+			</div>
+		</div>
+	</div>
+<% end %>
+
