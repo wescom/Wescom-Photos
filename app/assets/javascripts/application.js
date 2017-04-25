@@ -55,22 +55,19 @@ $(document).ready(function(){
 
 	// PDF Gallery
 	$('.pdf_gallery_hover_bar').hide();
-	$(".image_admin_info_toggle").mouseenter(function() {
+	$(".pdf_gallery_panel").mouseenter(function() {
 		$(this).find('.pdf_gallery_hover_bar').fadeIn('fast');
 	});
-	$(".image_admin_info_toggle").mouseleave (function() {
+	$(".pdf_gallery_panel").mouseleave (function() {
 		$(this).find('.pdf_gallery_hover_bar').fadeOut('fast')
 	});
-	if (document.getElementById("date_select").value == "" &&
-	 	document.getElementById("pub_select").value == "" &&
-		document.getElementById("sectionletter").value == "") {
+	if ((document.getElementById("date_select") != undefined && document.getElementById("date_select").value == "") && 
+		(document.getElementById("pub_select") != undefined && document.getElementById("pub_select").value == "") && 
+		(document.getElementById("sectionletter") != undefined && document.getElementById("sectionletter").value == "")) {
 		$('#advanced_search').hide();
 	}
 	$("#advanced_search_toggle").click(function () {
 	    $("#advanced_search").slideToggle("medium");
-//		alert(document.getElementById("pub_select").value);
-//		alert(document.getElementById("sectionletter").value);
-//		alert(document.getElementById("date_select").value);
 	    return false;
 	});
 	
@@ -78,11 +75,11 @@ $(document).ready(function(){
 	$('.order_items').hide();
 	$(".show_order_items_next").click(function() {
 		$(this).closest("tr").next("tr").slideToggle("slow");
-		// alert($(this).closest("tr").next("tr").text());
+//		alert($(this).closest("tr").next("tr").text());
 	});
 	$(".show_order_items_prev").click(function() {
 		$(this).closest("tr").prev("tr").slideToggle("slow");
-		// alert($(this).closest("tr").next("tr").text());
+//		alert($(this).closest("tr").next("tr").text());
 	});
 
 	$('#order_credit_card_number').bind('input', function() {
