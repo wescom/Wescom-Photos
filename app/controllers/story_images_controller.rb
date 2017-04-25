@@ -51,6 +51,7 @@ class StoryImagesController < ApplicationController
       	  redirect_to story_images_path(:search_query => @story_image.story.categoryname)
       	end
       end
+      params[:search_query] = @story_image.story.categoryname
     else
       flash_message :notice, "Image ##{params[:id]} not available 
         <a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for ##{params[:id]}'>
