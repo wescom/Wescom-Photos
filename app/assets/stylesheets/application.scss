@@ -84,6 +84,7 @@
 	.succeed_col { display: none; }
 	.action_column { display: none; }
 	.colspan_column { display: none; }
+	.image_related .form-search-text { display: none; }
 }
 
 @include media-breakpoint-down(md) {
