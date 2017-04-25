@@ -42,14 +42,21 @@ class StoryImagesController < ApplicationController
       # Check whether image is for sale
       if !image_for_sale?(@story_image)
         if admin?
-          flash_message :admin_error, "Image not for sale: Admin only"
+          flash_message :admin_error, "Image ##{params[:id]} not for sale: Admin only"
         else
-          flash_message :notice, "Image not available"
+          flash_message :notice, "Image ##{params[:id]} not available 
+            <a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for ##{params[:id]}'>
+              <i>- Email us a request for this image</i>
+            </a>"
       	  redirect_to story_images_path(:search_query => @story_image.story.categoryname)
       	end
       end
     else
-  	  redirect_to root_path, :error => "Image not available"
+      flash_message :notice, "Image ##{params[:id]} not available 
+        <a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for ##{params[:id]}'>
+          <i>- Email us a request for this image</i>
+        </a>"
+  	  redirect_to root_path
   	end
   end
   

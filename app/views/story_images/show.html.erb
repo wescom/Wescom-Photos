@@ -28,7 +28,7 @@
 			<% end %>
 			<% if !@story_image.media_printcaption.nil? && @story_image.media_printcaption.length > 1 %>
 				<div class="modal_image_caption">
-					<h6>Print Caption:</h6><% if @story_image.story %><%= @story_image.story.web_published_at %><% end %>
+					<h6>Print Caption:</h6>
 					<p><i><%= @story_image.media_printcaption %></i></p>
 				</div>
 			<% end %>
