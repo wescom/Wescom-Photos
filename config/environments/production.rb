@@ -77,7 +77,17 @@ Rails.application.configure do
     user_name: ENV["GMAIL_USERNAME"],
     password: ENV["GMAIL_PASSWORD"]
   }
-    
+  
+  # Setup Paypal integration
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :production
+    ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+      :login => "it.dept-facilitator_api1.wescompapers.com",
+      :password => "9A7CQYAPR84KMB7N",
+      :signature => "AiPC9BjkCyDFQXbSkoZcgqH3hpacA-uGnksIdfvpqYCM4XV-FuFZlcnI"
+    )
+  end
+  
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true

@@ -19,12 +19,19 @@ class OrdersController < ApplicationController
   end
 
   def create
+    @default_settings = DefaultSetting.first
+
     @order = Order.new(order_params)
     @cart = Cart.find(session[:cart_id])
     @order.amount = @cart.total
 
+    # @order = current_cart.build_order(params[:order])
+    # @order.ip_address = request.remote_ip
+    ip_address = request.remote_ip
+puts "*****IP****"+ip_address
     if @order.save
-      if @order.process
+      if @order.purchase
+        # puts "*****ORDER****"+@order.inspect
         @order.last4 = @order.credit_card_number.last(4)
         @order.save
         # Save contents of cart into Order for historical archive
@@ -39,8 +46,8 @@ class OrdersController < ApplicationController
           puts @order_item.inspect
         end
         @cart.clear
-        flash_message :notice, "Credit card been successfully charged"
-        if @order.email.nil?
+        flash_message :notice, "Credit card successfully charged"
+        if @order.email.nil? or @order.email.length < 1
           puts "No confirmation email requested"
         else
           OrderMailer.order_confirmation(@order).deliver_now

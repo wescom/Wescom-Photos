@@ -16,8 +16,9 @@ class Order < ApplicationRecord
   validates :credit_card_number, presence: true
   validates :expiration_month, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
   validates :expiration_year, presence: true
-
-  validate :valid_card
+  validate  :expire_after_today
+#  validates :terms_of_service, acceptance: { message: 'must be abided' }
+#  validate :validate_card
 
   def to_param
     obscure_uniq_identifier
@@ -31,43 +32,60 @@ class Order < ApplicationRecord
     self.id = SecureRandom.random_number(1_000_000)
   end
   
-  def credit_card
-    ActiveMerchant::Billing::CreditCard.new(
-      number:              credit_card_number,
-      verification_value:  card_security_code,
-      month:               expiration_month,
-      year:                expiration_year,
-      first_name:          first_name,
-      last_name:           last_name
-    )
+  def purchase
+    response = GATEWAY.purchase(amount*100.round, credit_card, purchase_options)
+    self.success = response.success? ? true : false
+    self.authorization_code = response.authorization
+    response.success?
   end
-
-  def valid_card
-    if !credit_card.valid?
-      errors.add(:base, "The credit card information you provided is not valid.  Please double check the information you provided and then try again.")
-      false
+  
+  private
+  
+  def purchase_options
+    {
+      # :ip => ip_address,
+      :ip => "4.16.146.155",
+      :billing_address => {
+        :name     => "The Bulletin",
+        :address1 => "1777 SW Chandler Ave",
+        :city     => "Bend",
+        :state    => "OR",
+        :country  => "US",
+        :zip      => "97701"
+      }
+    }
+  end
+  
+  def expire_after_today
+    if expiration_year.to_i > Date.today.year
+      return true
     else
-      true
-    end
-  end
-
-  def process
-    if valid_card
-      response = GATEWAY.authorize(amount * 100, credit_card)
-      #puts "****** Gateway Response ******* "+response.inspect
-      if response.success?
-        transaction = GATEWAY.capture(amount * 100, response.authorization)
-        #puts "****** Transaction ******* "+transaction.inspect
-        if !transaction.success?
-          errors.add(:base, "The credit card you provided was declined.  Please double check your information and try again.") and return
-          return false
-        end
-        update_columns({authorization_code: transaction.authorization, success: true})
+      if expiration_month.to_i >= Date.today.month
         return true
       else
-        errors.add(:base, "The credit card you provided was declined.  Please double check your information and try again.") and return
+        errors.add(:expiration_month, "not valid")
         return false
       end
     end
+  end
+  
+  def validate_card
+    unless credit_card.valid?
+      credit_card.errors.full_messages.each do |message|
+        errors.add_to_base message
+      end
+    end
+  end
+  
+  def credit_card
+    @credit_card ||= ActiveMerchant::Billing::CreditCard.new(
+      # :type               => card_type,
+      :number             => credit_card_number,
+      :verification_value => card_security_code,
+      :month              => expiration_month,
+      :year               => expiration_year,
+      :first_name         => first_name,
+      :last_name          => last_name
+    )
   end
 end

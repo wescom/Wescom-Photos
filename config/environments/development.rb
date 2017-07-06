@@ -43,6 +43,16 @@ Rails.application.configure do
     user_name: ENV["GMAIL_USERNAME"],
     password: ENV["GMAIL_PASSWORD"]
   }
+  
+  # Setup Paypal integration
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+    ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+      :login => "it.dept-facilitator_api1.wescompapers.com",
+      :password => "9A7CQYAPR84KMB7N",
+      :signature => "AiPC9BjkCyDFQXbSkoZcgqH3hpacA-uGnksIdfvpqYCM4XV-FuFZlcnI"
+    )
+  end
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
