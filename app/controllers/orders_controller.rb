@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
     if params[:search].present?
       @orders = @orders.where("id = ? or first_name = ? or last_name = ?", params[:search], params[:search], params[:search])
     end
-    @orders = @orders.where(:success => true)
+#    @orders = @orders.where(:success => true)
     @orders = @orders.paginate(:page => params[:page], :per_page => 20)
   end
 
