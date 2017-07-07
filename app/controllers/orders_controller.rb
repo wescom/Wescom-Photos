@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
     # @order = current_cart.build_order(params[:order])
     # @order.ip_address = request.remote_ip
     ip_address = request.remote_ip
-Rails.logger.info "*****IP****"+ip_address
+    #Rails.logger.info "*****IP****"+ip_address
     if @order.save
       if @order.purchase
         # puts "*****ORDER****"+@order.inspect
