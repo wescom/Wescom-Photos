@@ -34,6 +34,7 @@ class Order < ApplicationRecord
   
   def purchase
     response = GATEWAY.purchase(amount*100.round, credit_card, purchase_options)
+    Rails.logger.info "GAteway response: "+response.to_s
     self.success = response.success? ? true : false
     self.authorization_code = response.authorization
     response.success?

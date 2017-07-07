@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
     # @order = current_cart.build_order(params[:order])
     # @order.ip_address = request.remote_ip
     ip_address = request.remote_ip
-puts "*****IP****"+ip_address
+Rails.logger.info "*****IP****"+ip_address
     if @order.save
       if @order.purchase
         # puts "*****ORDER****"+@order.inspect
@@ -43,7 +43,7 @@ puts "*****IP****"+ip_address
           @order_item.price_cents = item.price_cents
           @order_item.price_currency = item.price_currency
           @order_item.save
-          puts @order_item.inspect
+          #puts @order_item.inspect
         end
         @cart.clear
         flash_message :notice, "Credit card successfully charged"
@@ -55,7 +55,7 @@ puts "*****IP****"+ip_address
         end
         redirect_to order_path(@order)
       else
-        puts "********** CC Failed"
+        Rails.logger.info "********** CC Failed"
         flash_message :error, "Credit card authorization failed"
         render :new
       end
@@ -72,11 +72,11 @@ puts "*****IP****"+ip_address
     if params[:item_type] == "StoryImage"
       @image = StoryImage.find(params[:order_id])
       send_file @image.image.path, :filename => "image_"+@image.id.to_s
-      puts "***** Image Downloaded ***** " + @image.image.path
+      Rails.logger.info "***** Image Downloaded ***** " + @image.image.path
     else
       @pdf = PdfImage.find(params[:order_id])
       send_file @pdf.image.path, :filename => "image_"+@pdf.id.to_s
-      puts "***** News Page Downloaded ***** " + @pdf.image.path
+      Rails.logger.info "***** News Page Downloaded ***** " + @pdf.image.path
     end
   end
 
