@@ -82,9 +82,9 @@ Rails.application.configure do
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :production
     ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
-      :login => "it.dept-facilitator_api1.wescompapers.com",
-      :password => "9A7CQYAPR84KMB7N",
-      :signature => "AiPC9BjkCyDFQXbSkoZcgqH3hpacA-uGnksIdfvpqYCM4XV-FuFZlcnI"
+      :login => "it.dept_api1.wescompapers.com",
+      :password => "BM9G7LJ739887A6G",
+      :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31AWVdsHYsHYUTn51Jm6pno2GWEocf"
     )
   end
   
