@@ -45,7 +45,7 @@ class Order < ApplicationRecord
   def purchase_options
     {
       # :ip => ip_address,
-      # :ip => "4.16.146.155",
+      :ip => "216.228.167.10",
       :billing_address => {
         :name     => "The Bulletin",
         :address1 => "1777 SW Chandler Ave",
