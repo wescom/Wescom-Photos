@@ -1,0 +1,39 @@
+<div class="dashboard_heading">
+	<h1>Dashboard</h1>
+</div>
+
+<div class="container">
+	<div class="row dashboard_block">
+		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
+			<%= column_chart @orders.group_by_day_of_week(:created_at, format: "%a").count, 
+				id: "orders-bar", 
+				label: "Orders", 
+				ytitle: "# of Orders", 
+				width: "600px", 
+				height: "400px",
+				title: 'Orders by Day of Week'
+			%>
+		</div>
+		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
+			<%= line_chart @orders.group_by_month(:created_at).count, 
+				id: "orders-line", 
+				label: "Orders", 
+				ytitle: "# of Orders", 
+				width: "600px", 
+				height: "400px",
+				title: 'Orders by Month'
+			%>
+				
+		</div>
+		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
+			<%= line_chart @orders.group_by_month(:created_at).sum(:amount), 
+				id: "orders-amount", 
+				label: "Total $", 
+				ytitle: "Order $$$", 
+				width: "600px", 
+				height: "400px",
+				title: 'Orders Amounts by Month'
+			%>
+		</div>
+	</div>
+</div>

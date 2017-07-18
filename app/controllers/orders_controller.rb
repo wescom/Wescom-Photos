@@ -1,5 +1,11 @@
 class OrdersController < ApplicationController
-  before_action :require_admin, only: [:index]
+  before_action :require_admin, only: [:index, :dashboard]
+
+  def dashboard
+    @default_settings = DefaultSetting.first
+    @orders = Order.all
+    @order_items = OrderItem.all
+  end
 
   def index
     @orders = Order.all.order("created_at desc")

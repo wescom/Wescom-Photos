@@ -21,6 +21,10 @@ gem 'acts_as_shopping_cart', '~> 0.4.0'
 gem 'activemerchant'
 #gem 'rmagick'   # load ImageMagick library
 
+# Create beautiful JavaScript charts with one line of Ruby https://www.chartkick.com
+gem 'chartkick'
+gem 'groupdate'   #used to group by day, week, hour, etc.
+
 # Authentication
 gem 'adauth'
 

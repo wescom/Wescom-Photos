@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   resources :orders, only: [:index, :new, :create, :show] do
     get :download
   end
+  match  "/dashboard" => "orders#dashboard", :via => [:get]
   
   resources :default_settings, only: [:index, :edit, :update]
-  match  "/dashboard" => "default_settings#dashboard", :via => [:get]
   
   resources :sessions
   match "/login" => "sessions#new", :via => [:get, :post]

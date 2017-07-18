@@ -1,10 +1,6 @@
 class DefaultSettingsController < ApplicationController
   before_filter :require_admin
   
-  def dashboard
-    
-  end
-
   def index
     if DefaultSetting.exists?
       @default_settings = DefaultSetting.all
