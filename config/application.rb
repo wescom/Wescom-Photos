@@ -15,5 +15,6 @@ module WescomPhotos
       g.orm :active_record, primary_key_type: :uuid
     end
 
+    config.filter_parameters += [:password, :password_confirmation, :credit_card, :credit_card_number]
   end
 end
