@@ -112,7 +112,7 @@
 						<% else %>
 							&copy; Copyright - Western Communications, Inc.
 						<% end %>
-						<span class="float-right"><%= image.media_id %></span>
+						<span class="float-right"><%= link_to image.media_id, story_image_path(image.media_id) %></span>
 					</div>
 				</div>
 			</div>
