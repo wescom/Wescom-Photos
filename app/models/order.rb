@@ -46,6 +46,7 @@ class Order < ApplicationRecord
     {
       # :ip => ip_address,
       :ip => "216.228.167.10",
+      :description => "WescomPhotos.com purchase",
       :billing_address => {
         :name     => "The Bulletin",
         :address1 => "1777 SW Chandler Ave",
