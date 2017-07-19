@@ -32,9 +32,22 @@ class Order < ApplicationRecord
     self.id = SecureRandom.random_number(1_000_000)
   end
   
-  def purchase
+  def purchase(cart)
+    # Create list of items purchased
+    @items = Array.new      
+    cart.cart_items.each do |i|
+      item = Hash.new 
+      item[:name] = "#"+i[:item_id].to_s
+      item[:description] = i[:item_type]
+      item[:quantity] = i[:quantity]
+      item[:amount] = (i[:price_cents].to_i*100).round
+      @items << item
+    end
+    puts @items.inspect
+    
+    # Process credit card payment
     response = GATEWAY.purchase(amount*100.round, credit_card, purchase_options)
-    Rails.logger.info "GAteway response: "+response.inspect
+    Rails.logger.info "Gateway response: "+response.inspect
     self.success = response.success? ? true : false
     self.authorization_code = response.authorization
     response.success?
@@ -44,7 +57,7 @@ class Order < ApplicationRecord
   
   def purchase_options
     {
-      # :ip => ip_address,
+      :items => @items, 
       :ip => "216.228.167.10",
       :description => "WescomPhotos.com purchase",
       :billing_address => {
