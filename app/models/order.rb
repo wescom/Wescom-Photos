@@ -37,13 +37,13 @@ class Order < ApplicationRecord
     @items = Array.new      
     cart.cart_items.each do |i|
       item = Hash.new 
-      item[:name] = "#"+i[:item_id].to_s
-      item[:description] = i[:item_type]
+      item[:name] = i[:item_type]+" #"+i[:item_id].to_s
+      item[:description] = ""
       item[:quantity] = i[:quantity]
-      item[:amount] = (i[:price_cents].to_i*100).round
+      item[:amount] = i[:price_cents]
       @items << item
     end
-    puts @items.inspect
+    Rails.logger.info "Items: " + @items.inspect
     
     # Process credit card payment
     response = GATEWAY.purchase(amount*100.round, credit_card, purchase_options)
