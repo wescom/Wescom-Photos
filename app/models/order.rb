@@ -45,6 +45,7 @@ class Order < ApplicationRecord
       @items << item
     end
     Rails.logger.info "Items: " + @items.inspect
+    @subtotal = amount
     
     # Process credit card payment
     response = GATEWAY.purchase(amount*100.round, credit_card, purchase_options)
@@ -58,17 +59,18 @@ class Order < ApplicationRecord
   
   def purchase_options
     {
-      :items => @items, 
+      :items => @items,
+      :total => @subtotal, 
       :ip => "216.228.167.10",
       :description => "WescomPhotos.com purchase",
-      :billing_address => {
-        :name     => "The Bulletin",
-        :address1 => "1777 SW Chandler Ave",
-        :city     => "Bend",
-        :state    => "OR",
-        :country  => "US",
-        :zip      => "97701"
-      }
+#      :billing_address => {
+#        :name     => "The Bulletin",
+#        :address1 => "1777 SW Chandler Ave",
+#        :city     => "Bend",
+#        :state    => "OR",
+#        :country  => "US",
+#        :zip      => "97701"
+#      }
     }
   end
   
