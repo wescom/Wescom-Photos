@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   attr_accessor :credit_card_number
   attr_accessor :expiration_month
   attr_accessor :expiration_year
+  attr_accessor :terms_of_service
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -17,7 +18,7 @@ class Order < ApplicationRecord
   validates :expiration_month, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
   validates :expiration_year, presence: true
   validate  :expire_after_today
-#  validates :terms_of_service, acceptance: { message: 'must be abided' }
+  validates :terms_of_service, acceptance: true
 #  validate :validate_card
 
   def to_param

@@ -83,7 +83,7 @@ $(document).ready(function(){
 		$(this).closest("tr").prev("tr").slideToggle("slow");
 //		alert($(this).closest("tr").next("tr").text());
 	});
-
+	
 	$('#order_credit_card_number').bind('input', function() {
 		// define tests of credit card numbers
 		var visa = new RegExp("^4");

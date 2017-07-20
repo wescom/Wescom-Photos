@@ -19,6 +19,7 @@
 
 /*** Main custimation ***/
 .indent { text-indent: 50px; }
+.max_100 {max-width: 100%; max-height: 100%;}
 .btn { margin-left: 5px; }
 .panel-heading {background: lightgrey;}
 .content_block { margin: 0px 10px; min-height: 650px; }
@@ -112,7 +113,6 @@
 }
 #branding .newspaper_logo { max-height: 50px; }
 
-
 /*** Home Page ***/
 .home-page-head {
 /***	height: 500px;
@@ -192,6 +192,8 @@
 .card_section_img { width: 100% }
 .card_pdf_image { height: 300px; width: auto; max-width: 100%; }
 
+/*** Modals ***/
+#licenseModal, #paymentModal { left: 50%; transform: translateX(-50%); }
 
 /* Image Gallery Layout */
 .search_results { display: flex; justify-content: space-between; align-items: center; min-height: 46px; width: 95%; }
@@ -383,7 +385,6 @@
 /*.purchase_bar { position: absolute; bottom: 0; }*/
 .purchase_price { margin: 0px 5px; }
 .image_copyright { font-size: .5em; }
-
 
 /* PDF Gallery Layout */
 .search_pdf_results { display: flex; justify-content: space-between; align-items: center; min-height: 46px; width: 95%; }

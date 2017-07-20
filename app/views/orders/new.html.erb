@@ -17,17 +17,17 @@
 	        <div class="form-group row">
 				<%= f.label :name, 'Name', class: "col-sm-2 col-md-2 col-form-label" %>
 		        <div class="col-sm-4 col-md-3">
-					<%= f.text_field :first_name, class: "form-control", :placeholder => "First Name", :required => "true" %>
+					<%= f.text_field :first_name, class: "form-control", :placeholder => "First Name" %>
 				</div>
 		        <div class="col-sm-6 col-md-5">
-					<%= f.text_field :last_name, class: "form-control", :placeholder => "Last Name", :required => "true" %>
+					<%= f.text_field :last_name, class: "form-control", :placeholder => "Last Name" %>
 				</div>
 	        </div>
 
 	        <div class="form-group row">
 				<%= f.label :card_number, 'Card number', class: "col-sm-2 col-md-2 col-form-label" %>
 		        <div class="col-sm-6 col-md-5">
-					<%= f.text_field :credit_card_number, class: "form-control", :placeholder => "Credit/Debit Card Number", :required => "true" %>
+					<%= f.text_field :credit_card_number, class: "form-control", :placeholder => "Credit/Debit Card Number" %>
 				</div>
 		        <div class="col-sm-4 col-md-4">
 					<i class="fa fa-3x fa-cc-visa visa"></i> 
@@ -48,7 +48,7 @@
 	        <div class="form-group row">
 				<%= f.label :cvc, 'CVC', class: "col-sm-2 col-md-2 control-label" %>
 		        <div class="col-sm-3 col-md-2">
-					<%= f.text_field :card_security_code, class: "form-control", :placeholder => "CVC #", :required => "true" %>
+					<%= f.text_field :card_security_code, class: "form-control", :placeholder => "CVC #" %>
 				</div>
 	        </div>
 			<div class="form-group row">
@@ -56,7 +56,7 @@
 				<div class="col-sm-5">
 					<div class="form-check">
 						<label class="form-check-label">
-							<input class="form-check-input" type="checkbox" required="true"	>
+							<%= f.check_box :terms_of_service %>
 						</label>
 						<a data-toggle="modal" href="#licenseModal" class="">View image use license</a>
 					</div>
@@ -66,24 +66,30 @@
 			<br/>
 	        <div class="form-group row">
 				<%= f.label :name, 'Email order confirmation to: ', class: "col-sm-2 col-md-3 col-form-label" %>
-		        <div class="col-sm-4 col-md-6">
+		        <div class="col-sm-8 col-md-8 col-lg-6">
 					<%= f.email_field :email, class: "form-control", :placeholder => "Email Address" %>
 					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 				</div>
 	        </div>
 			
-	        <div class="form-group row float-right">
-				<div class="">
-					<%= button_tag(type: "submit", class: "btn btn-primary") do %>
-					    <i class="fa fa-lock"></i> Pay <%= number_to_currency(cart_total_amount) %>
+	        <div class="form-group row d-flex justify-content-between align-items-center">
+		        <div class="">
+					<!-- PayPal Logo --><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/digitalassets/c/website/marketing/na/us/logo-center/9_bdg_secured_by_pp_2line.png" border="0" alt="Secured by PayPal"></a><!-- PayPal Logo -->
+				</div>
+						
+		        <div class="">
+					<%= button_tag(:type => "submit", :id => "order_form_submit", 
+						:class => "btn btn-primary", :'data-toggle' => "modal", :href => "#paymentModal") do %>
+				    	<i class="fa fa-lock"></i>Pay <%= number_to_currency(cart_total_amount) %>
 					<% end %>
 				</div>
 			</div>
+			<br/>
 		<% end %>
 	</div>
 </div>
 
-<div class="modal fade modal-md" id="licenseModal" tabindex="-1" role="dialog" aria-labelledby="licenseModalLabel" aria-hidden="true">
+<div class="modal fade col-sm-6 col-md-6" id="licenseModal" tabindex="-1" role="dialog" aria-labelledby="licenseModalLabel" aria-hidden="true">
 	<div class="modal-dialog ">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -109,3 +115,33 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade col-sm-6 col-md-6" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+					Processing payment...
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<br/>
+				<br/>
+				<div class="text-center"><img class="spinner" src="/images/Spinner.gif"></div>
+				<br/>
+				<div class="text-center max_100">
+					<!-- PayPal Logo --><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" class="max_100" border="0" alt="PayPal Acceptance Mark"><!-- PayPal Logo -->
+				<br/>
+			</div>
+			<div class="modal-footer">
+				<div class="container">
+					<div class="image_copyright text-center"> 
+						&copy; Copyright - Western Communications, Inc.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
