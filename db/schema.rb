@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420230646) do
+ActiveRecord::Schema.define(version: 20170721165454) do
 
   create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "owner_id"
@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(version: 20170420230646) do
     t.integer  "correction_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "default_pages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string   "site_name"
+    t.string   "page_name"
+    t.string   "page_head"
+    t.string   "page_subhead"
+    t.text     "page_text1",    limit: 65535
+    t.text     "page_text2",    limit: 65535
+    t.text     "page_text3",    limit: 65535
+    t.string   "email_contact"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "default_settings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|

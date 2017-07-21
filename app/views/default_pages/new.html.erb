@@ -1,0 +1,74 @@
+<div class="default_heading">
+	<div class="container search_container">
+		<div class="row justify-content-between">
+			<h1>New Default Page</h1>
+		</div>
+	</div>
+
+</div>
+
+<div class="default_heading" >
+	<%= form_for(@default_page) do |f| %>
+		<hr/>
+
+		<h5></h5>
+		<div class="form-group row">
+			<label for="site_name" class="offset-1 col-3 col-form-label">Site:</label>
+			<div class="col-3">
+				<%= f.text_field :site_name, class: "form-control", :placeholder => "Website this page is used with" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="page_name" class="offset-1 col-3 col-form-label">Page Name:</label>
+			<div class="col-3">
+				<%= f.text_field :page_name, class: "form-control", :placeholder => "Page name" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="email_contact" class="offset-1 col-3 col-form-label">Email contact:</label>
+			<div class="col-3">
+				<%= f.text_field :email_contact, class: "form-control", :placeholder => "Email contact for this page" %>
+			</div>
+		</div>
+		<hr/>
+
+		<h5>Page Details:</h5>
+		<div class="form-group row">
+			<label for="page_head" class="offset-1 col-3 col-form-label">Headline:</label>
+			<div class="col-4">
+				<%= f.text_field :page_head, class: "form-control", :placeholder => "" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="page_subhead" class="offset-1 col-3 col-form-label">Sub Headline:</label>
+			<div class="col-4">
+				<%= f.text_field :page_subhead, class: "form-control", :placeholder => "" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="page_head" class="offset-1 col-3 col-form-label">Text Area #1:</label>
+			<div class="col-8">
+				<%= f.text_area :page_text1, class: "form-control", :placeholder => "" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="page_text2" class="offset-1 col-3 col-form-label">Text Area #2:</label>
+			<div class="col-8">
+				<%= f.text_area :page_text2, class: "form-control", :placeholder => "" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="page_text3" class="offset-1 col-3 col-form-label">Text Area #3:</label>
+			<div class="col-8">
+				<%= f.text_area :page_text3, class: "form-control", :placeholder => "" %>
+			</div>
+		</div>
+		<hr/>
+
+
+		<div class="form-group row d-flex justify-content-end">
+			<%= f.submit "Cancel", :name => 'cancel_button', :class => 'btn btn-primary'%>
+			<%= f.submit "Create", :class => 'btn btn-primary'%>
+		</div>
+	<% end %>
+</div>

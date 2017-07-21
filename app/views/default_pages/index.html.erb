@@ -1,0 +1,39 @@
+<div class="default_page_heading">
+	<h1>
+		Default Pages
+		<span class="float-right"><%= link_to "New Page", new_default_page_path, :class=>"btn btn-primary btn-small" %></span>
+	</h1>
+</div>
+
+<div class="default_heading" >
+	<table id="default_pages" class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">Site</th>
+				<th class="text-center">Page Name</th>
+				<th class="text-center">Headline</th>
+				<th class="action_col text-center"></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% if @default_pages.size > 0 %>
+				<% @default_pages.each do |page| %>
+					<tr>
+						<td><%= page.site_name %></td>
+						<td class="text-center"><%= page.page_name %></td>
+						<td class="text-center"><%= page.page_head %></td>
+						<td class="text-center">
+							<p class="btn btn-outline-info">
+								<%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_default_page_path(page) %>
+							</p>
+						</td>
+					</tr>
+				<% end %>
+			<% else %>
+				<tr><td colspan="5">No pages</td></tr>
+			<% end %>
+		</tbody>
+	</table>
+<div>
+

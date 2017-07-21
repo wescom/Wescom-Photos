@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   match  "/dashboard" => "orders#dashboard", :via => [:get]
   
   resources :default_settings, only: [:index, :edit, :update]
+  resources :default_pages
   
   resources :sessions
   match "/login" => "sessions#new", :via => [:get, :post]

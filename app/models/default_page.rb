@@ -1,0 +1,2 @@
+class DefaultPage < ApplicationRecord
+end
