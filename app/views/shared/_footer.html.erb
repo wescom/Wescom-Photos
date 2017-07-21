@@ -1,7 +1,19 @@
-<div id="page-footer" class="d-flex justify-content-center align-items-center">
-    <div class="align-items-center">
-		<strong>Wescom Photos</strong> - &copy; Copyright <%= Date.today.year %> - 
-		<a href="http://www.bendbulletin.com">Western Communications, Inc.</a>
+<div id="page-footer" class="">
+	<div class="d-flex justify-content-center align-items-center">
+	    <div class="align-items-center">
+			<strong>Wescom Photos</strong> - &copy; Copyright <%= Date.today.year %> - 
+			<a href="http://www.bendbulletin.com">Western Communications, Inc.</a>
+		</div>
 	</div>
-	<br/><br/>
+	<div class="d-flex justify-content-around align-items-center">
+		<div class="align-items-center">
+			<i>
+				<%= link_to "Terms of Service", default_page_path(5) %>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<%= link_to "Privacy Policy", default_page_path(6) %>
+			</i>
+		</div>
+	</div>
+	<br/>
+	<br/>
 </div>

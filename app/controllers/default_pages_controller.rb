@@ -5,6 +5,10 @@ class DefaultPagesController < ApplicationController
       @default_pages = DefaultPage.all
   end
 
+  def show
+    @default_page = DefaultPage.find(params[:id])
+  end
+  
   def new
     @default_page = DefaultPage.new
   end
