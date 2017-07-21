@@ -1,5 +1,5 @@
 class DefaultPagesController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_admin, only: [:index, :edit, :update, :new, :create]
   
   def index
       @default_pages = DefaultPage.all
