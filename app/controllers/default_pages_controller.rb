@@ -6,7 +6,10 @@ class DefaultPagesController < ApplicationController
   end
 
   def show
-    @default_page = DefaultPage.find(params[:id])
+    @default_page = DefaultPage.find_by_page_name(params[:id])
+    if @default_page.nil?
+      redirect_to :root
+    end
   end
   
   def new
