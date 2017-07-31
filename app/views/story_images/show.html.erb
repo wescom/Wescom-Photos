@@ -99,7 +99,7 @@
 								<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"), story_image_path(image.media_id) %>
 								<div class="card-block">
 									<p class="card-text">
-										<% if !image.media_webcaption.empty? %>
+										<% if !image.media_webcaption.nil? and !image.media_webcaption.empty? %>
 											<i class="modal_image_caption"><%= truncate image.media_webcaption, :length => 60, :separator => /\s/ %></i>
 										<% else %>
 											<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 60, :separator => /\s/ %></i>
