@@ -379,7 +379,7 @@
 	transform:translate(-50%, -50%); 
 	&.max{ width:auto; height:100%;}
 }
-.modal_image_caption { margin-top: 30px; font-size: .8rem; text-align: justify; }
+.modal_image_caption { margin-top: 30px; font-size: .8rem; text-align: left; }
 .floater { float: left; height: 30%; width: 100%; margin-bottom: -50px; }
 .purchase_bar { clear: both; text-align: center; min-height: 100px; }
 /*.purchase_bar { position: absolute; bottom: 0; }*/
