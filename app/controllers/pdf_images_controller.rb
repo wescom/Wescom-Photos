@@ -14,15 +14,19 @@ class PdfImagesController < ApplicationController
         @pdf_images = PdfImage.search do
           paginate(:page => params[:page], :per_page => 18)
           fulltext params[:search_query]
-          with(:pdf_image_pub_type_id, default_settings.search_for_pdf_pubtypeId)
-          with(:pubdate).greater_than_or_equal_to(Date.strptime(default_settings.search_for_pdf_pubdate, "%m/%d/%Y")) unless default_settings.search_for_pdf_pubdate.empty?
+          
+          # Filter by location and type
           with(:pdf_image_location_id, 1)
+          with(:pdf_image_pub_type_id, default_settings.search_for_pdf_pubtypeId) if default_settings.search_for_pdf_pubtypeId.present?
 
           # Filter by params
           with(:pubdate).greater_than_or_equal_to(Date.strptime(params[:date_select], "%m/%d/%Y")) if params[:date_select].present?
           with(:pubdate).less_than_or_equal_to(Date.strptime(params[:date_select], "%m/%d/%Y")) if params[:date_select].present?
           with(:publication, params[:pub_select]) if params[:pub_select].present?
           with(:section_letter, params[:sectionletter]) if params[:sectionletter].present?
+
+          # Exclue anything older than specified pubdate
+          with(:pubdate).greater_than_or_equal_to(Date.strptime(default_settings.search_for_pdf_pubdate, "%m/%d/%Y")) unless default_settings.search_for_pdf_pubdate.empty?
           
           order_by :pubdate, :desc
           order_by :publication, :asc
