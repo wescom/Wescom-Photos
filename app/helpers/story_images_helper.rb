@@ -13,4 +13,37 @@ module StoryImagesHelper
       return false
     end
   end
+  
+  def image_for_sale?(image)
+    default_settings = DefaultSetting.first
+
+    # Check captions for default_settings.search_for_caption_text
+    caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
+    if default_settings.search_for_caption_text.empty? or (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase)
+      caption_text_okay = true
+    else
+      caption_text_okay = false
+    end
+      
+    # Check image priority for default_settings.search_for_priority
+    if default_settings.search_for_priority.empty? or default_settings.search_for_priority.include? image.priority
+      image_priority_okay = true
+    else
+      image_priority_okay = false
+    end
+      
+    # Check image whether image published based on default_settings.search_for_publish_status
+    if default_settings.search_for_publish_status.empty? or default_settings.search_for_publish_status.include? image.publish_status
+      image_published = true
+    else
+      image_published = false
+    end
+      
+    # Return TRUE if image is for sale based on default settings
+    if caption_text_okay and image_priority_okay and image_published
+      return true
+    else
+      return false
+    end
+  end
 end
