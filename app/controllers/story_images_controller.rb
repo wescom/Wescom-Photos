@@ -79,6 +79,27 @@ class StoryImagesController < ApplicationController
         </a>"
   	  redirect_to root_path
   	end
+  	
+    def approve_forsale
+      @story_image = StoryImage.find(params[:story_image_id])
+      if @story_image.present?
+        if @story_image.forsale == true
+            @story_image.forsale = false
+            if @story_image.save
+              Log.create_log("Story_image",@story_image.id,"Not For Sale","Image changed to NOT For Sale",current_user)
+              redirect_to story_image_path(@story_image)
+            else
+              redirect_to story_image_path(@story_image)
+            end
+        else  
+          @story_image.forsale = true
+          if @story_image.save
+            Log.create_log("Story_image",@story_image.id,"For Sale","Image approved For Sale",current_user)
+          end
+          redirect_to story_image_path(@story_image)
+        end
+      end
+    end
   end
   
   

@@ -1,5 +1,6 @@
 class StoryImage < ApplicationRecord
   belongs_to :story
+  has_many :logs, :dependent => :destroy
 
   has_attached_file :image, 
       :styles => { 

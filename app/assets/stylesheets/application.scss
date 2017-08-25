@@ -308,7 +308,7 @@
 .image_gallery_panel .watermark{
     position: absolute;
     z-index: 1;
-    display:block;
+    display: block;
 	max-width: 100%;
 	max-height: 100%;
 	color: white;
@@ -319,6 +319,13 @@
 	left: 50%;
 	transform:translate(-50%, -50%); 
 	&.max{ width:auto; height:100%;}
+}
+.change_log {
+	border: 0.5px solid #02888f;
+    padding: 5px;
+}
+.change_log_header {
+    background: #eeeeee;
 }
 
 /*** Image Modal ***/

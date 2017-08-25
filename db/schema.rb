@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721165454) do
+ActiveRecord::Schema.define(version: 20170825140212) do
 
   create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "owner_id"
@@ -294,6 +294,7 @@ ActiveRecord::Schema.define(version: 20170721165454) do
     t.datetime "created_date"
     t.datetime "last_refreshed_time"
     t.datetime "expire_date"
+    t.boolean  "forsale"
     t.index ["image_updated_at"], name: "index_story_images_on_image_updated_at", using: :btree
     t.index ["story_id"], name: "index_story_images_on_story_id", using: :btree
   end

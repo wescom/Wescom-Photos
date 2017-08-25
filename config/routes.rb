@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   get 'home/index'
   
   resources :locations, :only => [:index, :edit, :update, :show]
-  resources :story_images , :path => 'images', :only => [:index, :show]
+  resources :story_images , :path => 'images', :only => [:index, :show] do
+    put 'approve_forsale'
+  end
   resources :pdf_images , :path => 'pdfs', :only => [:index, :show]
 
   resource :cart do
