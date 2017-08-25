@@ -133,7 +133,7 @@ class StoryImagesController < ApplicationController
     end
       
     # Return TRUE if image is for sale based on default settings
-    if caption_text_okay and image_priority_okay and image_published
+    if image.forsale or (caption_text_okay and image_priority_okay and image_published)
       return true
     else
       return false
