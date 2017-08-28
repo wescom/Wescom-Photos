@@ -7,21 +7,13 @@ class StoryImagesController < ApplicationController
     if params[:search_query]
       begin
         @story_images = StoryImage.search(:include => [:story]) do
-          all do
-            fulltext params[:search_query], :fields => [:media_webcaption, :media_printcaption, :media_originalcaption, :story_category_name, :story_subcategory_name]
-            any do  
-              # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin'
-              fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
-            end
-            any_of do  
-              # Filter all searches by publish status and priority set within default_settings, ie. contains 'Published' and 'Web Ready'
-#              if !default_settings.search_for_publish_status.empty?
-#   Removed for now. Images 'published' with an article are not necessarily Web Ready. ie Image #665760
-#                with(:publish_status, default_settings.search_for_publish_status)
-#              end
-              if !default_settings.search_for_priority.empty?
-                with(:priority, default_settings.search_for_priority)
-              end
+          fulltext params[:search_query], :fields => [:media_webcaption, :media_printcaption, :media_originalcaption, :story_category_name, :story_subcategory_name]
+          all do  
+            # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin'
+            fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
+            # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'
+            if !default_settings.search_for_priority.empty?
+              with(:priority, default_settings.search_for_priority)
             end
           end
           paginate(:page => params[:page], :per_page => 24)
