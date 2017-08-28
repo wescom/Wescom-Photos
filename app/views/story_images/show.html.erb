@@ -146,15 +146,14 @@
 				<p><strong>Story SubCategory</strong> - <i><%= @story_image.story.subcategoryname %></i></p>
 				<p><strong>Image For Sale (ignore search filters)</strong> - 
 					<% if @story_image.forsale %>
-						<i>For Sale </i>
-						(<%= link_to("change image to NOT For Sale?", story_image_approve_forsale_path(@story_image.id), 
+						<i>ALWAYS For Sale </i>
+						(<%= link_to("turn off", story_image_approve_forsale_path(@story_image.id), 
 							{:onclick => "return confirm('Verify that this image should NOT be for sale?')",
 								:method => :put, 
 								:action => :approve_forsale,
 								:remote => true }) %>)
 					<% else %>
-						<i>Not For Sale </i>
-						(<%= link_to("approve image to be For Sale?", story_image_approve_forsale_path(@story_image.id), 
+						(<%= link_to("approve image to be ALWAYS For Sale?", story_image_approve_forsale_path(@story_image.id), 
 							{:onclick => "return confirm('Verify that this image should ALWAYS be for sale?')",
 								:method => :put, 
 								:action => :approve_forsale,
