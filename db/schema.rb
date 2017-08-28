@@ -294,7 +294,7 @@ ActiveRecord::Schema.define(version: 20170825140212) do
     t.datetime "created_date"
     t.datetime "last_refreshed_time"
     t.datetime "expire_date"
-    t.boolean  "forsale"
+    t.string   "forsale"
     t.index ["image_updated_at"], name: "index_story_images_on_image_updated_at", using: :btree
     t.index ["story_id"], name: "index_story_images_on_story_id", using: :btree
   end

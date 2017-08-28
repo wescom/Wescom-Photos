@@ -144,21 +144,13 @@
 				<p><strong>Story Headline</strong> - <i><%= @story_image.story.hl1 %></i></p>
 				<p><strong>Story Category</strong> - <i><%= @story_image.story.categoryname %></i></p>
 				<p><strong>Story SubCategory</strong> - <i><%= @story_image.story.subcategoryname %></i></p>
-				<p><strong>Image For Sale (ignore search filters)</strong> - 
-					<% if @story_image.forsale %>
-						<i>ALWAYS For Sale </i>
-						(<%= link_to("turn off", story_image_approve_forsale_path(@story_image.id), 
-							{:onclick => "return confirm('Verify that this image should NOT be for sale?')",
-								:method => :put, 
-								:action => :approve_forsale,
-								:remote => true }) %>)
-					<% else %>
-						(<%= link_to("approve image to be ALWAYS For Sale?", story_image_approve_forsale_path(@story_image.id), 
-							{:onclick => "return confirm('Verify that this image should ALWAYS be for sale?')",
-								:method => :put, 
-								:action => :approve_forsale,
-								:remote => true }) %>)
-					<% end %>
+				<p><strong>Image For Sale (ignore search filters)</strong> - <%= @story_image.forsale %>
+					<div class="indent">
+						<%= form_tag story_image_approve_forsale_path(@story_image.id), :method => :put do %>
+							<%= select_tag "forsale", options_for_select(StoryImage::FORSALE_OPTIONS, :selected=>@story_image.forsale) %>
+							<%= submit_tag "Save", :class => 'submit btn btn-sm'%>
+						<% end %>
+					</div>
 				</p>
 				<div class="change_log">
 					<div class="change_log_header">Image Change Log:</div>
@@ -174,4 +166,3 @@
 		</div>
 	</div>
 <% end %>
-

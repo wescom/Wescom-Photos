@@ -1,6 +1,8 @@
 class StoryImage < ApplicationRecord
   belongs_to :story
   has_many :logs, :dependent => :destroy
+  
+  FORSALE_OPTIONS = ["", "For Sale", "Not For Sale"]
 
   has_attached_file :image, 
       :styles => { 
