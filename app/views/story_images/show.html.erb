@@ -156,7 +156,7 @@
 					<div class="change_log_header">Image Change Log:</div>
 					<% @story_image.logs.reverse_each do |log| %>
 						<div>
-							<%= log.created_at.strftime('%m/%d/%y %I:%M%p') %> - 
+							<%= log.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%m/%d/%y %I:%M%p') %> - 
 							<%= log.log_detail %>
 							by <%= log.user.name unless log.user.nil? %>
 						</div>
