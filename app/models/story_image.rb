@@ -2,7 +2,7 @@ class StoryImage < ApplicationRecord
   belongs_to :story
   has_many :logs, :dependent => :destroy
   
-  FORSALE_OPTIONS = ["", "For Sale", "Not For Sale"]
+  FORSALE_OPTIONS = ["", "For Sale", "NotForSale"]
 
   has_attached_file :image, 
       :styles => { 
@@ -31,6 +31,8 @@ class StoryImage < ApplicationRecord
     text :story_subcategory_name do
       story.subcategoryname
     end
+    text :forsale
+    text :priority
 
     string :publish_status
     string :priority

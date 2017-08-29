@@ -32,18 +32,19 @@ module StoryImagesHelper
       image_priority_okay = false
     end
       
-    # Check image whether image published based on default_settings.search_for_publish_status
-    if default_settings.search_for_publish_status.empty? or default_settings.search_for_publish_status.include? image.publish_status
-      image_published = true
+    # Return TRUE if image is flagged "For Sale' or is available for sale based on default settings
+    if image.forsale.nil?
+      if (caption_text_okay and image_priority_okay)
+        return true
+      else
+        return false
+      end
     else
-      image_published = false
-    end
-      
-    # Return TRUE if image is for sale based on default settings
-    if caption_text_okay and image_priority_okay and image_published
-      return true
-    else
-      return false
+      if (image.forsale.include? "For Sale") or (caption_text_okay and image_priority_okay)
+        return true
+      else
+        return false
+      end
     end
   end
 end

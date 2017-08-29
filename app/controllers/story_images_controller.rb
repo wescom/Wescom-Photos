@@ -8,14 +8,17 @@ class StoryImagesController < ApplicationController
       begin
         @story_images = StoryImage.search(:include => [:story]) do
           fulltext params[:search_query], :fields => [:media_webcaption, :media_printcaption, :media_originalcaption, :story_category_name, :story_subcategory_name]
-          all do  
-            # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin'
-            fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
-            # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'
-            if !default_settings.search_for_priority.empty?
-              with(:priority, default_settings.search_for_priority)
+          
+          any do  # filter for images For Sale OR (caption and priority)
+            fulltext "For Sale", :fields => [:forsale]
+            all do
+              # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin'
+              fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
+              # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'
+              fulltext default_settings.search_for_priority, :fields => [:priority]
             end
           end
+
           paginate(:page => params[:page], :per_page => 24)
           order_by :story_pubdate, :desc
           order_by :story_publication_name, :asc
@@ -73,7 +76,7 @@ class StoryImagesController < ApplicationController
   	end
   	
     def approve_forsale
-      # Default = null, For Sale = 'For Sale', Not For Sale = 'Not For Sale'
+      # Default = null, For Sale = 'For Sale', Not For Sale = 'NotForSale'
       @story_image = StoryImage.find(params[:story_image_id])
       if @story_image.present?
         @story_image.forsale = params[:forsale]
@@ -114,12 +117,20 @@ class StoryImagesController < ApplicationController
       image_published = false
       flash_message :admin_error, "Publish status = "+image.publish_status
     end
-      
-    # Return TRUE if image is for sale based on default settings
-    if image.forsale or (caption_text_okay and image_priority_okay and image_published)
-      return true
+
+    # Return TRUE if image is flagged "For Sale' or is available for sale based on default settings
+    if image.forsale.nil?
+      if (caption_text_okay and image_priority_okay)
+        return true
+      else
+        return false
+      end
     else
-      return false
+      if (image.forsale.include? "For Sale") or (caption_text_okay and image_priority_okay)
+        return true
+      else
+        return false
+      end
     end
   end
   
