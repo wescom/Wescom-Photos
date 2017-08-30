@@ -89,7 +89,7 @@ class StoryImagesController < ApplicationController
   private
   def image_for_sale?(image)
     default_settings = DefaultSetting.first
-
+return true
     # Check captions for default_settings.search_for_caption_text
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
     if default_settings.search_for_caption_text.empty? or (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase)
