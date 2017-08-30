@@ -89,7 +89,7 @@ class StoryImagesController < ApplicationController
   private
   def image_for_sale?(image)
     default_settings = DefaultSetting.first
-return true
+
     # Check captions for default_settings.search_for_caption_text
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
     if default_settings.search_for_caption_text.empty? or (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase)
@@ -100,20 +100,29 @@ return true
     end
       
     # Check image priority for default_settings.search_for_priority
-    if default_settings.search_for_priority.nil? or default_settings.search_for_priority.include? image.priority
+    if default_settings.search_for_priority.nil? 
       image_priority_okay = true
     else
-      image_priority_okay = false
-      flash_message :admin_error, "Priority = "+image.priority
+      if image.priority.nil?
+        image_priority_okay = false
+        flash_message :admin_error, "Priority = NULL"
+      else
+        if default_settings.search_for_priority.include? image.priority
+          image_priority_okay = true
+        else
+          image_priority_okay = false
+          flash_message :admin_error, "Priority = "+image.priority
+        end
+      end
     end
       
     # Check image whether image published based on default_settings.search_for_publish_status
-    if default_settings.search_for_publish_status.nil? or default_settings.search_for_publish_status.include? image.publish_status
-      image_published = true
-    else
-      image_published = false
-      flash_message :admin_error, "Publish status = "+image.publish_status
-    end
+    #if default_settings.search_for_publish_status.nil? or default_settings.search_for_publish_status.include? image.publish_status
+    #  image_published = true
+    #else
+    #  image_published = false
+    #  flash_message :admin_error, "Publish status = "+image.publish_status
+    #end
 
     # Return TRUE if image is flagged "For Sale' or is available for sale based on default settings
     if image.forsale.nil?
