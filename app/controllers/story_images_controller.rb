@@ -116,14 +116,6 @@ class StoryImagesController < ApplicationController
       end
     end
       
-    # Check image whether image published based on default_settings.search_for_publish_status
-    #if default_settings.search_for_publish_status.nil? or default_settings.search_for_publish_status.include? image.publish_status
-    #  image_published = true
-    #else
-    #  image_published = false
-    #  flash_message :admin_error, "Publish status = "+image.publish_status
-    #end
-
     # Return TRUE if image is flagged "For Sale' or is available for sale based on default settings
     if image.forsale.nil?
       if (caption_text_okay and image_priority_okay)

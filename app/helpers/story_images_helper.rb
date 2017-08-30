@@ -26,10 +26,20 @@ module StoryImagesHelper
     end
       
     # Check image priority for default_settings.search_for_priority
-    if default_settings.search_for_priority.nil? or default_settings.search_for_priority.include? image.priority
+    if default_settings.search_for_priority.nil? 
       image_priority_okay = true
     else
-      image_priority_okay = false
+      if image.priority.nil?
+        image_priority_okay = false
+        flash_message :admin_error, "Priority = NULL"
+      else
+        if default_settings.search_for_priority.include? image.priority
+          image_priority_okay = true
+        else
+          image_priority_okay = false
+          flash_message :admin_error, "Priority = "+image.priority
+        end
+      end
     end
       
     # Return TRUE if image is flagged "For Sale' or is available for sale based on default settings
