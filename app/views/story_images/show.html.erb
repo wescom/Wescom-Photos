@@ -120,3 +120,53 @@
 	</div>
 </div>
 	
+<% if admin? %>
+	<br/>
+	<div class="card">
+		<div class="card-block">
+			<div class="card-header">
+				<button class="btn btn-secondary image_admin_info_toggle">
+					<i class="fa fa-info" ></i>
+				</button>
+				Admin Info:
+			</div>
+			<div class="image_admin_info card-block">
+				<p><strong>Original caption</strong> - <i><%= @story_image.media_originalcaption.to_s unless @story_image.media_originalcaption.nil? %></i></p>
+				<p><strong>ID</strong> - <i><%= @story_image.media_id unless @story_image.media_id.nil? %></i></p>
+				<p><strong>Media Name</strong> - <i><%= @story_image.media_name unless @story_image.media_name.nil? %></i></p>
+				<p><strong>Original Filename</strong> - <i><%= @story_image.image_file_name unless @story_image.image_file_name.nil? %></i></p>
+				<p><strong>Project Group</strong> - <i><%= @story_image.media_project_group unless @story_image.media_project_group.nil? %></i></p>
+				<p><strong>Image Size</strong> - <i><%= @story_image.media_width %>x<%= @story_image.media_height %></i></p>
+				<p><strong>Status</strong> - <i><%= @story_image.media_status unless @story_image.media_status.nil? %></i></p>
+				<p><strong>Priority (web status)</strong> - <i><%= @story_image.priority unless @story_image.priority.nil? %></i></p>
+				<p><strong>Type</strong> - <i><%= @story_image.image_content_type unless @story_image.image_content_type.nil?%></i></p>
+				<p><strong>Created</strong> - <i><%= @story_image.created_date.strftime('%m/%d/%y %I:%M%p') unless @story_image.created_date.nil? %></i></p>
+				<p><strong>Last Refreshed</strong> - 
+					<i><%= @story_image.last_refreshed_time.strftime('%m/%d/%y %I:%M%p') unless @story_image.last_refreshed_time.nil? %></i></p>
+
+				<p><strong>Story Name</strong> - <i><%= @story_image.story.doc_name unless @story_image.story.nil?%></i></p>
+				<p><strong>Story Headline</strong> - <i><%= @story_image.story.hl1 unless @story_image.story.nil?%></i></p>
+				<p><strong>Story Category</strong> - <i><%= @story_image.story.categoryname unless @story_image.story.nil?%></i></p>
+				<p><strong>Story SubCategory</strong> - <i><%= @story_image.story.subcategoryname unless @story_image.story.nil?%></i></p>
+				<p><strong>Image For Sale (ignore search filters)</strong> - <%= @story_image.forsale unless @story_image.forsale.nil?%>
+					<div class="indent">
+						<%= form_tag story_image_approve_forsale_path(@story_image.id), :method => :put do %>
+							<%= select_tag "forsale", options_for_select(StoryImage::FORSALE_OPTIONS, :selected=>@story_image.forsale) %>
+							<%= submit_tag "Save", :class => 'submit btn btn-sm'%>
+						<% end %>
+					</div>
+				</p>
+				<div class="change_log">
+					<div class="change_log_header">Image Change Log:</div>
+					<% @story_image.logs.reverse_each do |log| %>
+						<div>
+							<%= log.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%m/%d/%y %I:%M%p') %> - 
+							<%= log.log_detail %>
+							by <%= log.user.name unless log.user.nil? %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>

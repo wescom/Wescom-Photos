@@ -50,18 +50,18 @@ class StoryImagesController < ApplicationController
       default_settings = DefaultSetting.first
       
       # find other related images
-      if @story_image.story.present?
-        params[:search_query] = @story_image.story.categoryname
+#      if @story_image.story.present?
+#        params[:search_query] = @story_image.story.categoryname
         
-        @related_story_images = @story_image.story.story_images.where("id != ?", @story_image.id)
-      end
+#        @related_story_images = @story_image.story.story_images.where("id != ?", @story_image.id)
+#      end
 
       # find pdfs of this image's publication
-      if @story_image.story.present? and @story_image.story.plan.present?
-        @pdf_images = PdfImage.includes('plan').where(:pubdate=>@story_image.story.pubdate)
-        @pdf_images = @pdf_images.where('plans.pub_name = ?', @story_image.story.plan.pub_name)
-        @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(1)
-      end
+#      if @story_image.story.present? and @story_image.story.plan.present?
+#        @pdf_images = PdfImage.includes('plan').where(:pubdate=>@story_image.story.pubdate)
+#        @pdf_images = @pdf_images.where('plans.pub_name = ?', @story_image.story.plan.pub_name)
+#        @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(1)
+#      end
       
     else
       # image doesnt exist in database
