@@ -17,7 +17,7 @@ class PdfImagesController < ApplicationController
           
           # Filter by location and type
           with(:pdf_image_location_id, 1)
-          with(:pdf_image_pub_type_id, default_settings.search_for_pdf_pubtypeId) if default_settings.search_for_pdf_pubtypeId.present?
+#          with(:pdf_image_pub_type_id, default_settings.search_for_pdf_pubtypeId) if default_settings.search_for_pdf_pubtypeId.present?
 
           # Filter by params
           with(:pubdate).greater_than_or_equal_to(Date.strptime(params[:date_select], "%m/%d/%Y")) if params[:date_select].present?
