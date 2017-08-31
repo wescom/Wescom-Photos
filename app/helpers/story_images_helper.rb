@@ -31,13 +31,11 @@ module StoryImagesHelper
     else
       if image.priority.nil?
         image_priority_okay = false
-        flash_message :admin_error, "Priority = NULL"
       else
         if default_settings.search_for_priority.include? image.priority
           image_priority_okay = true
         else
           image_priority_okay = false
-          flash_message :admin_error, "Priority = "+image.priority
         end
       end
     end
