@@ -5,7 +5,7 @@ class PdfImagesController < ApplicationController
     @locations = Location.all.order("name")
 
     @plans = Plan.where("location_id" => 1)
-#    @plans = @plans.where("publication_type_id" => default_settings.search_for_pdf_pubtypeId)
+    @plans = @plans.where("publication_type_id" => default_settings.search_for_pdf_pubtypeId)
     @publications = @plans.select(:pub_name).uniq.order(:pub_name)
     @section_letters = @plans.joins(:pdf_images).select("pdf_images.section_letter").uniq.order("pdf_images.section_letter")
 
@@ -17,7 +17,7 @@ class PdfImagesController < ApplicationController
           
           # Filter by location and type
           with(:pdf_image_location_id, 1)
-#          with(:pdf_image_pub_type_id, default_settings.search_for_pdf_pubtypeId) if default_settings.search_for_pdf_pubtypeId.present?
+          with(:pdf_image_pub_type_id, default_settings.search_for_pdf_pubtypeId) if default_settings.search_for_pdf_pubtypeId.present?
 
           # Filter by params
           with(:pubdate).greater_than_or_equal_to(Date.strptime(params[:date_select], "%m/%d/%Y")) if params[:date_select].present?
