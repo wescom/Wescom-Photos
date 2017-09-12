@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170825140212) do
+ActiveRecord::Schema.define(version: 20170903051513) do
 
   create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "owner_id"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20170825140212) do
     t.datetime "created_at",                                                         null: false
     t.datetime "updated_at",                                                         null: false
     t.string   "search_for_pdf_pubdate"
-    t.integer  "search_for_pdf_pubtypeId"
+    t.string   "search_for_pdf_pubtypeId"
   end
 
   create_table "keywords", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|

@@ -16,6 +16,7 @@ class DefaultSettingsController < ApplicationController
   def edit
     @default_setting = DefaultSetting.find(params[:id])
     @publication_type = PublicationType.all.order("sort_order")
+    params[:search_for_pdf_pubtypeId_array] = ""
   end
 
   def update
@@ -34,6 +35,10 @@ class DefaultSettingsController < ApplicationController
   
   private
     def default_setting_params
+      # convert search_for_pdf_pubtypeId from array to string, removing blanks
+      params["default_setting"]["search_for_pdf_pubtypeId"] = params["default_setting"]["search_for_pdf_pubtypeId"].reject { |e| e.to_s.empty? }
+      params["default_setting"]["search_for_pdf_pubtypeId"] = params["default_setting"]["search_for_pdf_pubtypeId"].join(",")
+      
       params.require(:default_setting).permit(:image_price, :pdf_price, :confirmation_from_email, 
         :image_use_license, :home_welcome_text, :home_main_images, 
         :home_image_cat1_name, :home_image_cat2_name, :home_image_cat3_name, 
