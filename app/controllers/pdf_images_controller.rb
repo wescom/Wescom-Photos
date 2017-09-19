@@ -22,7 +22,7 @@ class PdfImagesController < ApplicationController
           # Filter by params
           with(:pubdate).greater_than_or_equal_to(Date.strptime(params[:date_select], "%m/%d/%Y")) if params[:date_select].present?
           with(:pubdate).less_than_or_equal_to(Date.strptime(params[:date_select], "%m/%d/%Y")) if params[:date_select].present?
-          with(:publication, params[:pub_select]) if params[:pub_select].present?
+          with(:pdf_plan_publication, params[:pub_select]) if params[:pub_select].present?
           with(:section_letter, params[:sectionletter]) if params[:sectionletter].present?
 
           # Exclue anything older than specified pubdate

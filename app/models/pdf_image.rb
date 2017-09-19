@@ -30,6 +30,12 @@ class PdfImage < ApplicationRecord
     string :publication
     string :section_letter
     integer :page
+    string :pdf_plan_publication do
+      plan.pub_name if plan.present?
+    end
+    string :pdf_plan_section_name do
+      plan.section_name if plan.present?
+    end
   end
 
   def self.order_by_pubdate_section_page
