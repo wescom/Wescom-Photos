@@ -6,7 +6,8 @@ class PdfImagesController < ApplicationController
 
     @plans = Plan.where("location_id" => 1)
     @plans = @plans.where('publication_type_id IN (?)', default_settings.search_for_pdf_pubtypeId.split(",").map(&:to_i))
-    @publications = @plans.select(:pub_name).uniq.order(:pub_name)
+    @publications = @plans.select(:pub_name).joins(:pdf_images).uniq.order(:pub_name)
+puts "********"+@publications.inspect
     @section_letters = @plans.joins(:pdf_images).select("pdf_images.section_letter").uniq.order("pdf_images.section_letter")
 
     if params[:search_query]
