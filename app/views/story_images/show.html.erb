@@ -60,7 +60,7 @@
 						<div class="card text-center">
 							<div class="card-img-top">
 								<%= link_to image_tag(pdf.image(:large), :class=>"card_section_img"), 
-								 	pdf_images_path(:pub_select => pdf.publication, 
+								 	pdf_images_path(:pub_select => pdf.plan.pub_name, 
 									:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
 									:search_query => "") %>
 							</div>
