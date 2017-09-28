@@ -2,6 +2,8 @@ class DefaultSettingsController < ApplicationController
   before_filter :require_admin
   
   def index
+    @locations = Location.all.order("name")
+    
     if DefaultSetting.exists?
       @default_settings = DefaultSetting.all
       @default_setting = DefaultSetting.first
@@ -14,12 +16,16 @@ class DefaultSettingsController < ApplicationController
   end
   
   def edit
+    @locations = Location.all.order("name")
+    
     @default_setting = DefaultSetting.find(params[:id])
     @publication_type = PublicationType.all.order("sort_order")
     params[:search_for_pdf_pubtypeId_array] = ""
   end
 
   def update
+    @locations = Location.all.order("name")
+    
     @default_setting = DefaultSetting.find(params[:id])
     if params[:cancel_button]
       redirect_to default_settings_url
@@ -45,6 +51,6 @@ class DefaultSettingsController < ApplicationController
         :home_image_cat1, :home_image_cat2, :home_image_cat3, 
         :home_image_cat1_description, :home_image_cat2_description, :home_image_cat3_description, 
         :search_for_publish_status, :search_for_priority, :search_for_caption_text,
-        :search_for_pdf_pubdate, :search_for_pdf_pubtypeId)
+        :search_for_pdf_pubdate, :search_for_pdf_pubtypeId, :location_id)
     end
 end

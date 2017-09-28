@@ -11,6 +11,16 @@
 
 <div class="default_block" >
 	<% @default_settings.each do |f| %>
+	
+		<h5>Location:</h5>
+		<div class="form-group row offset-1">
+			<%= select_tag :location_id, 
+				options_from_collection_for_select(@locations, 'id', 'name', 
+				:selected => f.location_id), 
+				{:class => "form-search-select", 
+				:prompt => "- Location -"} %>
+		</div>
+	
 		<h5>Pricing defaults:</h5>
 		<div class="form-group row offset-1">
 			<label for="image_price" class="col-3 col-form-label">Image Price:</label>
