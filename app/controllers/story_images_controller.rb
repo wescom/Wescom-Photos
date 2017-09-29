@@ -1,7 +1,7 @@
 class StoryImagesController < ApplicationController
 
   def index
-    default_settings = DefaultSetting.first
+    default_settings = DefaultSetting.where("location_id" => current_location).first
     @locations = Location.all.order("location_no")
 
     if params[:search_query]
@@ -34,10 +34,12 @@ class StoryImagesController < ApplicationController
   end
 
   def show
+    default_settings = DefaultSetting.where("location_id" => current_location).first
+    
     @story_image = StoryImage.find_by_media_id(params[:id])
     if @story_image.present?
       # Check whether image is for sale
-      if !image_for_sale?(@story_image)
+      if !image_for_sale?(@story_image,default_settings)
         if admin?
           flash_message :admin_error, "Image ##{params[:id]} not for sale: Admin only"
         else
@@ -48,8 +50,6 @@ class StoryImagesController < ApplicationController
       	  redirect_to story_images_path(:search_query => @story_image.story.categoryname)
       	end
       end
-      
-      default_settings = DefaultSetting.first
       
       # find other related images
       if @story_image.story.present?
@@ -89,8 +89,8 @@ class StoryImagesController < ApplicationController
   
   
   private
-  def image_for_sale?(image)
-    default_settings = DefaultSetting.first
+  def image_for_sale?(image,default_settings)
+#    default_settings = DefaultSetting.where("location_id" => current_location).first
 
     # Check captions for default_settings.search_for_caption_text
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s

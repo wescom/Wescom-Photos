@@ -1,7 +1,7 @@
 class PdfImagesController < ApplicationController
 
   def index
-    default_settings = DefaultSetting.first
+    default_settings = DefaultSetting.where("location_id" => current_location).first
     @locations = Location.all.order("name")
 
     @plans = Plan.where("location_id" => 1)
@@ -16,7 +16,7 @@ class PdfImagesController < ApplicationController
           fulltext params[:search_query]
           
           # Filter by location and pub type
-          with(:pdf_image_location_id, 1)
+          with(:pdf_image_location_id, default_settings.location_id)
           with(:pdf_image_pub_type_id, default_settings.search_for_pdf_pubtypeId.split(",").map(&:to_i)) if default_settings.search_for_pdf_pubtypeId.present?
 
           # Filter by params

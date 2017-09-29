@@ -19,6 +19,10 @@ module ApplicationHelper
     end
   end
   
+  def current_location
+    return 1
+  end
+
   def flash_message(name, msg)
       flash[name] ||= []
       flash[name] << msg

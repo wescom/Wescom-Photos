@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :require_admin, only: [:index, :dashboard]
 
   def dashboard
-    @default_settings = DefaultSetting.first
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
     @orders = Order.all
     @order_items = OrderItem.all
   end
@@ -21,11 +21,11 @@ class OrdersController < ApplicationController
     @cart = session[:cart_id]
     @order.expiration_month = Date.today.month.to_s
 
-    @default_settings = DefaultSetting.first
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
   end
 
   def create
-    @default_settings = DefaultSetting.first
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
 
     @order = Order.new(order_params)
     @cart = Cart.find(session[:cart_id])
