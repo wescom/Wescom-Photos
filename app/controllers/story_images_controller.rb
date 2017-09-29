@@ -13,7 +13,7 @@ class StoryImagesController < ApplicationController
             fulltext "For Sale", :fields => [:forsale]
             all do
               #Filter all searches by location
-              with(:story_location_id, 1)
+              with(:story_location_id, default_settings.location_id)
               # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin'
               fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
               # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'

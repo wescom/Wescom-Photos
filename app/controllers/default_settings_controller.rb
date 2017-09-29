@@ -15,12 +15,36 @@ class DefaultSettingsController < ApplicationController
     end
   end
   
-  def edit
+  def new
+    @locations = Location.all.order("name")
+    @publication_type = PublicationType.all.order("sort_order")
+    params[:search_for_pdf_pubtypeId_array] = "1"
+    
+    @default_setting = DefaultSetting.new
+  end
+  
+  def create
     @locations = Location.all.order("name")
     
-    @default_setting = DefaultSetting.find(params[:id])
+    if params[:cancel_button]
+      redirect_to default_settings_url
+    else
+      @default_setting = DefaultSetting.new(default_setting_params)
+      if @default_setting.save
+        flash_message :notice, "Default Settings Created"
+        redirect_to default_settings_url
+      else
+        render :action => :new
+      end
+    end
+  end
+  
+  def edit
+    @locations = Location.all.order("name")
     @publication_type = PublicationType.all.order("sort_order")
     params[:search_for_pdf_pubtypeId_array] = ""
+    
+    @default_setting = DefaultSetting.find(params[:id])
   end
 
   def update

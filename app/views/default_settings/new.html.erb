@@ -135,7 +135,7 @@
 			<label for="search_for_pdf_pubtypeId" class="col-3 col-form-label">PDF publication type:</label>
 			<div class="col-6">
 				<%= f.select :search_for_pdf_pubtypeId, @publication_type.collect { |c| [c.name, c.id] }, 
-						{:include_blank => "- Choose publication type -", :selected=>@default_setting.search_for_pdf_pubtypeId.split(",").map(&:to_i)}, 
+						{:include_blank => "- Choose publication type -", :selected=>''}, 
 						:multiple => true, :class => 'form-control' %>
 			</div>
 		</div>

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
   match  "/dashboard" => "orders#dashboard", :via => [:get]
   
-  resources :default_settings, only: [:index, :edit, :update]
+  resources :default_settings
   resources :default_pages
   
   resources :sessions

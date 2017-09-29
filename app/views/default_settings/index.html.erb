@@ -2,7 +2,7 @@
 	<div class="container search_container">
 		<div class="row justify-content-between">
 			<h1>Global Settings</h1>
-			<div><%= link_to 'Edit', edit_default_setting_path(@default_setting), :class=>"btn btn-primary btn-small" %></div>
+			<div><%= link_to 'Add', new_default_setting_path, :class=>"btn btn-primary btn-small" %></div>
 		</div>
 		<h6>These settings control site-wide defaults...</h6>
 	</div>
@@ -10,137 +10,33 @@
 </div>
 
 <div class="default_block" >
-	<% @default_settings.each do |f| %>
-	
-		<h5>Location:</h5>
-		<div class="form-group row offset-1">
-			<%= select_tag :location_id, 
-				options_from_collection_for_select(@locations, 'id', 'name', 
-				:selected => f.location_id), 
-				{:class => "form-search-select", 
-				:prompt => "- Location -"} %>
-		</div>
-	
-		<h5>Pricing defaults:</h5>
-		<div class="form-group row offset-1">
-			<label for="image_price" class="col-3 col-form-label">Image Price:</label>
-			<div class="col-3 default_fields">
-				<%= number_to_currency(f.image_price) %>
-			</div>
-		</div>
-		<div class="form-group row offset-1">
-			<label for="image_price" class="col-3 col-form-label">PDF Price:</label>
-			<div class="col-3 default_fields">
-				<%= number_to_currency(f.pdf_price) %>
-			</div>
+	<table id="default_settings" class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">Location</th>
+				<th class="text-center">Last Updated</th>
+				<th class="action_col text-center"></th>
+			</tr>
+		</thead>
 
-		</div>
-		<hr/>
-		
-		<h5>Orders:</h5>
-		<div class="form-group row offset-1">
-			<label for="image_use_license" class="col-3 col-form-label">Image use license:</label>
-			<div class="col-8 default_fields default_fields_textarea">
-				<%= f.image_use_license %>
-			</div>
-		</div>
-		<div class="form-group row offset-1">
-			<label for="confirmation_from_email" class="col-3 col-form-label">Confirmation From Email:</label>
-			<div class="col-8 default_fields">
-				<%= f.confirmation_from_email %>
-			</div>
-		</div>
-		<hr/>
+		<tbody>
+			<% if @default_settings.size > 0 %>
+				<% @default_settings.each do |default_setting| %>
+					<tr>
+						<td><%= default_setting.location.name %></td>
+						<td class="text-center"><%= default_setting.updated_at.strftime('%m/%d/%y') %></td>
+						<td class="text-center">
+							<p class="btn btn-outline-info">
+								<%= link_to '<i class="fa fa-edit"></i>'.html_safe, 
+									edit_default_setting_path(default_setting) %>
+							</p>
+						</td>
+					</tr>
+				<% end %>
+			<% else %>
+				<tr><td colspan="5">No settings</td></tr>
+			<% end %>
+		</tbody>
+	</table>
+<div>
 
-		<h5>Home page:</h5>
-		<div class="form-group row offset-1">
-			<label for="home_main_images" class="col-3 col-form-label">Image IDs to use for main image area:</label>
-			<div class="col-8 default_fields default_fields_textarea">
-				<%= f.home_main_images %>
-			</div>
-		</div>
-		<div class="form-group row offset-1">
-			<label for="home_welcome_text" class="col-3 col-form-label">Welcome text:</label>
-			<div class="col-8 default_fields default_fields_textarea">
-				<%= f.home_welcome_text %>
-			</div>
-		</div>
-		<div class="form-group row offset-1">
-			<label for="" class="col-3 col-form-label"></label>
-			<div class="col-2 text-center">Column 1</div>
-			<div class="col-2 text-center">Column 2</div>
-			<div class="col-2 text-center">Column 3</div>
-		</div>
-		<div class="form-group row offset-1">
-			<label for="home_image_cat1" class="col-3 col-form-label">Image categories names:</label>
-			<div class="col-2 default_fields">
-				<%= f.home_image_cat1_name %>
-			</div>
-			<div class="col-2 default_fields">
-				<%= f.home_image_cat2_name %>
-			</div>
-			<div class="col-2 default_fields">
-				<%= f.home_image_cat3_name %>
-			</div>
-		</div>	
-		<div class="form-group row offset-1">
-			<label for="home_image_cat1" class="col-3 col-form-label">Image search categories:</label>
-			<div class="col-2 default_fields">
-				<%= f.home_image_cat1 %>
-			</div>
-			<div class="col-2 default_fields">
-				<%= f.home_image_cat2 %>
-			</div>
-			<div class="col-2 default_fields">
-				<%= f.home_image_cat3 %>
-			</div>
-		</div>
-		<div class="form-group row offset-1">
-			<label for="home_image_cat1_description" class="col-3 col-form-label">Image search descriptions:</label>
-			<div class="col-2 default_fields">
-				<%= f.home_image_cat1_description %>
-			</div>
-			<div class="col-2 default_fields">
-				<%= f.home_image_cat2_description %>
-			</div>
-			<div class="col-2 default_fields">
-				<%= f.home_image_cat3_description %>
-			</div>
-		</div>
-		<hr/>
-
-		<h5>Search:</h5>
-		<small class="form-text text-muted">Filtering to include on all searches in database. These settings determine which items are searchable, otherwise they are excluded from the results.</small>
-		<div class="form-group row offset-1">
-			<label for="search_for_publish_status" class="col-3 col-form-label">Include image 'Publish Status':</label>
-			<div class="col-6 default_fields">
-				<%= f.search_for_publish_status %>
-			</div>
-		</div>
-		<div class="form-group row offset-1">
-			<label for="search_for_priority" class="col-3 col-form-label">Include image 'Priority':</label>
-			<div class="col-6 default_fields">
-				<%= f.search_for_priority %>
-			</div>
-		</div>
-		<div class="form-group row offset-1">
-			<label for="search_for_caption_text" class="col-3 col-form-label">Include image caption text:</label>
-			<div class="col-6 default_fields">
-				<%= f.search_for_caption_text %>
-			</div>
-		</div>
-		<hr class="form-group row offset-1"/>
-		<div class="form-group row offset-1">
-			<label for="search_for_pdf_pubdate" class="col-3 col-form-label">PDF pubdate greater than:</label>
-			<div class="col-6 default_fields">
-				<%= f.search_for_pdf_pubdate %>
-			</div>
-		</div>
-		<div class="form-group row offset-1">
-			<label for="search_for_pdf_pubtypeId" class="col-3 col-form-label">PDF publication type:</label>
-			<div class="col-6 default_fields">
-				<%= f.search_for_pdf_pubtypeId %>
-			</div>
-		</div>
-	<% end %>
-</div>
