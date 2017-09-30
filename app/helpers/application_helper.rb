@@ -20,7 +20,7 @@ module ApplicationHelper
   end
   
   def current_location
-    return 3
+    return 1
   end
 
   def flash_message(name, msg)
