@@ -2,7 +2,6 @@ class HomeController < ApplicationController
   def index
     if DefaultSetting.exists? 
       @default_settings = DefaultSetting.where("location_id" => current_location).first
-      @default_settings = DefaultSetting.first
 
       # Get random image from home_main_images for display on Home page
       if !@default_settings.home_main_images.empty?
