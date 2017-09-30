@@ -8,7 +8,7 @@ class HomeController < ApplicationController
         random_image = @default_settings.home_main_images.split(/\s*,\s*/).shuffle.first
         @main_image = StoryImage.find(random_image)
       else
-        @main_image = StoryImage.find(648617)
+        @main_image = nil
       end
 
       # Get sample image category info
@@ -26,8 +26,9 @@ class HomeController < ApplicationController
       @cat3_image = @cat3_image.published.where('categoryname = ? OR subcategoryname = ?',@default_settings.home_image_cat3, @default_settings.home_image_cat3)
       @cat3_image = @cat3_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
       @cat3_image = @cat3_image.order_by_pubdate.first
-      
-      @pdf_images = PdfImage.where('publication like ? and section_letter = ? and page = ?', "The Bulletin", "A", 1)
+
+      @pdf_images = PdfImage.joins(:plan).where('plans.location_id = ?', @default_settings.location_id)
+      @pdf_images = @pdf_images.where('section_letter = ? and page = ?', "A", 1)
       @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(4)
       
       @locations = Location.all.order("location_no")

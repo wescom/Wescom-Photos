@@ -4,7 +4,7 @@ class PdfImagesController < ApplicationController
     default_settings = DefaultSetting.where("location_id" => current_location).first
     @locations = Location.all.order("name")
 
-    @plans = Plan.where("location_id" => 1)
+    @plans = Plan.where("location_id" => current_location)
     @plans = @plans.where('publication_type_id IN (?)', default_settings.search_for_pdf_pubtypeId.split(",").map(&:to_i))
     @publications = @plans.select(:pub_name).joins(:pdf_images).uniq.order(:pub_name)
     @section_letters = @plans.select("pdf_images.section_letter").joins(:pdf_images).uniq.order("pdf_images.section_letter")
