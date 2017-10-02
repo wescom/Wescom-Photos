@@ -20,11 +20,14 @@ module ApplicationHelper
   end
   
   def current_location
-    current_domain = request.domain.to_s
-    current_subdomain = request.subdomain.to_s
-puts "***************"+current_domain.to_s
-puts "***************"+current_subdomain.to_s
-    return 1
+    # get subdomain from URL
+    current_subdomain = request.subdomains.first.to_s
+    puts "****subdomain***"+current_subdomain.to_s
+
+    # find the location associated to the subdomain and return the location record's ID
+    @url_location = Location.where('short_url_newspaper_name like ?', current_subdomain)
+    puts "*****URL***"+@url_location.first.id.to_s
+    return @url_location.first.id
   end
 
   def flash_message(name, msg)
