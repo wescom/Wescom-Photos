@@ -90,7 +90,7 @@ class StoryImagesController < ApplicationController
   
   private
   def image_for_sale?(image,default_settings)
-#    default_settings = DefaultSetting.where("location_id" => current_location).first
+    default_settings = DefaultSetting.where("location_id" => current_location).first
 
     # Check captions for default_settings.search_for_caption_text
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
