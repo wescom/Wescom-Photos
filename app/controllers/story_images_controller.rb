@@ -102,7 +102,8 @@ class StoryImagesController < ApplicationController
     end
       
     # Check image priority for default_settings.search_for_priority
-    if default_settings.search_for_priority.nil? 
+puts "******"+default_settings.search_for_priority.empty?.to_s
+    if default_settings.search_for_priority.empty? 
       image_priority_okay = true
     else
       if image.priority.nil?
