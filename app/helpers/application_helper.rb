@@ -20,7 +20,11 @@ module ApplicationHelper
   end
   
   def current_location
-    return 7
+    current_domain = request.domain.to_s
+    current_subdomain = request.subdomain.to_s
+puts "***************"+current_domain.to_s
+puts "***************"+current_subdomain.to_s
+    return 1
   end
 
   def flash_message(name, msg)
