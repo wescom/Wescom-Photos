@@ -50,7 +50,7 @@
 
 		<h5>Home page:</h5>
 		<div class="form-group row">
-			<label for="home_main_images" class="offset-1 col-3 col-form-label">Image IDs to use for main image area:</label>
+			<label for="home_main_images" class="offset-1 col-3 col-form-label">Image IDs (not media Id) to use for main image area:</label>
 			<div class="col-8">
 				<%= f.text_area :home_main_images, class: "form-control", :placeholder => "ImageId of any images to use for main area (comma delimited)" %>
 			</div>
@@ -101,12 +101,6 @@
 
 		<h5>Search:</h5>
 		<small class="form-text text-muted">Filtering to include on all searches in database.</small>
-		<div class="form-group row offset-1">
-			<label for="search_for_publish_status" class="col-3 col-form-label">Include image 'Publish Status':</label>
-			<div class="col-6">
-				<%= f.text_field :search_for_publish_status, class: "form-control", :placeholder => "Publish Status to filter by" %>
-			</div>
-		</div>
 		<div class="form-group row offset-1">
 			<label for="search_for_priority" class="col-3 col-form-label">Include image 'Priority':</label>
 			<div class="col-6">
