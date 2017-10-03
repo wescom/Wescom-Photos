@@ -2,7 +2,7 @@ class StoryImagesController < ApplicationController
 
   def index
     default_settings = DefaultSetting.where("location_id" => current_location).first
-    @locations = Location.all.order("location_no")
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
 
     if params[:search_query]
       begin
@@ -35,6 +35,7 @@ class StoryImagesController < ApplicationController
 
   def show
     default_settings = DefaultSetting.where("location_id" => current_location).first
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
     
     @story_image = StoryImage.find_by_media_id(params[:id])
     if @story_image.present?
@@ -55,7 +56,8 @@ class StoryImagesController < ApplicationController
       if @story_image.story.present?
         params[:search_query] = @story_image.story.categoryname
         
-        @related_story_images = @story_image.story.story_images.where("id != ?", @story_image.id)
+        @related_story_images = @story_image.story.story_images.where("id != ?", @story_image.id)         # remove current image
+        @related_story_images = @related_story_images.reject {|x| !image_for_sale?(x,default_settings)}   # remove any images not for sale
       end
 
       # find pdfs of this image's publication
@@ -90,7 +92,7 @@ class StoryImagesController < ApplicationController
   
   private
   def image_for_sale?(image,default_settings)
-    default_settings = DefaultSetting.where("location_id" => current_location).first
+#    default_settings = DefaultSetting.where("location_id" => current_location).first
 
     # Check captions for default_settings.search_for_caption_text
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
@@ -102,7 +104,6 @@ class StoryImagesController < ApplicationController
     end
       
     # Check image priority for default_settings.search_for_priority
-puts "******"+default_settings.search_for_priority.empty?.to_s
     if default_settings.search_for_priority.empty? 
       image_priority_okay = true
     else

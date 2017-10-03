@@ -108,7 +108,7 @@
 						<% if image.story %>
 							<% related_count = 0 %>
 							<% image.story.story_images.each do |related_image| %>
-								<% if related_image.id != image.id and image_for_sale?(related_image) %>
+								<% if related_image.id != image.id and image_for_sale?(related_image,@default_settings) %>
 									<% related_count += 1 %>
 									<% if related_count == 1 %>
 										<div class="col-xs-2 col-sm-2 col-md-2 col-lg-1 reduce_padding">

@@ -95,7 +95,6 @@
 					</div>
 					<% if !@related_story_images.nil? %>
 						<% @related_story_images.each_with_index do |image, index| %>
-							<% if image_for_sale?(image) %>
 								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 									<div class="card text-center">
 										<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"), story_image_path(image.media_id) %>
@@ -111,7 +110,6 @@
 										</div>
 									</div>
 								</div>
-							<% end %>
 						<% end %>
 					<% end %>
 				</div>

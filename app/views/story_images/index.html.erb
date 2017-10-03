@@ -20,7 +20,7 @@
 
 		<div id="image-gallery" class="container-fluid">
 			<div class="row">
-				<%= render :partial => 'image', :collection => @story_images.results %>
+				<%= render :partial => 'image', :collection => @story_images.results, object: @default_settings %>
 			</div>
 		</div>
 		
