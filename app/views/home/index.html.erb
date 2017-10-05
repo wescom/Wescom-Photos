@@ -1,6 +1,11 @@
 <br/>
 <div class="home-page-head">
-	<%= image_tag(@main_image.image(:original), :class=>"") unless @main_image.nil? %>
+	<% if !@main_image.nil? %>
+		<%= image_tag(@main_image.image(:original), :class=>"") unless @main_image.nil? %>
+		<% if admin? %>
+			(Image Id: <%= @main_image.id %>)
+		<% end %>
+	<% end %>
     <div class="banner-search-wrap">
 		<div class="container">
 			<div class="row">

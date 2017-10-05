@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170928175819) do
+ActiveRecord::Schema.define(version: 20171005035323) do
 
   create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "owner_id"
@@ -262,9 +262,12 @@ ActiveRecord::Schema.define(version: 20170928175819) do
     t.text     "htmltext",         limit: 65535
     t.boolean  "approved"
     t.string   "web_pubnum"
+    t.index ["categoryname"], name: "index_stories_on_categoryname", using: :btree
     t.index ["plan_id"], name: "index_stories_on_plan_id", using: :btree
     t.index ["project_group"], name: "index_stories_on_project_group", using: :btree
     t.index ["pubdate"], name: "index_stories_on_pubdate", using: :btree
+    t.index ["subcategoryname"], name: "index_stories_on_subcategoryname", using: :btree
+    t.index ["web_pubnum"], name: "index_stories_on_web_pubnum", using: :btree
   end
 
   create_table "story_images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -297,6 +300,7 @@ ActiveRecord::Schema.define(version: 20170928175819) do
     t.datetime "expire_date"
     t.string   "forsale"
     t.index ["image_updated_at"], name: "index_story_images_on_image_updated_at", using: :btree
+    t.index ["media_id"], name: "index_story_images_on_media_id", using: :btree
     t.index ["story_id"], name: "index_story_images_on_story_id", using: :btree
   end
 
