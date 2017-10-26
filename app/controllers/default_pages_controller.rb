@@ -2,10 +2,12 @@ class DefaultPagesController < ApplicationController
   before_filter :require_admin, only: [:index, :edit, :update, :new, :create]
   
   def index
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
       @default_pages = DefaultPage.all
   end
 
   def show
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
     @default_page = DefaultPage.find_by_page_name(params[:id])
     if @default_page.nil?
       redirect_to :root
@@ -13,6 +15,7 @@ class DefaultPagesController < ApplicationController
   end
   
   def new
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
     @default_page = DefaultPage.new
   end
   
@@ -32,6 +35,7 @@ class DefaultPagesController < ApplicationController
   end
   
   def edit
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
     @default_page = DefaultPage.find(params[:id])
   end
 

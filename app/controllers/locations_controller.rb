@@ -2,14 +2,17 @@ class LocationsController < ApplicationController
   before_action :require_admin, only: [:index, :edit, :update, :show]
 
   def index
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
     @locations = Location.all
   end
 
   def show
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
     @location = Location.find(params[:id])
   end
 
     def edit
+      @default_settings = DefaultSetting.where("location_id" => current_location).first
       @location = Location.find(params[:id])
     end
 

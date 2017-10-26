@@ -21,16 +21,16 @@
 		</thead>
 
 		<tbody>
-			<% if @default_settings.size > 0 %>
-				<% @default_settings.each do |default_setting| %>
+			<% if @all_default_settings.size > 0 %>
+				<% @all_default_settings.each do |current_default_setting| %>
 					<tr>
-						<td><%= image_tag(default_setting.site_image(:small), :alt=>@default_setting.id) %></td>
-						<td><%= default_setting.location.name %></td>
-						<td class="text-center"><%= default_setting.updated_at.strftime('%m/%d/%y') %></td>
+						<td><%= image_tag(current_default_setting.site_image(:small), :alt=>current_default_setting.id) %></td>
+						<td><%= current_default_setting.location.name %></td>
+						<td class="text-center"><%= current_default_setting.updated_at.strftime('%m/%d/%y') %></td>
 						<td class="text-center">
 							<p class="btn btn-outline-info">
 								<%= link_to '<i class="fa fa-edit"></i>'.html_safe, 
-									edit_default_setting_path(default_setting) %>
+									edit_default_setting_path(current_default_setting) %>
 							</p>
 						</td>
 					</tr>

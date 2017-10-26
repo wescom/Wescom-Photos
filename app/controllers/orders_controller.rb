@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
   end
 
   def index
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
     @orders = Order.all.order("created_at desc")
     if params[:search].present?
       @orders = @orders.where("id = ? or first_name = ? or last_name = ?", params[:search], params[:search], params[:search])
@@ -17,11 +18,11 @@ class OrdersController < ApplicationController
   end
 
   def new
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
+
     @order = Order.new
     @cart = session[:cart_id]
     @order.expiration_month = Date.today.month.to_s
-
-    @default_settings = DefaultSetting.where("location_id" => current_location).first
   end
 
   def create
@@ -71,6 +72,8 @@ class OrdersController < ApplicationController
   end
     
   def show
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
+
     @order = Order.find_by_obscure_uniq_identifier(params[:id])
   end
   

@@ -9,12 +9,12 @@
 </div>
 
 <div class="default_block" >
-	<%= form_for @default_setting, url: default_setting_path, html: { multipart: true } do |f| %>
+	<%= form_for @default_settings, url: default_setting_path, html: { multipart: true } do |f| %>
 		<h5>Location:</h5>
 		<div class="form-group row offset-1">
 			<%= f.select 'location_id', 
 				options_from_collection_for_select(@locations, 'id', 'name', 
-				:selected => @default_setting.location_id), 
+				:selected => @default_settings.location_id), 
 				{:class => "form-search-select", :prompt => "- Select Location -", :required => true} %>
 		</div>
 
@@ -53,7 +53,7 @@
 			<label for="home_logo" class="offset-1 col-3 col-form-label">Location logo:</label>
 			<div class="col-8">
 				<%= f.file_field :site_image, as: :file %>
-				<%= image_tag(@default_setting.site_image(:small), :alt=>@default_setting.id) %>
+				<%= image_tag(@default_settings.site_image(:small), :alt=>@default_settings.id) %>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -136,7 +136,7 @@
 			<label for="search_for_pdf_pubtypeId" class="col-3 col-form-label">PDF publication type:</label>
 			<div class="col-6">
 				<%= f.select :search_for_pdf_pubtypeId, @publication_type.collect { |c| [c.name, c.id] }, 
-						{:include_blank => "- Choose publication type -", :selected=>@default_setting.search_for_pdf_pubtypeId.split(",").map(&:to_i)}, 
+						{:include_blank => "- Choose publication type -", :selected=>@default_settings.search_for_pdf_pubtypeId.split(",").map(&:to_i)}, 
 						:multiple => true, :class => 'form-control' %>
 			</div>
 		</div>

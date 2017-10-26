@@ -2,16 +2,16 @@ class DefaultSettingsController < ApplicationController
   before_filter :require_admin
   
   def index
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
     @locations = Location.all.order("name")
     
     if DefaultSetting.exists?
-      @default_settings = DefaultSetting.all
-      @default_setting = DefaultSetting.first
+      @all_default_settings = DefaultSetting.all
     else  # If no default settings record, then create one and send user to edit
-      @default_setting = DefaultSetting.new
-      @default_setting.save
+      @default_settings = DefaultSetting.new
+      @default_settings.save
       flash_message :notice, "Default settings have not been set. Please update defaults."
-      redirect_to edit_default_setting_url(@default_setting)
+      redirect_to edit_default_setting_url(@default_settings)
     end
   end
   
@@ -20,7 +20,7 @@ class DefaultSettingsController < ApplicationController
     @publication_type = PublicationType.all.order("sort_order")
     params[:search_for_pdf_pubtypeId_array] = "1"
     
-    @default_setting = DefaultSetting.new
+    @default_settings = DefaultSetting.new
   end
   
   def create
@@ -29,8 +29,8 @@ class DefaultSettingsController < ApplicationController
     if params[:cancel_button]
       redirect_to default_settings_url
     else
-      @default_setting = DefaultSetting.new(default_setting_params)
-      if @default_setting.save
+      @default_settings = DefaultSetting.new(default_setting_params)
+      if @default_settings.save
         flash_message :notice, "Default Settings Created"
         redirect_to default_settings_url
       else
@@ -44,17 +44,17 @@ class DefaultSettingsController < ApplicationController
     @publication_type = PublicationType.all.order("sort_order")
     params[:search_for_pdf_pubtypeId_array] = ""
     
-    @default_setting = DefaultSetting.find(params[:id])
+    @default_settings = DefaultSetting.find(params[:id])
   end
 
   def update
     @locations = Location.all.order("name")
     
-    @default_setting = DefaultSetting.find(params[:id])
+    @default_settings = DefaultSetting.find(params[:id])
     if params[:cancel_button]
       redirect_to default_settings_url
     else
-      if @default_setting.update_attributes(default_setting_params)
+      if @default_settings.update_attributes(default_setting_params)
         flash_message :notice, "Settings updated"
         redirect_to default_settings_url
       else
