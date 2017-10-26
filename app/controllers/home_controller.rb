@@ -34,10 +34,10 @@ class HomeController < ApplicationController
       @locations = Location.all.order("location_no")
 
     else  # If no default settings record, then create one and send user to edit
-      @default_setting = DefaultSetting.new
-      @default_setting.save
+      @default_settings = DefaultSetting.new
+      @default_settings.save
       flash_message :notice, "Default settings have not been set. Please update defaults."
-      redirect_to edit_default_setting_url(@default_setting)
+      redirect_to edit_default_setting_url(@default_settings)
     end
   end
 end

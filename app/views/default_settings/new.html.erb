@@ -50,6 +50,12 @@
 
 		<h5>Home page:</h5>
 		<div class="form-group row">
+			<label for="home_logo" class="offset-1 col-3 col-form-label">Location logo:</label>
+			<div class="col-8">
+				<%= f.file_field :image %>
+			</div>
+		</div>
+		<div class="form-group row">
 			<label for="home_main_images" class="offset-1 col-3 col-form-label">Image IDs to use for main image area:</label>
 			<div class="col-8">
 				<%= f.text_area :home_main_images, class: "form-control", :placeholder => "ImageId of any images to use for main area (comma delimited)" %>
