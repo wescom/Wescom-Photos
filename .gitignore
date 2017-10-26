@@ -20,7 +20,10 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore secret keys and passwords
 /config/application.yml
 /config/secrets.yml
 /config/database.yml
 
+# Ignore default_settings images for locations
+/public/site_images
