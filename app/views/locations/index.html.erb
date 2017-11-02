@@ -28,6 +28,16 @@
 									edit_location_path(location) %>
 							</p>
 						</td>
+						<% if location.default_settings.first.nil? %>
+							<tr>
+								<td class="text-center">
+									Default Settings record missing for <%= location.name %>
+								</td>
+								<td>
+									<div><%= link_to 'Add record', new_default_setting_path, :class=>"btn btn-primary btn-small" %></div>
+								</td>
+							</tr>
+						<% end %>
 					</tr>
 				<% end %>
 			<% else %>
