@@ -3,6 +3,12 @@ class HomeController < ApplicationController
     if DefaultSetting.exists? 
       @default_settings = DefaultSetting.where("location_id" => current_location).first
 
+      if @default_settings.nil?
+        flash_message :notice, "Default settings have not been set. Please update defaults for location: "+current_location.to_s
+        @default_settings = DefaultSetting.first
+        redirect_to default_settings_url
+      end
+
       # Get random image from home_main_images for display on Home page
       if !@default_settings.home_main_images.empty?
         random_image = @default_settings.home_main_images.split(/\s*,\s*/).shuffle.first
@@ -30,9 +36,8 @@ class HomeController < ApplicationController
       @pdf_images = PdfImage.joins(:plan).where('plans.location_id = ?', @default_settings.location_id)
       @pdf_images = @pdf_images.where('section_letter = ? and page = ?', "A", 1)
       @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(4)
-      
+    
       @locations = Location.all.order("location_no")
-
     else  # If no default settings record, then create one and send user to edit
       @default_settings = DefaultSetting.new
       @default_settings.save

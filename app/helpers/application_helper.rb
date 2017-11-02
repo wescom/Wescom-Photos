@@ -29,10 +29,10 @@ module ApplicationHelper
     if @url_location.empty?
       # subdomain cannot be found in Location table
       @url_location = Location.first
-      puts "*****URL***"+@url_location.id.to_s
+      #puts "*****URL***"+@url_location.id.to_s
       return @url_location.id
     else
-      puts "*****URL***"+@url_location.first.id.to_s
+      #puts "*****URL***"+@url_location.first.id.to_s
       return @url_location.first.id
     end
   end
