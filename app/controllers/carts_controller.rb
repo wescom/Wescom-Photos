@@ -26,6 +26,8 @@ class CartsController < ApplicationController
   end
 
   def show
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
+
     if request.url != request.referrer
       # save referring url to retain previous search page
       session[:referrer] = request.referrer
