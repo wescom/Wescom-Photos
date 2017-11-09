@@ -1,7 +1,7 @@
 <br/>
 <div class="home-page-head">
 	<% if !@main_image.nil? %>
-		<%= image_tag(@main_image.image(:original), :class=>"") unless @main_image.nil? %>
+		<%= image_tag(@main_image.image(:large), :class=>"") unless @main_image.nil? %>
 		<% if admin? %>
 			(Image Id: <%= @main_image.id %>)
 		<% end %>
