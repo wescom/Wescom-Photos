@@ -35,17 +35,17 @@
 									edit_default_setting_path(current_default_setting),
 									title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
 							</p>
+							<p class="btn btn-outline-info">
+								<%= link_to '<i class="fa fa-image"></i>'.html_safe, 
+									new_default_banner_image_path(:current_default_setting=>current_default_setting),
+									title: 'Add banner image', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
+							</p>
 						</td>
 						<% if !current_default_setting.default_banner_images.empty? %>
 							<tr>
 								<td></td>
 								<td>
 									<p class="">Banner Images: </p>
-									<p class="btn btn-outline-info">
-										<%= link_to '<i class="fa fa-image"></i>'.html_safe, 
-											new_default_banner_image_path(:current_default_setting=>current_default_setting),
-											title: 'Add banner image', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
-									</p>
 								</td>
 								<td>
 									<% current_default_setting.default_banner_images.each do |banner_image| %>
