@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012153500) do
+ActiveRecord::Schema.define(version: 20171116030201) do
 
   create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "owner_id"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20171012153500) do
     t.integer  "correction_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "default_banner_images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.integer  "default_setting_id"
+    t.string   "banner_image_file_name"
+    t.string   "banner_image_content_type"
+    t.integer  "banner_image_file_size"
+    t.datetime "banner_image_updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "default_pages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -162,8 +172,10 @@ ActiveRecord::Schema.define(version: 20171012153500) do
     t.index ["pubdate", "publication", "page"], name: "date_pub_page", using: :btree
     t.index ["pubdate", "publication", "section_letter", "page"], name: "date_pub_letter_page", using: :btree
     t.index ["pubdate", "publication", "section_letter", "section_name", "page"], name: "date_pub_letter_name_page", using: :btree
+    t.index ["pubdate", "section_letter", "page"], name: "date_letter_page", using: :btree
     t.index ["pubdate"], name: "index_pdf_images_on_pubdate", using: :btree
     t.index ["publication"], name: "index_pdf_images_on_publication", using: :btree
+    t.index ["section_letter", "page"], name: "letter_page", using: :btree
     t.index ["section_letter"], name: "index_pdf_images_on_section_letter", using: :btree
   end
 

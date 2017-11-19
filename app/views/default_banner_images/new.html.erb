@@ -1,0 +1,26 @@
+<div class="default_heading">
+	<div class="container search_container">
+		<div class="row justify-content-between">
+			<h1>New Banner Image for <%= @default_setting.location.name %></h1>
+		</div>
+	</div>
+
+</div>
+
+<div class="default_block" >
+	<%= form_for(@default_banner_image) do |f| %>
+		<%= f.hidden_field :default_setting_id, :value => @default_setting.id %>
+		<div class="form-group row">
+			<label for="banner_image" class="offset-1 col-3 col-form-label">Banner image:</label>
+			<div class="col-8">
+				<%= f.file_field :banner_image %>
+			</div>
+		</div>
+	
+		<div class="form-group row d-flex justify-content-end">
+			<%= f.submit "Cancel", :name => 'cancel_button', :class => 'btn btn-primary'%>
+			<%= f.submit "Upload", :class => 'btn btn-primary'%>
+		</div>
+	
+	<% end %>
+</div>

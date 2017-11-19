@@ -1,5 +1,6 @@
 class DefaultSetting < ApplicationRecord
   belongs_to :location
+  has_many  :default_banner_images
   
   has_attached_file :site_image, 
       :styles => { 

@@ -9,10 +9,10 @@ class HomeController < ApplicationController
         redirect_to default_settings_url
       end
 
-      # Get random image from home_main_images for display on Home page
-      if !@default_settings.home_main_images.empty?
-        random_image = @default_settings.home_main_images.split(/\s*,\s*/).shuffle.first
-        @main_image = StoryImage.find(random_image)
+      # Get random image from default_banner_images to display on Home page
+      if @default_settings.default_banner_images.count > 0
+        random_image = @default_settings.default_banner_images.order("RAND()").first
+        @banner_image = DefaultBannerImage.find(random_image)
       else
         @main_image = nil
       end

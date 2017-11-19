@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   match  "/dashboard" => "orders#dashboard", :via => [:get]
   
   resources :default_settings
+  resources :default_banner_images, :only => [:new, :create, :destroy]
   resources :default_pages
   
   resources :sessions
