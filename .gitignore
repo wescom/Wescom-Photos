@@ -26,4 +26,5 @@
 /config/database.yml
 
 # Ignore default_settings images for locations
-/public/images
+/public/images/banner_images
+/public/images/site_images
