@@ -16,6 +16,7 @@
 				<th class="">Id</th>
 				<th class="">Location</th>
 				<th class=""></th>
+				<th class=""></th>
 				<th class="text-center">Last Updated</th>
 				<th class="action_col text-center"></th>
 			</tr>
@@ -28,6 +29,7 @@
 						<td><%= current_default_setting.id %></td>
 						<td class="font-weight-bold"><%= current_default_setting.location.name %></td>
 						<td><%= image_tag(current_default_setting.site_image(:small), :alt=>current_default_setting.id) %></td>
+						<td></td>
 						<td class="text-center"><%= current_default_setting.updated_at.strftime('%m/%d/%y') %></td>
 						<td class="text-center">
 							<p class="btn btn-outline-info">
@@ -37,6 +39,7 @@
 							</p>
 						</td>
 						<tr>
+							<td></td>
 							<td></td>
 							<td>
 								<p class="">Banner Images: </p>
