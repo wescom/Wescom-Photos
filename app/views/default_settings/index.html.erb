@@ -28,7 +28,9 @@
 					<tr>
 						<td><%= current_default_setting.id %></td>
 						<td class="font-weight-bold"><%= current_default_setting.location.name %></td>
-						<td><%= image_tag(current_default_setting.site_image(:small), :alt=>current_default_setting.id) %></td>
+						<td><%= image_tag(current_default_setting.site_image(:medium), 
+								:alt=>current_default_setting.id, 
+								:class=>"newspaper_logo") %></td>
 						<td></td>
 						<td class="text-center"><%= current_default_setting.updated_at.strftime('%m/%d/%y') %></td>
 						<td class="text-center">
