@@ -7,7 +7,8 @@
 				<% end %>
 			</h1>
 			<% if !@default_settings.nil? %>
-				<%= link_to image_tag(@default_settings.site_image(:medium), :alt=>"newspaper_logo"), root_path unless @default_settings.respond_to? :each %>
+				<%= link_to image_tag(@default_settings.site_image(:medium), :alt=>"newspaper_logo", :class=>"newspaper_logo"), 
+					root_path unless @default_settings.respond_to? :each %>
 			<% end %>
 		</div>
 		<div id="navMenu" class="d-flex justify-content-between align-items-center">
