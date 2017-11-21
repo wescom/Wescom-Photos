@@ -4,9 +4,9 @@ class DefaultSetting < ApplicationRecord
   
   has_attached_file :site_image, 
       :styles => { 
-        :small => ["150x25>",:jpg],
-        :medium => ["300x50>",:jpg],
-        :large => ["600x100>",:jpg]
+        :small => ["300x300>",:jpg],
+        :medium => ["600x600>",:jpg],
+        :large => ["1000x1000>",:jpg]
       },
       :url => "/images/site_images/:id/:style_:basename.:extension",  
       :path => ":rails_root/public/images/site_images/:id/:style_:basename.:extension",
