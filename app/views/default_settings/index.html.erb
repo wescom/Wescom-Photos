@@ -28,10 +28,10 @@
 					<tr>
 						<td><%= current_default_setting.id %></td>
 						<td class="font-weight-bold"><%= current_default_setting.location.name %></td>
+						<td></td>
 						<td><%= image_tag(current_default_setting.site_image(:medium), 
 								:alt=>current_default_setting.id, 
 								:class=>"newspaper_logo") %></td>
-						<td></td>
 						<td class="text-center"><%= current_default_setting.updated_at.strftime('%m/%d/%y') %></td>
 						<td class="text-center">
 							<p class="btn btn-outline-info">
@@ -51,14 +51,19 @@
 										title: 'Add banner image', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
 								</p>
 							</td>
-							<td>
-								<% current_default_setting.default_banner_images.each do |banner_image| %>
-									<%= image_tag(banner_image.banner_image(:small), :class=>"img-thumb img-responsive") %>
-									<%= link_to icon('remove fa-lg'), 
-										default_banner_image_path(:id => banner_image), :method=> :delete, :action => 'destroy',
-										data: {confirm:'Remove image from banner images?'},
-										title: 'Delete banner image', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
-								<% end %>
+							<td colspan="3">
+								<div class="d-flex justify-content-start align-items-center">
+									<% current_default_setting.default_banner_images.each do |banner_image| %>
+										<div>
+											<%= image_tag(banner_image.banner_image(:small), :class=>"img-thumb img-responsive") %>
+											<%= link_to icon('remove fa-lg'), 
+												default_banner_image_path(:id => banner_image), :class => "",
+												:method=> :delete, :action => 'destroy',
+												data: {confirm:'Remove image from banner images?'},
+												title: 'Delete banner image', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
+										</div>
+									<% end %>
+								</div>
 							</td>
 						</tr>
 					</tr>
