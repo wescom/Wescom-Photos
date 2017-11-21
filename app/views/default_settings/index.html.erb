@@ -52,7 +52,7 @@
 								</p>
 							</td>
 							<td colspan="3">
-								<div class="d-flex justify-content-start align-items-center">
+								<div class="d-flex flex-wrap justify-content-start align-items-center">
 									<% current_default_setting.default_banner_images.each do |banner_image| %>
 										<div>
 											<%= image_tag(banner_image.banner_image(:small), :class=>"img-thumb img-responsive") %>
