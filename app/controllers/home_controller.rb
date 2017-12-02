@@ -21,7 +21,7 @@ class HomeController < ApplicationController
       @cat1_image = StoryImage.joins(:story).order_by_pubdate.limit(10)
       @cat1_image = @cat1_image.where('categoryname = ? OR subcategoryname = ?',@default_settings.home_image_cat1, @default_settings.home_image_cat1)
       @cat1_image = @cat1_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
-      if @cat1_image.count < 1
+      if @cat1_image.count < 1  # Didnt find an image record, query more records
         @cat1_image = StoryImage.joins(:story).order_by_pubdate.limit(100)
         @cat1_image = @cat1_image.where('categoryname = ? OR subcategoryname = ?',@default_settings.home_image_cat1, @default_settings.home_image_cat1)
         @cat1_image = @cat1_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
@@ -31,7 +31,7 @@ class HomeController < ApplicationController
       @cat2_image = StoryImage.joins(:story).order_by_pubdate.limit(10)
       @cat2_image = @cat2_image.where('categoryname = ? OR subcategoryname = ?',@default_settings.home_image_cat2, @default_settings.home_image_cat2)
       @cat2_image = @cat2_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
-      if @cat2_image.count < 1
+      if @cat2_image.count < 1  # Didnt find an image record, query more records
         @cat2_image = StoryImage.joins(:story).order_by_pubdate.limit(100)
         @cat2_image = @cat2_image.where('categoryname = ? OR subcategoryname = ?',@default_settings.home_image_cat2, @default_settings.home_image_cat2)
         @cat2_image = @cat2_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
@@ -41,17 +41,18 @@ class HomeController < ApplicationController
       @cat3_image = StoryImage.joins(:story).order_by_pubdate.limit(10)
       @cat3_image = @cat3_image.where('categoryname = ? OR subcategoryname = ?',@default_settings.home_image_cat3, @default_settings.home_image_cat3)
       @cat3_image = @cat3_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
-      if @cat3_image.count < 1
+      if @cat3_image.count < 1  # Didnt find an image record, query more records
         @cat3_image = StoryImage.joins(:story).order_by_pubdate.limit(100)
         @cat3_image = @cat3_image.where('categoryname = ? OR subcategoryname = ?',@default_settings.home_image_cat3, @default_settings.home_image_cat3)
         @cat3_image = @cat3_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
       end
       @cat3_image = @cat3_image.order_by_pubdate.first
 
-      @pdf_images = PdfImage.joins(:plan).where('plans.location_id = ?', @default_settings.location_id)
-      @pdf_images = @pdf_images.where('section_letter = ? and page = ?', "A", 1)
-      @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(4)
-    
+#      @pdf_images = PdfImage.joins(:plan).where('plans.location_id = ?', @default_settings.location_id)
+#      @pdf_images = @pdf_images.where('section_letter = ? and page = ?', "A", 1)
+#      @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(4)
+      @pdf_images = PdfImage.first(2)
+          
       @locations = Location.all.order("location_no")
     else  # If no default settings record, then create one and send user to edit
       @default_settings = DefaultSetting.new
