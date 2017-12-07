@@ -63,7 +63,8 @@ class Order < ApplicationRecord
       :items => @items,
       :total => @subtotal, 
       :ip => "216.228.167.10",
-      :ORDERDESC => "WescomPhotos.com purchase",
+      :orderdesc => "WescomPhotos.com purchase",
+      :email => email,
 #      :billing_address => {
 #        :name     => "The Bulletin",
 #        :address1 => "1777 SW Chandler Ave",
