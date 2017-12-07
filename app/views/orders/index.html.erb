@@ -19,6 +19,7 @@
 		<thead>
 			<tr>
 				<th class="text-center">OrderId</th>
+				<th class="text-center">Location</th>
 				<th class="text-center">Date</th>
 				<th class="">Name</th>
 				<th class="text-center">Items</th>
@@ -33,6 +34,7 @@
 			<% if @orders.size > 0 %>
 				<% @orders.each do |order| %>
 					<tr>
+						<td class="text-center"><%= order.location.name if order.location %></td>
 						<td class="text-center"><%= order.id %></td>
 						<td class="text-center"><%= order.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%m/%d/%y - %l:%M %P') %></td>
 						<td><%= order.first_name %> <%= order.last_name %></td>

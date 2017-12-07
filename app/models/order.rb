@@ -4,6 +4,7 @@ class Order < ApplicationRecord
   before_create :generate_random_id
   
   has_many :order_items, :dependent => :destroy
+  belongs_to :location, :dependent => :destroy
 
   attr_accessor :card_security_code
   attr_accessor :credit_card_number

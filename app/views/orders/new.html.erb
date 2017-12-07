@@ -14,6 +14,7 @@
     <% end %>
     <div id="checkout_form" class="form-horizontal">
 		<%= form_for @order, url: {action: "create"}, :method => :POST do |f| %>
+			<%= f.hidden_field :location_id, :value => current_location %>
 	        <div class="form-group row">
 				<%= f.label :name, 'Name', class: "col-sm-2 col-md-2 col-form-label" %>
 		        <div class="col-sm-4 col-md-3">
