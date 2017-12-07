@@ -49,6 +49,7 @@ class Order < ApplicationRecord
     
     # Process credit card payment
     response = GATEWAY.purchase(amount*100.round, credit_card, purchase_options)
+    Rails.logger.info "purchase_options: "+purchase_options.inspect
     Rails.logger.info "Gateway response: "+response.inspect
     self.success = response.success? ? true : false
     self.authorization_code = response.authorization
