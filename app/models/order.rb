@@ -33,12 +33,12 @@ class Order < ApplicationRecord
     self.id = SecureRandom.random_number(1_000_000)
   end
   
-  def purchase(cart)
+  def purchase(cart,current_location_name)
     # Create list of items purchased
     @items = Array.new      
     cart.cart_items.each do |i|
       item = Hash.new 
-      item[:name] = i[:item_type]+" #"+i[:item_id].to_s
+      item[:name] = current_location_name.to_s+" - "+i[:item_type]+" #"+i[:item_id].to_s   # Name of item to appear on PayPal description
       item[:description] = ""
       item[:quantity] = i[:quantity]
       item[:amount] = i[:price_cents]
@@ -48,8 +48,8 @@ class Order < ApplicationRecord
     @subtotal = amount
     
     # Process credit card payment
-    response = GATEWAY.purchase(amount*100.round, credit_card, purchase_options)
     Rails.logger.info "purchase_options: "+purchase_options.inspect
+    response = GATEWAY.purchase(amount*100.round, credit_card, purchase_options)
     Rails.logger.info "Gateway response: "+response.inspect
     self.success = response.success? ? true : false
     self.authorization_code = response.authorization
@@ -63,7 +63,7 @@ class Order < ApplicationRecord
       :items => @items,
       :total => @subtotal, 
       :ip => "216.228.167.10",
-      :description => "WescomPhotos.com purchase",
+      :ORDERDESC => "WescomPhotos.com purchase",
 #      :billing_address => {
 #        :name     => "The Bulletin",
 #        :address1 => "1777 SW Chandler Ave",

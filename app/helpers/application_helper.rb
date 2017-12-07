@@ -37,6 +37,24 @@ module ApplicationHelper
     end
   end
 
+  def current_location_name
+    # get subdomain from URL
+    current_subdomain = request.subdomains.first.to_s
+    puts "****subdomain***"+current_subdomain.to_s
+
+    # find the location associated to the subdomain and return the location record's ID
+    @url_location = Location.where('short_url_newspaper_name like ?', current_subdomain)
+    if @url_location.empty?
+      # subdomain cannot be found in Location table
+      @url_location = Location.first
+      #puts "*****URL***"+@url_location.id.to_s
+      return @url_location.name
+    else
+      #puts "*****URL***"+@url_location.first.id.to_s
+      return @url_location.first.name
+    end
+  end
+
   def flash_message(name, msg)
       flash[name] ||= []
       flash[name] << msg

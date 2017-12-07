@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
     ip_address = request.remote_ip
     #Rails.logger.info "*****IP****"+ip_address
     if @order.save
-      if @order.purchase(@cart)
+      if @order.purchase(@cart,current_location_name)
         # puts "*****ORDER****"+@order.inspect
         @order.last4 = @order.credit_card_number.last(4)
         @order.save
