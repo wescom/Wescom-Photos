@@ -39,6 +39,7 @@ class OrdersController < ApplicationController
     if @order.save
       if @order.purchase(@cart,current_location_name)
         # puts "*****ORDER****"+@order.inspect
+        Rails.logger.info "*****ORDER****"+@order.inspect
         @order.last4 = @order.credit_card_number.last(4)
         @order.save
         # Save contents of cart into Order for historical archive

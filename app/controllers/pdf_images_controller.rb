@@ -2,7 +2,6 @@ class PdfImagesController < ApplicationController
 
   def index
     @default_settings = DefaultSetting.where("location_id" => current_location).first
-#    default_settings = DefaultSetting.where("location_id" => current_location).first
     default_settings = @default_settings
     @locations = Location.all.order("name")
 
