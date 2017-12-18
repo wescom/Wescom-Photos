@@ -40,7 +40,7 @@ class StoryImagesController < ApplicationController
     @story_image = StoryImage.find_by_media_id(params[:id])
     if @story_image.present?
       # Check whether image is for sale
-      if !image_for_sale?(@story_image,default_settings)
+      if !image_for_sale?(@story_image,default_settings,true)
         if admin?
           flash_message :admin_error, "Image ##{params[:id]} not for sale: Admin only"
         else
@@ -57,7 +57,7 @@ class StoryImagesController < ApplicationController
         params[:search_query] = @story_image.story.categoryname
         
         @related_story_images = @story_image.story.story_images.where("id != ?", @story_image.id)         # remove current image
-        @related_story_images = @related_story_images.reject {|x| !image_for_sale?(x,default_settings)}   # remove any images not for sale
+        @related_story_images = @related_story_images.reject {|x| !image_for_sale?(x,default_settings,false)}   # remove any images not for sale
       end
 
       # find pdfs of this image's publication
@@ -91,7 +91,7 @@ class StoryImagesController < ApplicationController
   
   
   private
-  def image_for_sale?(image,default_settings)
+  def image_for_sale?(image,default_settings,show_errors)
 #    default_settings = DefaultSetting.where("location_id" => current_location).first
 
     # Check captions for default_settings.search_for_caption_text
@@ -100,7 +100,7 @@ class StoryImagesController < ApplicationController
       caption_text_okay = true
     else
       caption_text_okay = false
-      flash_message :admin_error, "Caption text '"+default_settings.search_for_caption_text+"' missing"
+      flash_message :admin_error, "Caption text '"+default_settings.search_for_caption_text+"' missing" if show_errors
     end
       
     # Check image priority for default_settings.search_for_priority
@@ -109,13 +109,13 @@ class StoryImagesController < ApplicationController
     else
       if image.priority.nil?
         image_priority_okay = false
-        flash_message :admin_error, "Priority = NULL"
+        flash_message :admin_error, "Priority = NULL" if show_errors
       else
         if default_settings.search_for_priority.include? image.priority
           image_priority_okay = true
         else
           image_priority_okay = false
-          flash_message :admin_error, "Priority = "+image.priority
+          flash_message :admin_error, "Priority = "+image.priority if show_errors
         end
       end
     end
