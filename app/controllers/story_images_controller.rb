@@ -8,9 +8,10 @@ class StoryImagesController < ApplicationController
       begin
         @story_images = StoryImage.search(:include => [:story]) do
           fulltext params[:search_query], :fields => [:media_webcaption, :media_printcaption, :media_originalcaption, :story_category_name, :story_subcategory_name]
+          # Filter out any images marked as NotForSale
+          without(:forsale, "NotForSale") 
           
           any do  # filter for images For Sale OR (caption and priority)
-            fulltext "For Sale", :fields => [:forsale]
             all do
               #Filter all searches by location
               with(:story_location_id, default_settings.location_id)
@@ -19,6 +20,7 @@ class StoryImagesController < ApplicationController
               # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'
               fulltext default_settings.search_for_priority, :fields => [:priority]
             end
+            fulltext "For Sale", :fields => [:forsale]
           end
 
           paginate(:page => params[:page], :per_page => 24)

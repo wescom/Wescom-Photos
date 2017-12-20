@@ -48,10 +48,14 @@ module StoryImagesHelper
         return false
       end
     else
-      if (image.forsale.include? "For Sale") or (caption_text_okay and image_priority_okay)
+      if (image.forsale.include? "For Sale")
         return true
       else
-        return false
+        if (image.forsale.include? "NotForSale")
+          return false
+        else
+          return false
+        end
       end
     end
   end

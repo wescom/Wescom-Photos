@@ -64,6 +64,7 @@ class StoryImage < ApplicationRecord
     string :image_type do
       self.image_type?
     end
+    string :forsale
   end
 
   def self.order_by_pubdate
