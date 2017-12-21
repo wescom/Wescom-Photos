@@ -21,7 +21,8 @@ class OrdersController < ApplicationController
     @default_settings = DefaultSetting.where("location_id" => current_location).first
 
     @order = Order.new
-    @cart = session[:cart_id]
+    @cart = Cart.find(session[:cart_id])
+    @order.amount = @cart.total
     @order.expiration_month = Date.today.month.to_s
   end
 

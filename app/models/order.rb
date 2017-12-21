@@ -14,8 +14,8 @@ class Order < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :card_security_code, presence: true
-  validates :credit_card_number, presence: true
+  validates :card_security_code, presence: true, if: :amount_not_zero?
+  validates :credit_card_number, presence: true, if: :amount_not_zero?
   validates :expiration_month, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
   validates :expiration_year, presence: true
   validate  :expire_after_today
@@ -75,6 +75,14 @@ class Order < ApplicationRecord
 #        :zip      => "97701"
 #      }
     }
+  end
+  
+  def amount_not_zero?
+    if amount > 0
+      return true
+    else
+      return false
+    end
   end
   
   def expire_after_today

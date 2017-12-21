@@ -28,28 +28,37 @@
 	        <div class="form-group row">
 				<%= f.label :card_number, 'Card number', class: "col-sm-2 col-md-2 col-form-label" %>
 		        <div class="col-sm-6 col-md-5">
-					<%= f.text_field :credit_card_number, class: "form-control", :placeholder => "Credit/Debit Card Number" %>
+					<%= f.text_field :credit_card_number, class: "form-control", :placeholder => "Credit/Debit Card Number", :readonly => cart_total_amount == 0 %>
 				</div>
-		        <div class="col-sm-4 col-md-4">
-					<i class="fa fa-3x fa-cc-visa visa"></i> 
-					<i class="fa fa-3x fa-cc-amex amex"> </i> 
-					<i class="fa fa-3x fa-cc-discover discover"></i> 
-					<i class="fa fa-3x fa-cc-mastercard mastercard"></i>
-				</div>
+				<% if amount_not_zero? %>
+			        <div class="col-sm-4 col-md-4">
+						<i class="fa fa-3x fa-cc-visa visa"></i> 
+						<i class="fa fa-3x fa-cc-amex amex"> </i> 
+						<i class="fa fa-3x fa-cc-discover discover"></i> 
+						<i class="fa fa-3x fa-cc-mastercard mastercard"></i>
+					</div>
+				<% else %>
+			        <div class="col-sm-4 col-md-4 text-muted">
+						<i class="fa fa-3x fa-cc-visa visa"></i> 
+						<i class="fa fa-3x fa-cc-amex amex"> </i> 
+						<i class="fa fa-3x fa-cc-discover discover"></i> 
+						<i class="fa fa-3x fa-cc-mastercard mastercard"></i>
+					</div>
+				<% end %>
 	        </div>
 	        <div class="form-group row">
 				<%= f.label :expiration_date, 'Expire date', class: "col-sm-2 col-md-2 col-form-label" %>
 		        <div class="col-sm-2 col-md-2">
-					<%= f.select :expiration_month, months, {}, class: "form-control" %> 
+					<%= f.select :expiration_month, months, {}, class: "form-control", :readonly => cart_total_amount == 0 %> 
 				</div>/
 				<div class="col-sm-3 col-md-3">
-					<%= f.select :expiration_year, years, {}, class: "form-control" %>
+					<%= f.select :expiration_year, years, {}, class: "form-control", :readonly => cart_total_amount == 0 %>
 				</div>
 	        </div>
 	        <div class="form-group row">
 				<%= f.label :cvc, 'CVC', class: "col-sm-2 col-md-2 control-label" %>
 		        <div class="col-sm-3 col-md-2">
-					<%= f.text_field :card_security_code, class: "form-control", :placeholder => "CVC #" %>
+					<%= f.text_field :card_security_code, class: "form-control", :placeholder => "CVC #", :readonly => cart_total_amount == 0 %>
 				</div>
 	        </div>
 			<div class="form-group row">
@@ -122,7 +131,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">
-					Processing payment...
+					Processing ...
 				</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</div>
@@ -131,8 +140,10 @@
 				<br/>
 				<div class="text-center"><img class="spinner" src="/images/Spinner.gif"></div>
 				<br/>
-				<div class="text-center max_100">
-					<!-- PayPal Logo --><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" class="max_100" border="0" alt="PayPal Acceptance Mark"><!-- PayPal Logo -->
+				<% if @cart.total > 0 %>
+					<div class="text-center max_100">
+						<!-- PayPal Logo --><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" class="max_100" border="0" alt="PayPal Acceptance Mark"><!-- PayPal Logo -->
+				<% end %>
 				<br/>
 			</div>
 			<div class="modal-footer">
