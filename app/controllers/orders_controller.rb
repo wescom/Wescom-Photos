@@ -32,15 +32,44 @@ class OrdersController < ApplicationController
     @cart = Cart.find(session[:cart_id])
     @order.amount = @cart.total
 
-    # @order = current_cart.build_order(params[:order])
-    # @order.ip_address = request.remote_ip
     ip_address = request.remote_ip
     #Rails.logger.info "*****IP****"+ip_address
+
     if @order.save
-      if @order.purchase(@cart,current_location_name)
-        # puts "*****ORDER****"+@order.inspect
-        Rails.logger.info "*****ORDER SUCCESS****"+@order.inspect
-        @order.last4 = @order.credit_card_number.last(4)
+      if @order.amount > 0
+        if @order.purchase(@cart,current_location_name)
+          # puts "*****ORDER****"+@order.inspect
+          Rails.logger.info "*****ORDER SUCCESS****"+@order.inspect
+          @order.last4 = @order.credit_card_number.last(4)
+          @order.save
+          # Save contents of cart into Order for historical archive
+          @cart.cart_items.each do |item|
+            @order_item = OrderItem.new(:order_id => @order.id)
+            @order_item.item_id = item.item_id
+            @order_item.item_type = item.item_type
+            @order_item.quantity = item.quantity
+            @order_item.price_cents = item.price_cents
+            @order_item.price_currency = item.price_currency
+            @order_item.save
+            #puts @order_item.inspect
+          end
+          @cart.clear
+          flash_message :notice, "Credit card successfully charged"
+          if @order.email.nil? or @order.email.length < 1
+            puts "No confirmation email requested"
+          else
+            OrderMailer.order_confirmation(@order).deliver_now
+            flash_message :notice, "Order confirmation email sent"
+          end
+          redirect_to order_path(@order)
+        else
+          Rails.logger.info "********** CC Failed"
+          flash_message :error, "Credit card authorization failed"
+          render :new
+        end
+      else
+        # No cost for items in cart
+        @order.success = true
         @order.save
         # Save contents of cart into Order for historical archive
         @cart.cart_items.each do |item|
@@ -51,10 +80,9 @@ class OrdersController < ApplicationController
           @order_item.price_cents = item.price_cents
           @order_item.price_currency = item.price_currency
           @order_item.save
-          #puts @order_item.inspect
         end
         @cart.clear
-        flash_message :notice, "Credit card successfully charged"
+        flash_message :notice, "Order successful"
         if @order.email.nil? or @order.email.length < 1
           puts "No confirmation email requested"
         else
@@ -62,10 +90,6 @@ class OrdersController < ApplicationController
           flash_message :notice, "Order confirmation email sent"
         end
         redirect_to order_path(@order)
-      else
-        Rails.logger.info "********** CC Failed"
-        flash_message :error, "Credit card authorization failed"
-        render :new
       end
     else
       render :new
