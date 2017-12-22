@@ -76,18 +76,18 @@ class StoryImagesController < ApplicationController
           <i>- Email us a request for this image</i>
         </a>"
   	  redirect_to root_path
-  	end
-  	
-    def approve_forsale
-      # Default = null, For Sale = 'For Sale', Not For Sale = 'NotForSale'
-      @story_image = StoryImage.find(params[:story_image_id])
-      if @story_image.present?
-        @story_image.forsale = params[:forsale]
-        if @story_image.save
-          Log.create_log("Story_image",@story_image.id,@story_image.forsale.to_s,"Image changed to "+@story_image.forsale.to_s,current_user)
-        end
-        redirect_to story_image_path(@story_image)
+  	end 	
+  end
+
+  def approve_forsale
+    # Default = null, For Sale = 'For Sale', Not For Sale = 'NotForSale'
+    @story_image = StoryImage.find(params[:story_image_id])
+    if @story_image.present?
+      @story_image.forsale = params[:forsale]
+      if @story_image.save
+        Log.create_log("Story_image",@story_image.id,@story_image.forsale.to_s,"Image changed to "+@story_image.forsale.to_s,current_user)
       end
+      redirect_to story_image_path(@story_image.media_id)
     end
   end
   
