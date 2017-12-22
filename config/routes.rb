@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :story_images , :path => 'images', :only => [:index, :show] do
     put 'approve_forsale'
   end
-  resources :pdf_images , :path => 'pdfs', :only => [:index, :show]
+  resources :pdf_images , :path => 'pdfs', :only => [:index]
 
   resource :cart do
     put 'remove_item'
