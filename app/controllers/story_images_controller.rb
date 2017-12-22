@@ -71,6 +71,7 @@ class StoryImagesController < ApplicationController
       
     else
       # image doesnt exist in database
+      Rails.logger.info "Images does not exist in database - Image ID ##{params[:id]} not available"
       flash_message :notice, "Image ##{params[:id]} not available 
         <a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for ##{params[:id]}'>
           <i>- Email us a request for this image</i>
