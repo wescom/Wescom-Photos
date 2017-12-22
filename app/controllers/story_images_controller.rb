@@ -39,7 +39,7 @@ class StoryImagesController < ApplicationController
     default_settings = DefaultSetting.where("location_id" => current_location).first
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     
-    @story_image = StoryImage.find_by_media_id(params[:id])
+    @story_image = StoryImage.find(params[:id])
     if @story_image.present?
       # Check whether image is for sale
       if !image_for_sale?(@story_image,default_settings,true)
