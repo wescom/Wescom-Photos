@@ -39,7 +39,7 @@ class StoryImagesController < ApplicationController
     default_settings = DefaultSetting.where("location_id" => current_location).first
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     
-    @story_image = StoryImage.find(params[:id])
+    @story_image = StoryImage.find_by_media_id(params[:id])
     if @story_image.present?
       # Check whether image is for sale
       if !image_for_sale?(@story_image,default_settings,true)
@@ -71,7 +71,7 @@ class StoryImagesController < ApplicationController
       
     else
       # image doesnt exist in database
-      Rails.logger.info "Images does not exist in database - Image ID ##{params[:id]} not available"
+      Rails.logger.info "Images does not exist in database - Image Id ##{params[:id]} not available"
       flash_message :notice, "Image ##{params[:id]} not available 
         <a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for ##{params[:id]}'>
           <i>- Email us a request for this image</i>
