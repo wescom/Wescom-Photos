@@ -40,5 +40,10 @@ class PdfImagesController < ApplicationController
     end
     @search_result_count = @pdf_images.total
   end
+  
+  def show
+    
+    redirect_to :root
+  end
 
 end
