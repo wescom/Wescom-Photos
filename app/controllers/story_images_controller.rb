@@ -31,6 +31,7 @@ class StoryImagesController < ApplicationController
         render :text => "Search Server Down\n\n\n It will be back online shortly"
       end
     end
+Rails.logger.info "**********"+@story_images.results.inspect
     @search_result_count = @story_images.total
     @total_images_count = StoryImage.count(:all)
   end
