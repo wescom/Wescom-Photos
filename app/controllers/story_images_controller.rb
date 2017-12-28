@@ -39,7 +39,7 @@ Rails.logger.info "*****************************"+@story_images.results.inspect
   def show
     default_settings = DefaultSetting.where("location_id" => current_location).first
     @default_settings = DefaultSetting.where("location_id" => current_location).first
-    
+Rails.logger.info "*************"+params.inspect    
     @story_image = StoryImage.find_by_media_id(params[:id])
     if @story_image.present?
       # Check whether image is for sale
