@@ -40,6 +40,7 @@ class StoryImagesController < ApplicationController
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     
     @story_image = StoryImage.find_by_media_id(params[:id])
+Rails.logger.info "***media_id***************************************************************"+@story_image.media_id.to_s
 Rails.logger.info "***********@story_image***********"+@story_image.inspect
     if @story_image.present?
       # Check whether image is for sale
