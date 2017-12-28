@@ -102,6 +102,7 @@ Rails.logger.info "***********@story_image***********"+@story_image.inspect
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
 Rails.logger.info "***********caption_text***********"+caption_text
 Rails.logger.info "***********search_for_caption_text***********"+default_settings.search_for_caption_text
+Rails.logger.info "***********media_printcaption***********"+image.media_printcaption.to_s
     if default_settings.search_for_caption_text.empty? or (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase)
       caption_text_okay = true
     else
