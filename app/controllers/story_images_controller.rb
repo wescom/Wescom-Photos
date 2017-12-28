@@ -42,7 +42,7 @@ Rails.logger.info "*****************************"+@story_images.results.inspect
     @story_image = StoryImage.find_by_media_id(params[:id])
     if @story_image.present?
       # Check whether image is for sale
-Rails.logger.info "*****************************"+@story_image.inspect
+Rails.logger.info "*************@story_image****************"+@story_image.inspect
       if !image_for_sale?(@story_image,default_settings,true)
         if admin?
           flash_message :admin_error, "Image ##{params[:id]} not for sale: Admin only"
@@ -58,6 +58,7 @@ Rails.logger.info "*****************************"+@story_image.inspect
       # find other related images
       if @story_image.story.present?
         params[:search_query] = @story_image.story.categoryname
+Rails.logger.info "*************related_story_images****************"
         
         @related_story_images = @story_image.story.story_images.where("id != ?", @story_image.id)         # remove current image
         @related_story_images = @related_story_images.reject {|x| !image_for_sale?(x,default_settings,false)}   # remove any images not for sale
