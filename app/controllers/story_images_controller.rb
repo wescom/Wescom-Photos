@@ -33,6 +33,7 @@ class StoryImagesController < ApplicationController
     end
     @search_result_count = @story_images.total
     @total_images_count = StoryImage.count(:all)
+Rails.logger.info "*****************************"+@story_images.results.inspect
   end
 
   def show
@@ -40,8 +41,6 @@ class StoryImagesController < ApplicationController
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     
     @story_image = StoryImage.find_by_media_id(params[:id])
-Rails.logger.info "***media_id***************************************************************"+@story_image.media_id.to_s
-Rails.logger.info "***********@story_image***********"+@story_image.inspect
     if @story_image.present?
       # Check whether image is for sale
       if !image_for_sale?(@story_image,default_settings,true)
@@ -100,16 +99,11 @@ Rails.logger.info "***********@story_image***********"+@story_image.inspect
 #    default_settings = DefaultSetting.where("location_id" => current_location).first
 
     # Check captions for default_settings.search_for_caption_text
-Rails.logger.info "***********image***********"+image.inspect
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
-Rails.logger.info "***********caption_text***********"+caption_text
-Rails.logger.info "***********search_for_caption_text***********"+default_settings.search_for_caption_text
-Rails.logger.info "***********media_printcaption***********"+image.media_printcaption.to_s
     if default_settings.search_for_caption_text.empty? or (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase)
       caption_text_okay = true
     else
       caption_text_okay = false
-Rails.logger.info "***********caption_text_okay***********"+caption_text_okay.to_s
       flash_message :admin_error, "Caption text '"+default_settings.search_for_caption_text+"' missing" if show_errors
     end
       
