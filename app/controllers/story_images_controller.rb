@@ -99,6 +99,7 @@ Rails.logger.info "***********@story_image***********"+@story_image.inspect
 #    default_settings = DefaultSetting.where("location_id" => current_location).first
 
     # Check captions for default_settings.search_for_caption_text
+Rails.logger.info "***********image***********"+image.inspect
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
 Rails.logger.info "***********caption_text***********"+caption_text
 Rails.logger.info "***********search_for_caption_text***********"+default_settings.search_for_caption_text
