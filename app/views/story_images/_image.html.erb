@@ -3,12 +3,12 @@
 		<div class="image_gallery_panel">
 			<div class="crop">
 				<%= link_to image_tag(image.image(:large), :alt=>"Story Image", :id=>"#{image.id}", :class=>""), 
-					story_image_path(image.media_id), { 
+					story_image_path(image.id), { 
 					:remote => true, 'data-toggle' =>  "modal", 
 					'data-target' => "#imageGalleryModal#{image.id}", 
 					'data-type' => "html" } %>
 				<%= link_to "<i class='fa fa-copyright'> </i>".html_safe + " Copyright - Western Communications, Inc.", 
-					story_image_path(image.media_id), { 
+					story_image_path(image.id), { 
 					:class => "watermark",
 					:remote => true, 'data-toggle' =>  "modal", 
 					'data-target' => "#imageGalleryModal#{image.id}", 
@@ -33,7 +33,7 @@
 					<% if admin? %>
 						<%= link_to('<i class="fa fa-download"> </i>'.html_safe, order_download_path(image), :class=>"btn btn-sm btn-primary") %>
 					<% end %>
-					<%= link_to "<i class='fa fa-dollar'> </i>".html_safe, story_image_path(image.media_id), { 
+					<%= link_to "<i class='fa fa-dollar'> </i>".html_safe, story_image_path(image.id), { 
 						:class => "btn btn-sm btn-success",
 						:remote => true, 'data-toggle' =>  "modal", 
 						'data-target' => "#imageGalleryModal#{image.id}", 
@@ -118,7 +118,7 @@
 									<% end %>
 									<div class="col-xs-2 col-sm-2 col-md-2 col-lg-1 reduce_padding">
 										<%= link_to image_tag(related_image.image(:large), :alt=>"Story Image", :class=>"related_image_thumbs"),
-										 	story_image_path(related_image.media_id) %>
+										 	story_image_path(related_image.id) %>
 									</div>
 								<% end %>
 							<% end %>
@@ -136,7 +136,7 @@
 						<% else %>
 							&copy; Copyright - Western Communications, Inc.
 						<% end %>
-						<span class="float-right"><%= link_to image.media_id, story_image_path(image.media_id) %></span>
+						<span class="float-right"><%= link_to image.id, story_image_path(image.id) %></span>
 					</div>
 				</div>
 			</div>

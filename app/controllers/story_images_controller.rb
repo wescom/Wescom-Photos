@@ -38,7 +38,7 @@ class StoryImagesController < ApplicationController
   def show
     default_settings = DefaultSetting.where("location_id" => current_location).first
     @default_settings = DefaultSetting.where("location_id" => current_location).first
-    @story_image = StoryImage.find_by_media_id(params[:id])
+    @story_image = StoryImage.find_by_id(params[:id])
     if @story_image.present?
       # Check whether image is for sale
       if !image_for_sale?(@story_image,default_settings,true)
@@ -87,7 +87,7 @@ class StoryImagesController < ApplicationController
       if @story_image.save
         Log.create_log("Story_image",@story_image.id,@story_image.forsale.to_s,"Image changed to "+@story_image.forsale.to_s,current_user)
       end
-      redirect_to story_image_path(@story_image.media_id)
+      redirect_to story_image_path(@story_image.id)
     end
   end
   

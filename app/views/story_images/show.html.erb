@@ -97,7 +97,7 @@
 						<% @related_story_images.each_with_index do |image, index| %>
 								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 									<div class="card text-center">
-										<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"), story_image_path(image.media_id) %>
+										<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"), story_image_path(image.id) %>
 										<div class="card-block">
 											<p class="card-text">
 												<% if !image.media_webcaption.nil? and !image.media_webcaption.empty? %>
@@ -106,7 +106,7 @@
 													<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 60, :separator => /\s/ %></i>
 												<% end %>
 											</p>
-											<%= link_to( "View", story_image_path(image.media_id), :class=>"btn btn-primary") %>
+											<%= link_to( "View", story_image_path(image.id), :class=>"btn btn-primary") %>
 										</div>
 									</div>
 								</div>
