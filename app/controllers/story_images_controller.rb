@@ -33,7 +33,6 @@ class StoryImagesController < ApplicationController
     end
     @search_result_count = @story_images.total
     @total_images_count = StoryImage.count(:all)
-Rails.logger.info "*****************************"+@story_images.results.inspect
   end
 
   def show
@@ -42,7 +41,6 @@ Rails.logger.info "*****************************"+@story_images.results.inspect
     @story_image = StoryImage.find_by_media_id(params[:id])
     if @story_image.present?
       # Check whether image is for sale
-Rails.logger.info "*************@story_image****************"+@story_image.inspect
       if !image_for_sale?(@story_image,default_settings,true)
         if admin?
           flash_message :admin_error, "Image ##{params[:id]} not for sale: Admin only"
@@ -97,8 +95,6 @@ Rails.logger.info "*************@story_image****************"+@story_image.inspe
   private
   def image_for_sale?(image,default_settings,show_errors)
 #    default_settings = DefaultSetting.where("location_id" => current_location).first
-Rails.logger.info "************image_for_sale*****************"
-Rails.logger.info "************image*****************"+image.inspect
 
     # Check captions for default_settings.search_for_caption_text
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s

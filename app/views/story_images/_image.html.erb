@@ -22,8 +22,6 @@
 			</div>
 			<div class="image_gallery_hover_bar">
 				<span class="bar_pub_info">
-MediaId #<%= link_to image.media_id, story_image_path(image.media_id) %> - 
-Id #<%= link_to image.id, story_image_path(image.id) %> - 
 					<% if image.story %>
 						<% if image.story.plan %>
 							<%= image.story.plan.pub_name unless image.story.plan.pub_name.nil? %>
