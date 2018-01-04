@@ -31,7 +31,7 @@
 				</span>
 				<span class="bar_icons float-right">
 					<% if admin? %>
-						<%= link_to('<i class="fa fa-download"> </i>'.html_safe, order_download_path(image), :class=>"btn btn-sm btn-primary") %>
+						<%= link_to('<i class="fa fa-download"> </i>'.html_safe, order_admin_download_path(image,:item_type=>"StoryImage"), :class=>"btn btn-sm btn-primary") %>
 					<% end %>
 					<%= link_to "<i class='fa fa-dollar'> </i>".html_safe, story_image_path(image.id), { 
 						:class => "btn btn-sm btn-success",

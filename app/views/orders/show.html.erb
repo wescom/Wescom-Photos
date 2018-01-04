@@ -22,7 +22,7 @@
 				</thead>
 
 				<tbody>
-					<%= render :partial => 'order_item', :collection => @order.order_items %>
+					<%= render :partial => 'order_item', :collection => @order.order_items, object: @order %>
 				</tbody>
 
 				<tfoot>

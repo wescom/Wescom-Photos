@@ -27,9 +27,11 @@
 	</td>
 	<td data-th="Action" class="action_column">
 		<% if order_item.item_type == "StoryImage" %>
-			<%= link_to icon('download fa-lg'), order_download_path(order_item.story_image,:item_type=>"StoryImage") %>
+			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.story_image,
+				:item_type=>"StoryImage") %>
 		<% else %>
-			<%= link_to icon('download fa-lg'), order_download_path(order_item.pdf_image,:item_type=>"PdfImage") %>
+			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.pdf_image,
+				:item_type=>"PdfImage") %>
 		<% end %>
 	</td>
 </tr>

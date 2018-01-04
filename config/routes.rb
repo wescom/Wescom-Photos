@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   end
 
   resources :orders, only: [:index, :new, :create, :show] do
-    get :download
+    get :admin_download
+    resources :order_items, only: [] do
+      get 'download', to: 'orders#download', as: 'download'
+    end
   end
   match  "/dashboard" => "orders#dashboard", :via => [:get]
   

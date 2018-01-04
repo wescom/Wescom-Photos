@@ -99,11 +99,27 @@ class OrdersController < ApplicationController
     
   def show
     @default_settings = DefaultSetting.where("location_id" => current_location).first
-
     @order = Order.find_by_obscure_uniq_identifier(params[:id])
   end
   
   def download
+    # Find item to download within the order
+    @order = Order.find_by_obscure_uniq_identifier(params[:order_id])
+    @order_item = OrderItem.find_by_order_id_and_item_id(@order.id,params[:order_item_id])
+    puts @order_item.item_id.to_s
+
+    if params[:item_type] == "StoryImage"
+      @image = StoryImage.find(@order_item.item_id)
+      send_file @image.image.path, :filename => "image_"+@image.id.to_s
+      Rails.logger.info "***** Image Downloaded ***** " + @image.image.path
+    else
+      @pdf = PdfImage.find(@order_item.item_id)
+      send_file @pdf.image.path, :filename => "image_"+@pdf.id.to_s
+      Rails.logger.info "***** News Page Downloaded ***** " + @pdf.image.path
+    end
+  end
+
+  def admin_download
     if params[:item_type] == "StoryImage"
       @image = StoryImage.find(params[:order_id])
       send_file @image.image.path, :filename => "image_"+@image.id.to_s
