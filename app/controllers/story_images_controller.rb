@@ -30,8 +30,10 @@ class StoryImagesController < ApplicationController
       rescue Errno::ECONNREFUSED
         render :text => "Search Server Down\n\n\n It will be back online shortly"
       end
+    else
+      redirect_to :root
     end
-    @search_result_count = @story_images.total
+    @search_result_count = @story_images.total unless @story_images.nil?
     @total_images_count = StoryImage.count(:all)
   end
 
