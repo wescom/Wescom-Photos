@@ -38,6 +38,16 @@ class StoryImagesController < ApplicationController
   def show
     default_settings = DefaultSetting.where("location_id" => current_location).first
     @default_settings = DefaultSetting.where("location_id" => current_location).first
+    
+    # Check if media_id and story_id are given as paramters. If so, find the image id
+    if params.has_key?(:media_id) && params.has_key?(:story_id)
+      if !params[:story_id].empty? && !params[:media_id].empty?
+        @story = Story.find(params[:story_id])
+        @story_image = @story.story_images.find_by_media_id(params[:media_id]) unless @story.nil?
+        params[:id] = @story_image.id unless @story_image.nil?
+      end
+    end
+    
     @story_image = StoryImage.find_by_id(params[:id])
     if @story_image.present?
       # Check whether image is for sale
@@ -45,8 +55,11 @@ class StoryImagesController < ApplicationController
         if admin?
           flash_message :admin_error, "Image ##{params[:id]} not for sale: Admin only"
         else
-          flash_message :notice, "Image ##{params[:id]} not available 
-            <a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for ##{params[:id]}'>
+          params_info = ""
+          params_info = "StoryId:#{params[:story_id]}" unless params[:story_id].empty?
+          params_info = params_info + " MediaId:#{params[:media_id]}" unless params[:media_id].empty?
+          flash_message :notice, "Image not available - " + params_info +
+            "<a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for #{params_info}'>
               <i>- Email us a request for this image</i>
             </a>"
       	  redirect_to story_images_path(:search_query => @story_image.story.categoryname)
@@ -70,9 +83,12 @@ class StoryImagesController < ApplicationController
       
     else
       # image doesnt exist in database
+      params_info = ""
+      params_info = "StoryId:##{params[:story_id]}" unless params[:story_id].empty?
+      params_info = params_info + " MediaId:##{params[:media_id]}" unless params[:media_id].empty?
       Rails.logger.info "Images does not exist in database - Image Id ##{params[:id]} not available"
-      flash_message :notice, "Image ##{params[:id]} not available 
-        <a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for ##{params[:id]}'>
+      flash_message :notice, "Image not available - " + params_info +
+        "<a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for #{params_info}'>
           <i>- Email us a request for this image</i>
         </a>"
   	  redirect_to root_path

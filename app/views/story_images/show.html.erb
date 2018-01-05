@@ -150,6 +150,7 @@
 				<p><strong>Last Refreshed</strong> - 
 					<i><%= @story_image.last_refreshed_time.strftime('%m/%d/%y %I:%M%p') unless @story_image.last_refreshed_time.nil? %></i></p>
 
+				<p><strong>Story Id</strong> - <i><%= @story_image.story.id unless @story_image.story.nil?%></i></p>
 				<p><strong>Story Name</strong> - <i><%= @story_image.story.doc_name unless @story_image.story.nil?%></i></p>
 				<p><strong>Story Headline</strong> - <i><%= @story_image.story.hl1 unless @story_image.story.nil?%></i></p>
 				<p><strong>Story Category</strong> - <i><%= @story_image.story.categoryname unless @story_image.story.nil?%></i></p>
