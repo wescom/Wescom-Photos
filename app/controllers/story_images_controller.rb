@@ -86,8 +86,10 @@ class StoryImagesController < ApplicationController
     else
       # image doesnt exist in database
       params_info = ""
-      params_info = "StoryId:##{params[:story_id]}" unless params[:story_id].empty?
-      params_info = params_info + " MediaId:##{params[:media_id]}" unless params[:media_id].empty?
+      if params.has_key?(:media_id) && params.has_key?(:story_id)
+        params_info = "StoryId:##{params[:story_id]}" unless params[:story_id].empty?
+        params_info = params_info + " MediaId:##{params[:media_id]}" unless params[:media_id].empty?
+      end
       Rails.logger.info "Images does not exist in database - Image Id ##{params[:id]} not available"
       flash_message :notice, "Image not available - " + params_info +
         "<a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for #{params_info}'>
