@@ -47,9 +47,11 @@ Rails.logger.info "params.has_key?(:media_id) && params.has_key?(:story_id)"
       if !params[:story_id].empty? && !params[:media_id].empty?
 Rails.logger.info "!params[:story_id].empty? && !params[:media_id].empty?"
         @story = Story.find(params[:story_id])
-        @story_image = @story.story_images.find_by_media_id(params[:media_id]) unless @story.nil?
-        params[:id] = @story_image.id unless @story_image.nil?
-        Rails.logger.info "params[:id] "+params[:id].to_s
+        if @story
+          @story_image = @story.story_images.find_by_media_id(params[:media_id]) unless @story.nil?
+          params[:id] = @story_image.id unless @story_image.nil?
+          Rails.logger.info "params[:id] "+params[:id].to_s
+        end
       end
     end
     
