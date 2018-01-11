@@ -39,6 +39,14 @@
 					<p><i><%= @story_image.media_printcaption %></i></p>
 				</div>
 			<% end %>
+			<div class="modal_image_caption">
+				<h6>Image Details:</h6>
+				<p>
+					Full Resolution Image<br>
+					Image Size: <%= (@story_image.media_width*1.0/72 * 100).floor / 100.0 %> x <%= (@story_image.media_height*1.0/72 * 100).floor / 100.0%> inches<br>
+					Media Type: <%= @story_image.media_type %><br>
+				</p>
+			</div>
 			<div class=""></div>
 			<div class="purchase_bar">
 				<span class="purchase_price">Digital Download - <%= number_to_currency(image_price) %></span>
@@ -142,7 +150,8 @@
 				<p><strong>Media Name</strong> - <i><%= @story_image.media_name unless @story_image.media_name.nil? %></i></p>
 				<p><strong>Original Filename</strong> - <i><%= @story_image.image_file_name unless @story_image.image_file_name.nil? %></i></p>
 				<p><strong>Project Group</strong> - <i><%= @story_image.media_project_group unless @story_image.media_project_group.nil? %></i></p>
-				<p><strong>Image Size</strong> - <i><%= @story_image.media_width %>x<%= @story_image.media_height %></i></p>
+				<p><strong>Image Size</strong> - <i><%= @story_image.media_width %> x <%= @story_image.media_height %> pixels, 
+					<%= (@story_image.media_width*1.0/72 * 100).floor / 100.0 %> x <%= (@story_image.media_height*1.0/72 * 100).floor / 100.0%> inches</i></p>
 				<p><strong>Status</strong> - <i><%= @story_image.media_status unless @story_image.media_status.nil? %></i></p>
 				<p><strong>Priority (web status)</strong> - <i><%= @story_image.priority unless @story_image.priority.nil? %></i></p>
 				<p><strong>Type</strong> - <i><%= @story_image.image_content_type unless @story_image.image_content_type.nil?%></i></p>

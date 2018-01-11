@@ -58,6 +58,15 @@
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
 							<div class="floater"></div>
+							<div class="modal_image_caption">
+								<h6>PDF Details:</h6>
+								<p>
+									Full Resolution Image<br>
+									File Size: <%= (pdf.image_file_size/1000000.0).round(2) %> MB<br>
+									Media Type: PDF<br>
+								</p>
+							</div>
+							<div class="floater"></div>
 							<div class="purchase_bar">
 								<span class="purchase_price">Digital Download - <%= number_to_currency(pdf_price) %></span>
 								<span class="purchase_btn">
