@@ -43,20 +43,14 @@ class StoryImagesController < ApplicationController
     
     # Check if media_id and story_id are given as paramters. If so, find the image id
     if params.has_key?(:media_id) && params.has_key?(:story_id)
-Rails.logger.info "params.has_key?(:media_id) && params.has_key?(:story_id)"
       if !params[:story_id].empty? && !params[:media_id].empty?
-Rails.logger.info "!params[:story_id].empty? && !params[:media_id].empty?"
         @story = Story.find_by_id(params[:story_id])
-Rails.logger.info "@story "+@story.inspect
         if !@story.nil?
-Rails.logger.info "@story not nil"
           @story_image = @story.story_images.find_by_media_id(params[:media_id]) unless @story.nil?
           params[:id] = @story_image.id unless @story_image.nil?
-          Rails.logger.info "params[:id] "+params[:id].to_s
         end
       end
     end
-Rails.logger.info "Outside If statement: "+params[:id].to_s
     
     @story_image = StoryImage.find_by_id(params[:id])
     if @story_image.present?
