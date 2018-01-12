@@ -54,6 +54,7 @@ Rails.logger.info "!params[:story_id].empty? && !params[:media_id].empty?"
         end
       end
     end
+Rails.logger.info "Outside If statement: "+params[:id].to_s
     
     @story_image = StoryImage.find_by_id(params[:id])
     if @story_image.present?
