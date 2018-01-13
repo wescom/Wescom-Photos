@@ -25,7 +25,7 @@
 	<td data-th="Price" class="price_column text-center">
 		<div class="align-top"><%= number_to_currency(order_item.price_cents.to_d/100) %></div>
 	</td>
-	<td data-th="Action" class="action_column">
+	<td data-th="Action" class="action_column text-center">
 		<% if order_item.item_type == "StoryImage" %>
 			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.story_image,
 				:item_type=>"StoryImage") %>
