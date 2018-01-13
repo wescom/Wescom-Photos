@@ -63,11 +63,11 @@ $(document).ready(function(){
 	$(".pdf_gallery_panel").mouseleave (function() {
 		$(this).find('.pdf_gallery_hover_bar').fadeOut('fast')
 	});
-	if ((document.getElementById("date_select") != undefined && document.getElementById("date_select").value == "") && 
-		(document.getElementById("pub_select") != undefined && document.getElementById("pub_select").value == "") && 
-		(document.getElementById("sectionletter") != undefined && document.getElementById("sectionletter").value == "")) {
-		$('#advanced_search').hide();
-	}
+#	if ((document.getElementById("date_select") != undefined && document.getElementById("date_select").value == "") && 
+#		(document.getElementById("pub_select") != undefined && document.getElementById("pub_select").value == "") && 
+#		(document.getElementById("sectionletter") != undefined && document.getElementById("sectionletter").value == "")) {
+#		$('#advanced_search').hide();
+#	}
 	$("#advanced_search_toggle").click(function () {
 	    $("#advanced_search").slideToggle("medium");
 	    return false;
