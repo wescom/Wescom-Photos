@@ -24,7 +24,7 @@
 					<% if admin? %>
 						<%= link_to('<i class="fa fa-download"> </i>'.html_safe, order_admin_download_path(pdf,:item_type=>"PDFImage"), :class=>"btn btn-sm btn-primary") %>
 					<% end %>
-					<%= link_to "<i class='fa fa-dollar'> </i>".html_safe, pdf_image_path(pdf.id), { 
+					<%= link_to "<i class='fa fa-info'> </i>".html_safe, pdf_image_path(pdf.id), { 
 						:class => "btn btn-sm btn-success",
 						:remote => true, 'data-toggle' =>  "modal", 
 						'data-target' => "#imageGalleryModal#{pdf.id}", 
