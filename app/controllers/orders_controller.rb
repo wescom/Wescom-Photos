@@ -11,7 +11,8 @@ class OrdersController < ApplicationController
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     @orders = Order.all.order("created_at desc")
     if params[:search].present?
-      @orders = @orders.where("id = ? or first_name = ? or last_name = ?", params[:search], params[:search], params[:search])
+      @orders = @orders.where("id LIKE ? or first_name LIKE ? or last_name LIKE ?", 
+        "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     end
     @orders = @orders.where(:success => true)
     @orders = @orders.paginate(:page => params[:page], :per_page => 20)
