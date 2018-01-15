@@ -415,9 +415,11 @@
 	width: 100%;
 }
 .pdf-gallery-search .form-search-label { min-width: 150px; align-self: center; }
+.pdf-gallery-search .form-search-text-col { flex-grow: 1; }
 .pdf-gallery-search .form-search-text {
     height: 46px;
-    width: 98%;
+	min-width: 290px;
+	width: 100%;
     margin: 5px 10px 5px 0px;
     font-size: 16px;
     font-weight: 100;
@@ -439,9 +441,9 @@
     font-size: 16px;
     font-weight: 100;
     letter-spacing: .05em;
-    text-indent: 10px;
+    text-indent: 0px;
 }
-.form-search-date #date_select{ width: 110px; }
+.form-search-date #date_select{ width: 110px; text-align: center; }
 .pdf-gallery-search .form-search-button {
     border: 1px solid #02888f;
     background: #02888f;
