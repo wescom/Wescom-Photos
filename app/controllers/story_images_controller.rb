@@ -72,7 +72,7 @@ class StoryImagesController < ApplicationController
       
       # find other related images
       if @story_image.story.present?
-        params[:search_query] = @story_image.story.categoryname
+#        params[:search_query] = @story_image.story.categoryname
         
         @related_story_images = @story_image.story.story_images.where("id != ?", @story_image.id)         # remove current image
         @related_story_images = @related_story_images.reject {|x| !image_for_sale?(x,default_settings,false)}   # remove any images not for sale
