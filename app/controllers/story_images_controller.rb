@@ -7,7 +7,14 @@ class StoryImagesController < ApplicationController
     if params[:search_query]
       begin
         @story_images = StoryImage.search(:include => [:story]) do
-          fulltext params[:search_query], :fields => [:media_webcaption, :media_printcaption, :media_originalcaption, :story_category_name, :story_subcategory_name]
+          fulltext params[:search_query], 
+            :fields => [:media_webcaption, 
+                        :media_printcaption, 
+                        :media_originalcaption, 
+                        :story_category_name, 
+                        :story_subcategory_name,
+                        :story_pubyear,
+                        :story_pubdate]
           # Filter out any images marked as NotForSale
           without(:forsale, "NotForSale") 
           
