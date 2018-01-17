@@ -135,7 +135,7 @@
 			<div class="modal-footer">
 				<div class="container">
 					<div class="image_copyright text-center"> 
-						<% if image.story.plan %>
+						<% if image.story && image.story.plan %>
 							&copy; Copyright <%= image.story.pubdate.strftime('%Y') unless image.story.pubdate.nil? %> 
 							- <%= image.story.plan.pub_name unless image.story.plan.pub_name.nil? %>
 							- Western Communications, Inc.
