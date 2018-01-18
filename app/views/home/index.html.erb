@@ -17,7 +17,7 @@
 
 <div class="home-page-info">
 	<div class="text-center">
-		<%= @default_settings.home_welcome_text %>
+		<%= @default_settings.home_welcome_text.html_safe %>
 	</div>
 </div>
 
@@ -30,8 +30,8 @@
 					<%= link_to image_tag(@cat1_image.image(:large), :alt=>@default_settings.home_image_cat1_name.titlecase, :class=>"card-img-top card_section_img"), 
 						story_images_path(:search_query => @default_settings.home_image_cat1) unless @cat1_image.nil? %>
 					<div class="card-block">
-						<h4 class="card-title"><%= @default_settings.home_image_cat1_name.titlecase %></h4>
-						<p class="card-text"><%= @default_settings.home_image_cat1_description %></p>
+						<h4 class="card-title"><%= @default_settings.home_image_cat1_name.titlecase.html_safe %></h4>
+						<p class="card-text"><%= @default_settings.home_image_cat1_description.html_safe %></p>
 						<%= link_to( "Browse", story_images_path(:search_query => @default_settings.home_image_cat1), :class=>"btn btn-primary") %>
 					</div>
 				</div>
@@ -41,8 +41,8 @@
 					<%= link_to image_tag(@cat2_image.image(:large), :alt=>@default_settings.home_image_cat1_name.titlecase, :class=>"card-img-top card_section_img"), 
 						story_images_path(:search_query => @default_settings.home_image_cat2) unless @cat2_image.nil?  %>
 					<div class="card-block">
-						<h4 class="card-title"><%= @default_settings.home_image_cat2_name.titlecase %></h4>
-						<p class="card-text"><%= @default_settings.home_image_cat2_description %></p>
+						<h4 class="card-title"><%= @default_settings.home_image_cat2_name.titlecase.html_safe %></h4>
+						<p class="card-text"><%= @default_settings.home_image_cat2_description.html_safe %></p>
 						<%= link_to( "Browse", story_images_path(:search_query => @default_settings.home_image_cat2), :class=>"btn btn-primary") %>
 					</div>
 				</div>
@@ -52,8 +52,8 @@
 					<%= link_to image_tag(@cat3_image.image(:large), :alt=>@default_settings.home_image_cat1_name.titlecase, :class=>"card-img-top card_section_img"), 
 						story_images_path(:search_query => @default_settings.home_image_cat3) unless @cat3_image.nil?  %>
 					<div class="card-block">
-						<h4 class="card-title"><%= @default_settings.home_image_cat3_name.titlecase %></h4>
-						<p class="card-text"><%= @default_settings.home_image_cat3_description %></p>
+						<h4 class="card-title"><%= @default_settings.home_image_cat3_name.titlecase.html_safe %></h4>
+						<p class="card-text"><%= @default_settings.home_image_cat3_description.html_safe %></p>
 						<%= link_to( "Browse", story_images_path(:search_query => @default_settings.home_image_cat3), :class=>"btn btn-primary") %>
 					</div>
 				</div>
