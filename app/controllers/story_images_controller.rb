@@ -17,7 +17,8 @@ class StoryImagesController < ApplicationController
                         :story_pubdate_full_year,
                         :story_pubdate_leading_zeros,
                         :story_pubdate_leading_zeros_full_year,
-                        :story_pubyear]
+                        :story_pubyear,
+                        :media_name]
           # Filter out any images marked as NotForSale
           without(:forsale, "NotForSale") 
           
