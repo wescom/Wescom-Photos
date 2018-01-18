@@ -123,11 +123,11 @@ class OrdersController < ApplicationController
   def admin_download
     if params[:item_type] == "StoryImage"
       @image = StoryImage.find(params[:order_id])
-      send_file @image.image.path, :filename => "image_"+@image.id.to_s
+      send_file @image.image.path, :filename => "image_"+@image.id.to_s+".jpg"
       Rails.logger.info "***** Image Downloaded ***** " + @image.image.path
     else
       @pdf = PdfImage.find(params[:order_id])
-      send_file @pdf.image.path, :filename => "image_"+@pdf.id.to_s
+      send_file @pdf.image.path, :filename => "image_"+@pdf.id.to_s+".pdf"
       Rails.logger.info "***** News Page Downloaded ***** " + @pdf.image.path
     end
   end
