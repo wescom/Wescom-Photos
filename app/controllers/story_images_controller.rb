@@ -13,8 +13,11 @@ class StoryImagesController < ApplicationController
                         :media_originalcaption, 
                         :story_category_name, 
                         :story_subcategory_name,
-                        :story_pubyear,
-                        :story_pubdate]
+                        :story_pubdate,
+                        :story_pubdate_full_year,
+                        :story_pubdate_leading_zeros,
+                        :story_pubdate_leading_zeros_full_year,
+                        :story_pubyear]
           # Filter out any images marked as NotForSale
           without(:forsale, "NotForSale") 
           
