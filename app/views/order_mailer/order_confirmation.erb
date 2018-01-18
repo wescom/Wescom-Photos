@@ -14,7 +14,7 @@
 				</p>
 				<br/>
 
-				<h4>Order Info</h4>
+				<h3>Order Info</h3>
 				<div class="indent">
 					<p><strong>Date: </strong><%= @order.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%m/%d/%y - %l:%M %P') %></p>
 					<p><strong>Name: </strong><%= @order.first_name %> <%= @order.last_name %></p>
@@ -23,7 +23,7 @@
 				</div>
 				<br/>
 
-				<h4>Images Purchased</h4>
+				<h3>Images Purchased</h3>
 				<i class="text-muted">Download links for images are <%= link_to 'here', order_url(@order.obscure_uniq_identifier) %></i>
 				<div class="indent">
 					<ul class="list-unstyled">
