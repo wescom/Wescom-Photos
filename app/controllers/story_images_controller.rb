@@ -125,40 +125,8 @@ class StoryImagesController < ApplicationController
   def image_for_sale?(image,default_settings,show_errors)
 #    default_settings = DefaultSetting.where("location_id" => current_location).first
 
-    # Check captions for default_settings.search_for_caption_text
-    caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
-    if default_settings.search_for_caption_text.empty? or (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase)
-      caption_text_okay = true
-    else
-      caption_text_okay = false
-      flash_message :admin_error, "Caption text '"+default_settings.search_for_caption_text+"' missing" if show_errors
-    end
-      
-    # Check image priority for default_settings.search_for_priority
-    if default_settings.search_for_priority.empty? 
-      image_priority_okay = true
-    else
-      if image.priority.nil?
-        image_priority_okay = false
-        flash_message :admin_error, "Priority = NULL" if show_errors
-      else
-        if default_settings.search_for_priority.include? image.priority
-          image_priority_okay = true
-        else
-          image_priority_okay = false
-          flash_message :admin_error, "Priority = "+image.priority if show_errors
-        end
-      end
-    end
-      
-    # Return TRUE if image is flagged "For Sale' or is available for sale based on default settings
-    if image.forsale.nil?
-      if (caption_text_okay and image_priority_okay)
-        return true
-      else
-        return false
-      end
-    else
+    # Check whether image is flagged "For Sale' or "NotForSale"
+    if !image.forsale.nil? && image.forsale != ""
       if (image.forsale.include? "For Sale")
         return true
       else
@@ -168,7 +136,40 @@ class StoryImagesController < ApplicationController
           return false
         end
       end
+    else
+      # Check whether image is available for sale based on default settings
+
+      # Check captions for default_settings.search_for_caption_text
+      caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
+      if default_settings.search_for_caption_text.empty? or (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase)
+        caption_text_okay = true
+      else
+        caption_text_okay = false
+        flash_message :admin_error, "Caption text '"+default_settings.search_for_caption_text+"' missing" if show_errors
+      end
+      
+      # Check image priority for default_settings.search_for_priority
+      if default_settings.search_for_priority.empty? 
+        image_priority_okay = true
+      else
+        if image.priority.nil?
+          image_priority_okay = false
+          flash_message :admin_error, "Priority = NULL" if show_errors
+        else
+          if default_settings.search_for_priority.include? image.priority
+            image_priority_okay = true
+          else
+            image_priority_okay = false
+            flash_message :admin_error, "Priority = "+image.priority if show_errors
+          end
+        end
+      end
+      
+      if (caption_text_okay and image_priority_okay)
+        return true
+      else
+        return false
+      end
     end
   end
-  
 end

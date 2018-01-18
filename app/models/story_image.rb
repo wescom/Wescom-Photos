@@ -26,10 +26,10 @@ class StoryImage < ApplicationRecord
     text :media_name, :default_boost => 3.0
     text :media_project_group, :default_boost => 3.0
     text :story_category_name do
-      story.categoryname
+      story.categoryname if story.present?
     end
     text :story_subcategory_name do
-      story.subcategoryname
+      story.subcategoryname if story.present?
     end
     text :forsale
     text :priority
