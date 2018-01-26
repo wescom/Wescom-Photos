@@ -19,7 +19,8 @@ class Order < ApplicationRecord
   validates :expiration_month, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
   validates :expiration_year, presence: true
   validate  :expire_after_today
-  validates :terms_of_service, acceptance: true
+  validates :terms_of_service, acceptance: { message: ' - Image Use Policy must be accepted' }
+  validates :email, presence: true
 #  validate :validate_card
 
   def to_param
