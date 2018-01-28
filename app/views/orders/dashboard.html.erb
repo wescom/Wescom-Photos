@@ -4,36 +4,84 @@
 
 <div class="container">
 	<div class="row dashboard_block">
-		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= column_chart @orders.group_by_day_of_week(:created_at, format: "%a").count, 
-				id: "orders-bar", 
-				label: "Orders", 
-				ytitle: "# of Orders", 
-				width: "600px", 
-				height: "400px",
-				title: 'Orders by Day of Week'
-			%>
-		</div>
+		<!-- sample charts https://www.highcharts.com/demo/line-basic -->
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
 			<%= line_chart @orders.group_by_month(:created_at).count, 
-				id: "orders-line", 
-				label: "Orders", 
+				id: "orders-by-month", 
 				ytitle: "# of Orders", 
 				width: "600px", 
 				height: "400px",
-				title: 'Orders by Month'
+				title: 'Orders by Month',
+				library: {
+					tooltip: {
+					            shared: true,
+					            crosshairs: true,
+								xDateFormat: '<b>%B, %Y</b>',
+								pointFormat: '{point.y} orders'
+					        }
+				}
 			%>
-				
 		</div>
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
 			<%= line_chart @orders.group_by_month(:created_at).sum(:amount), 
-				id: "orders-amount", 
-				label: "Total $", 
-				ytitle: "Order $$$", 
+				id: "sales-by-month", 
+				ytitle: "Order Amount", 
 				width: "600px", 
 				height: "400px",
-				title: 'Orders Amounts by Month'
+				title: 'Total Sales by Month',
+				library: {
+					tooltip: {
+					            shared: true,
+					            crosshairs: true,
+								xDateFormat: '<b>%B, %Y</b>',
+								pointFormat: '${point.y}'
+					        }
+				}
 			%>
 		</div>
+		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
+			<%= line_chart @order_items.group(:item_type).group_by_month(:created_at).sum(:quantity), 
+				id: "image-types-by-month", 
+				label: "Quantity", 
+				ytitle: "# of Images", 
+				width: "600px", 
+				height: "400px",
+				title: 'Items Sold by Month',
+				library: {
+					plotOptions: {
+						line: {
+							dataLabels: { enabled: false },
+							showInLegend: true
+						}
+					},					
+					legend: {labelFormat: '{name}s'},
+					tooltip: {
+					            shared: true,
+					            crosshairs: true,
+								xDateFormat: '<b>%B, %Y</b>',
+								pointFormat: '{series.name}s: {point.y}<br/>'
+					        }
+				}
+			%>
+		</div>
+		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
+			<%= pie_chart @order_items.group_by_day_of_week(:created_at, format: "%a").count,
+				id: "order-items-by-day_of-week", 
+				height: "400px",
+				title: 'Order Items by Day of Week',
+				library: {
+					plotOptions: {
+						pie: {
+							dataLabels: { enabled: false },
+							showInLegend: true
+						}
+					},
+					legend: {labelFormat: '{name} : {y} Items'},
+					tooltip: {pointFormat: 'Items Sold: <b>{point.y}</b>'}
+				}
+			%>
+		</div>
+		
+		
 	</div>
 </div>
