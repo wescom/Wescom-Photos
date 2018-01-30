@@ -2,14 +2,12 @@
 	<div class="container">
 		<div id="advanced_search">
 			<div class="d-flex flex-wrap justify-content-center">
-				<div>
-					<div class="input-group date form-search-date" data-provide="datepicker">
-					    <%= text_field_tag :date_select, params[:date_select], 
-							:placeholder => "mm/dd/yyyy" %>
-					    <div class="input-group-addon">
-					        <i class='fa fa-calendar'></i>
-					    </div>
-					</div>
+				<div class="input-group date form-search-date">
+				    <%= text_field_tag :date_select, params[:date_select], 
+						:placeholder => "mm/dd/yyyy", :class => "datepicker" %>
+				    <div class="input-group-append">
+						<i class='fa fa-calendar input-group-text'></i>
+				    </div>
 				</div>
 				<div>
 					<%= select_tag 'pub_select', 

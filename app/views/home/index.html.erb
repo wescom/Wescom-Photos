@@ -4,13 +4,9 @@
 		<%= image_tag(@banner_image.banner_image(:large), :class=>"") unless @banner_image.nil? %>
 	<% end %>
     <div class="banner-search-wrap">
-		<div class="container">
-			<div class="row">
-				<h1>Welcome to WescomPhotos.com</h1>
-				<div class="header-search">        
-					<%= render :partial => 'story_images/search_images' %>
-				</div>
-			</div>
+		<h1>Welcome to WescomPhotos.com</h1>
+		<div class="header-search">        
+			<%= render :partial => 'story_images/search_images' %>
 		</div>
 	</div>
 </div>
@@ -47,7 +43,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 hidden-sm-down">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 d-none d-md-block">
 				<div class="card text-center">
 					<%= link_to image_tag(@cat3_image.image(:large), :alt=>@default_settings.home_image_cat1_name.titlecase, :class=>"card-img-top card_section_img"), 
 						story_images_path(:search_query => @default_settings.home_image_cat3) unless @cat3_image.nil?  %>
@@ -75,9 +71,9 @@
 					<% when 2 %>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 					<% when 3 %>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 hidden-sm-down">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 d-none d-md-block">
 					<% when 4 %>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 hidden-md-down">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 d-none d-lg-block">
 					<% end %>
 						<div class="card text-center">
 							<%= link_to image_tag(pdf.image(:large), :class=>"card-img-top card_pdf_image"), 

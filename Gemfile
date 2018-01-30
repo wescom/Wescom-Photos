@@ -10,7 +10,7 @@ end
 gem 'rails', '~> 5.0.1'
 gem 'mysql2'
 
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap', '= 4.0.0'
 gem 'font-awesome-sass', '~> 4.7.0'
 
 gem 'progress_bar'

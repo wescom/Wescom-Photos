@@ -102,10 +102,10 @@
 			<div>
 				<!-- <%= link_to "New Manual Payment", new_order_path, class: "btn btn-primary" %> -->
 			</div>
-			<div class="flickr_pagination hidden-sm-down">
+			<div class="flickr_pagination d-none d-sm-block">
 				<%= will_paginate @order, :inner_window => 2, :outer_window => 0 %>
 			</div>
-			<div class="flickr_pagination hidden-md-up">
+			<div class="flickr_pagination d-block d-sm-none">
 				<%= will_paginate @order, :inner_window => 2, :outer_window => 0, :page_links => false %>
 			</div>
 		</div>

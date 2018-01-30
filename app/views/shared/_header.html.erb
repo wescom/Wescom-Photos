@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-inverse">
+<nav class="navbar navbar-dark bg-dark">
 	<div class="d-flex justify-content-between align-items-center">
 		<div id="branding">
 			<h1>
@@ -11,7 +11,9 @@
 					root_path unless @default_settings.respond_to? :each %>
 			<% end %>
 		</div>
-		<div id="navMenu" class="d-flex justify-content-between align-items-center">
+	</div>
+	<div>
+		<div id="navMenu">
 			<div class="btn-group">
 				<% if admin? %>
 					<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,8 +31,8 @@
 					&nbsp;
 				<% end %>
 				<div>
-					<%= link_to( cart_label_quantity_items(), cart_path(), :class=>"btn btn-success hidden-sm-down") %>
-					<%= link_to( cart_label_quantity(), cart_path(), :class=>"btn btn-success hidden-md-up") %>
+					<%= link_to( cart_label_quantity_items(), cart_path(), :class=>"btn btn-success d-none d-sm-block") %>
+					<%= link_to( cart_label_quantity(), cart_path(), :class=>"btn btn-success d-sm-none") %>
 				</div>
 			</div>
 		</div>

@@ -1,15 +1,15 @@
 <%= form_tag story_images_path, :class => "form-inline", :method => :get do %>
-	<div class="container search_container">
-		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<div class="input-group">
+	<div class="container">
+		<div id="advanced_search">
+			<div class="d-flex flex-wrap justify-content-center">
+				<div class="form-search-text-col">
 					<%= text_field_tag :search_query, params[:search_query], 
 						:class => " form-search-text", 
 						:placeholder => "Search for images", 
 						:autofocus => true %>
-					<span class="input-group-btn">
-					 	<button class="btn-secondary form-search-button" type="submit"><i class="fa fa-search"></i></button>
-					</span>
+				</div>
+				<div>
+				 	<button class="btn-secondary form-search-button" type="submit"><i class="fa fa-search"></i></button>
 				</div>
 			</div>
 		</div>
