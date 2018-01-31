@@ -12,6 +12,7 @@ gem 'mysql2'
 
 gem 'bootstrap', '= 4.0.0'
 gem 'font-awesome-sass', '~> 4.7.0'
+gem 'bootstrap-datepicker-rails'
 
 gem 'progress_bar'
 gem 'will_paginate'
@@ -27,6 +28,8 @@ gem 'groupdate'   #used to group by day, week, hour, etc.
 
 # Authentication
 gem 'adauth'
+
+gem 'sitemap_generator' # Sitemap generator 
 
 gem "figaro", ">= 0.5.3"  # use for environment variables
 gem 'nokogiri'
@@ -58,7 +61,6 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-gem 'bootstrap-datepicker-rails'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
