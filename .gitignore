@@ -28,3 +28,4 @@
 # Ignore default_settings images for locations
 /public/images/banner_images
 /public/images/site_images
+/public/assets
