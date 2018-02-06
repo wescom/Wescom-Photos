@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171207230019) do
+ActiveRecord::Schema.define(version: 20180206142245) do
 
   create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "owner_id"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 20171207230019) do
     t.string   "site_image_content_type"
     t.integer  "site_image_file_size"
     t.datetime "site_image_updated_at"
+    t.decimal  "image_hi_res_price",                        precision: 12, scale: 3
+    t.decimal  "image_low_res_price",                       precision: 12, scale: 3
   end
 
   create_table "keywords", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -316,6 +318,7 @@ ActiveRecord::Schema.define(version: 20171207230019) do
     t.datetime "last_refreshed_time"
     t.datetime "expire_date"
     t.string   "forsale"
+    t.string   "media_category"
     t.index ["image_updated_at"], name: "index_story_images_on_image_updated_at", using: :btree
     t.index ["media_id"], name: "index_story_images_on_media_id", using: :btree
     t.index ["story_id"], name: "index_story_images_on_story_id", using: :btree

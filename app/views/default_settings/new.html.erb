@@ -20,9 +20,15 @@
 
 		<h5>Pricing defaults:</h5>
 		<div class="form-group row">
-			<label for="image_price" class="offset-1 col-3 col-form-label">Image Price:</label>
+			<label for="image_price" class="offset-1 col-3 col-form-label">Image Hi-Res Price:</label>
 			<div class="col-3">
-				<%= f.number_field :image_price, class: "form-control", :step => "0.01", :required => "true" %>
+				<%= f.number_field :image_hi_res_price, class: "form-control", :step => "0.01", :required => "true" %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="image_price" class="offset-1 col-3 col-form-label">Image Low-Res Price:</label>
+			<div class="col-3">
+				<%= f.number_field :image_low_res_price, class: "form-control", :step => "0.01", :required => "true" %>
 			</div>
 		</div>
 		<div class="form-group row">
