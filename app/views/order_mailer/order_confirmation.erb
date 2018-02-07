@@ -29,25 +29,28 @@
 					<ul class="list-unstyled">
 						<% @order.order_items.each_with_index do |order_item, index| %>
 							<li>
-								<span>Item<%= (index+1).to_s %></span>
-									<% if order_item.item_type == "StoryImage" %>
-										<% if order_item.story_image.story %>
-											<% if order_item.story_image.story.plan %>
-												<span class="tab">
-													<%= order_item.story_image.story.plan.pub_name unless order_item.story_image.story.plan.pub_name.nil? %>
-													- <%= order_item.story_image.story.pubdate.strftime('%m/%d/%y') unless order_item.story_image.story.pubdate.nil? %>
-												</span>
-											<% end %>
-										<% end %>
-									<% else %>
-										<% if order_item.pdf_image.plan %>
+								<% if order_item.item_type == "StoryImage" %>
+									<span>Item_<%= order_item.id.to_s %></span>
+									<span class="tab"><%= order_item.item_description %></span>
+									<% if order_item.story_image.story %>
+										<% if order_item.story_image.story.plan %>
 											<span class="tab">
-												<%= order_item.pdf_image.publication %> - 
-												<%= order_item.pdf_image.pubdate.strftime('%m/%d/%y') unless order_item.pdf_image.pubdate.nil? %> - 
-												<%= order_item.pdf_image.section_letter %><%= order_item.pdf_image.page %>
+												<%= order_item.story_image.story.plan.pub_name unless order_item.story_image.story.plan.pub_name.nil? %>
+												- <%= order_item.story_image.story.pubdate.strftime('%m/%d/%y') unless order_item.story_image.story.pubdate.nil? %>
 											</span>
 										<% end %>
 									<% end %>
+								<% else %>
+									<span>PDF_<%= order_item.id.to_s %></span>
+									<span class="tab"><%= order_item.item_description %></span>
+									<% if order_item.pdf_image.plan %>
+										<span class="tab">
+											<%= order_item.pdf_image.publication %> - 
+											<%= order_item.pdf_image.pubdate.strftime('%m/%d/%y') unless order_item.pdf_image.pubdate.nil? %> - 
+											<%= order_item.pdf_image.section_letter %><%= order_item.pdf_image.page %>
+										</span>
+									<% end %>
+								<% end %>
 								<span class="tab">
 									<%= number_to_currency(order_item.price_cents.to_d/100) %>
 								</span>
