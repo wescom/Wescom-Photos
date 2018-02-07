@@ -15,6 +15,7 @@
 				<thead>
 					<tr>
 						<th class="image_column text-center">Item</th>
+						<th class="description_column text-center">Description</th>
 						<th class="publish_column text-center">Published</th>
 						<th class="price_column text-center">Price</th>
 						<th class="action_column text-center">Download</th>
@@ -27,9 +28,10 @@
 
 				<tfoot>
 					<tr>
-						<td colspan="1"></td>
-						<td class="float-right"><strong>Total:</strong></td>
+						<td colspan="2"></td>
+						<td class=""><strong>Total:</strong></td>
 						<td class="text-center"><strong><%= number_to_currency @order.amount %></strong></td>
+						<td colspan="1"></td>
 					</tr>
 				</tfoot>
 			</table>

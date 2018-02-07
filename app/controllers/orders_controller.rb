@@ -52,6 +52,8 @@ class OrdersController < ApplicationController
             @order_item.quantity = item.quantity
             @order_item.price_cents = item.price_cents
             @order_item.price_currency = item.price_currency
+            @order_item.item_quality = item.item_quality
+            @order_item.item_description = item.item_description
             @order_item.save
             #puts @order_item.inspect
           end
@@ -81,6 +83,8 @@ class OrdersController < ApplicationController
           @order_item.quantity = item.quantity
           @order_item.price_cents = item.price_cents
           @order_item.price_currency = item.price_currency
+          @order_item.item_quality = item.item_quality
+          @order_item.item_description = item.item_description
           @order_item.save
         end
         @cart.clear
@@ -121,6 +125,7 @@ class OrdersController < ApplicationController
   end
 
   def admin_download
+    # Downloads HiRes Original file
     if params[:item_type] == "StoryImage"
       @image = StoryImage.find(params[:order_id])
       send_file @image.image.path, :filename => "image_"+@image.id.to_s+".jpg"

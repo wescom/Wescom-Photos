@@ -6,6 +6,9 @@
 			<%= image_tag(order_item.pdf_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
 		<% end %>
 	</td>
+	<td data-th="Description" class="description_column text-center">
+		<div class="align-top"><%= order_item.item_description %></div>
+	</td>
 	<td data-th="Published" class="publish_column text-center">
 		<% if order_item.item_type == "StoryImage" %>
 			<% if order_item.story_image.story %>
@@ -28,10 +31,10 @@
 	<td data-th="Action" class="action_column text-center">
 		<% if order_item.item_type == "StoryImage" %>
 			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.story_image,
-				:item_type=>"StoryImage") %>
+				:item_type=>order_item.item_type, :item_quality=>order_item.item_quality) %>
 		<% else %>
 			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.pdf_image,
-				:item_type=>"PdfImage") %>
+				:item_type=>order_item.item_type, :item_quality=>order_item.item_quality) %>
 		<% end %>
 	</td>
 </tr>

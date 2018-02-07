@@ -20,7 +20,7 @@ class CartsController < ApplicationController
     if @cart_item.exists?
       flash_message :notice, "News page already in cart"
     else
-      @cart.add(@pdf_image, pdf_price)
+      @cart.add(@pdf_image, params[:price], 1, true, params[:quality], params[:description])
     end
     redirect_to cart_path
   end
