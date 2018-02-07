@@ -17,11 +17,13 @@ gem 'bootstrap-datepicker-rails'
 gem 'progress_bar'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+
 gem "paperclip", "~> 5.0.0"
 gem "mini_magick"
+gem 'mini_exiftool'
+
 gem 'acts_as_shopping_cart', '~> 0.4.0'
 gem 'activemerchant'
-#gem 'rmagick'   # load ImageMagick library
 
 # Create beautiful JavaScript charts with one line of Ruby https://www.chartkick.com
 gem 'chartkick'

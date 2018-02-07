@@ -113,15 +113,22 @@ class OrdersController < ApplicationController
     @order_item = OrderItem.find_by_order_id_and_item_id(@order.id,params[:order_item_id])
     if @order_item.item_type == "StoryImage"
       @image = StoryImage.find(@order_item.item_id)
+
+      # Create lowres version of the original in database
+      @modified_image = MiniMagick::Image.open(@image.image.path)
+      @modified_image.strip                 # Strip out all extra image data
+
+      # Write web caption to image's exif data
+      pic = MiniExiftool.new @modified_image.path
+      pic.caption_abstract = @image.media_webcaption + "\n\n" + "© Western Communications, Inc. "
+      pic.save
+
       if @order_item.item_quality == "Hires"
-        send_file @image.image.path, :filename => "image_"+@image.id.to_s+".jpg"
+        send_file @modified_image.  path, :filename => "image_"+@image.id.to_s+".jpg"
         Rails.logger.info "***** HiRes Image Downloaded ***** " + @image.image.path
       else
-        # Create lowres version of the original in database
-        @lowres_image = MiniMagick::Image.open(@image.image.path)
-        @lowres_image.resize "800x800"
-#        @lowres_image.write
-        send_file @lowres_image.path, :filename => "image_"+@image.id.to_s+".jpg"
+        @modified_image.resize "1400x1400"    # Resize image, reducing quality
+        send_file @modified_image.path, :filename => "image_"+@image.id.to_s+".jpg"
         Rails.logger.info "***** LowRes Image Downloaded ***** " + @image.image.path
       end
     else
