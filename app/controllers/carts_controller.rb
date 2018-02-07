@@ -8,7 +8,7 @@ class CartsController < ApplicationController
     if @cart_item.exists?
       flash_message :notice, "Image already in cart"
     else
-      @cart.add(@story_image, image_price)
+      @cart.add(@story_image, params[:price], 1, true, params[:quality], params[:description])
     end
     redirect_to cart_path
   end

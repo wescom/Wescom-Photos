@@ -42,21 +42,42 @@
 			<div class="modal_image_caption">
 				<h6>Image Details:</h6>
 				<p>
-					Full Resolution Image<br>
 					Image Size: <%= (@story_image.media_width*1.0/72 * 100).floor / 100.0 %> x <%= (@story_image.media_height*1.0/72 * 100).floor / 100.0%> inches<br>
 					Media Type: <%= @story_image.media_type %><br>
 				</p>
 			</div>
 			<div class=""><br></div>
+			<h6>Purchase Digital Download:</h6>
 			<div class="purchase_bar">
-				<span class="purchase_price">Digital Download - <%= number_to_currency(image_price) %></span>
-				<span class="purchase_btn">
+				<span class="purchase_price">
+					High Resolution - <%= number_to_currency(@default_settings.image_hi_res_price) %>
 					<% if image_in_cart?(@story_image.id) %>
 						<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
 							:class=>"btn btn-success" %>
 					<% else %>
-						<%= link_to 'Add to cart', cart_path(:id => @story_image), :method => 'POST', :class=>"btn btn-success" %>
+						<%= link_to 'Add to cart', 
+							cart_path(:id => @story_image, 
+									:price => @default_settings.image_hi_res_price,
+									:quality => "Hires",
+									:description => "High Resolution Image Download"), 
+							:method => 'POST', :class=>"btn btn-success" %>
 					<% end %>
+					<br/>
+				</span>
+				<span class="purchase_price">
+					Low Resolution - <%= number_to_currency(@default_settings.image_low_res_price) %>
+					<% if image_in_cart?(@story_image.id) %>
+						<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
+							:class=>"btn btn-success" %>
+					<% else %>
+						<%= link_to 'Add to cart', 
+							cart_path(:id => @story_image, 
+									:price => @default_settings.image_low_res_price,
+									:quality => "Lowres",
+									:description => "Low Resolution Image Download"), 
+							:method => 'POST', :class=>"btn btn-success" %>
+					<% end %>
+					<br/>
 				</span>
 			</div>
 		</div>

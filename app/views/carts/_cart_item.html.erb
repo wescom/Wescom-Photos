@@ -2,6 +2,9 @@
 	<td data-th="Image" class="image_column text-center">
 		<%= image_tag(cart_item.item.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
 	</td>
+	<td data-th="Description" class="description_column text-center">
+		<div class="align-top"><%= cart_item.item_description %></div>
+	</td>
 	<td data-th="Published" class="publish_column text-center">
 		<% if cart_item.item_type == "StoryImage" %>
 			<% if cart_item.item.story %>
