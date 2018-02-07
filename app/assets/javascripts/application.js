@@ -15,6 +15,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require tether
+//= require popper
 //= require bootstrap-datepicker
 //= require bootstrap
 //= require_tree .

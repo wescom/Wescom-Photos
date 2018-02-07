@@ -50,7 +50,11 @@
 			<h6>Purchase Digital Download:</h6>
 			<div class="purchase_bar">
 				<span class="purchase_price">
-					High Resolution - <%= number_to_currency(@default_settings.image_hi_res_price) %>
+					High Resolution 
+					<a href="#" data-toggle="tooltip" data-original-title="Original file provided by the photographer. Suitable for large prints as well as digital use." data-placement="top">
+						<i class="fa fa-info-circle" ></i>
+					</a>
+					 - <%= number_to_currency(@default_settings.image_hi_res_price) %>
 					<% if image_in_cart?(@story_image.id) %>
 						<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
 							:class=>"btn btn-success" %>
@@ -63,9 +67,14 @@
 							:method => 'POST', :class=>"btn btn-success" %>
 					<% end %>
 					<br/>
+					<br/>
 				</span>
 				<span class="purchase_price">
-					Low Resolution - <%= number_to_currency(@default_settings.image_low_res_price) %>
+					Low Resolution 
+					<a href="#" data-toggle="tooltip" data-original-title="Suitable for small prints and digital use." data-placement="top">
+						<i class="fa fa-info-circle" ></i>
+					</a>
+					- <%= number_to_currency(@default_settings.image_low_res_price) %>
 					<% if image_in_cart?(@story_image.id) %>
 						<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
 							:class=>"btn btn-success" %>
