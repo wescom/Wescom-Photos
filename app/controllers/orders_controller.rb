@@ -114,7 +114,6 @@ class OrdersController < ApplicationController
     if @order_item.item_type == "StoryImage"
       @image = StoryImage.find(@order_item.item_id)
 
-      # Create lowres version of the original in database
       @modified_image = MiniMagick::Image.open(@image.image.path)
       @modified_image.strip                 # Strip out all extra image data
 
@@ -127,7 +126,7 @@ class OrdersController < ApplicationController
         send_file @modified_image.  path, :filename => "image_"+@image.id.to_s+".jpg"
         Rails.logger.info "***** HiRes Image Downloaded ***** " + @image.image.path
       else
-        @modified_image.resize "1400x1400"    # Resize image, reducing quality
+        @modified_image.resize "1400x1400"    # Resize image, reducing quality to low resolution
         send_file @modified_image.path, :filename => "image_"+@image.id.to_s+".jpg"
         Rails.logger.info "***** LowRes Image Downloaded ***** " + @image.image.path
       end
@@ -140,9 +139,19 @@ class OrdersController < ApplicationController
 
   def admin_download
     # Downloads HiRes Original file
+
     if params[:item_type] == "StoryImage"
       @image = StoryImage.find(params[:order_id])
-      send_file @image.image.path, :filename => "image_"+@image.id.to_s+".jpg"
+
+      @modified_image = MiniMagick::Image.open(@image.image.path)
+      @modified_image.strip     # Strip out all extra image data
+
+      # Write web caption to image's exif data
+      pic = MiniExiftool.new @modified_image.path
+      pic.caption_abstract = @image.media_webcaption + "\n\n" + "© Western Communications, Inc. "
+      pic.save
+
+      send_file @modified_image.path, :filename => "image_"+@image.id.to_s+".jpg"
       Rails.logger.info "***** Image Downloaded ***** " + @image.image.path
     else
       @pdf = PdfImage.find(params[:order_id])
