@@ -22,7 +22,10 @@
 				</span>
 				<span class="bar_icons float-right">
 					<% if admin? %>
-						<%= link_to('<i class="fa fa-download"> </i>'.html_safe, order_admin_download_path(pdf,:item_type=>"PDFImage"), :class=>"btn btn-sm btn-primary") %>
+						<%= link_to '<i class="fa fa-download"> </i>'.html_safe, 
+							order_admin_download_path(pdf,:item_type=>"PDFImage"),
+							:class => "btn btn-sm btn-primary",
+							title: 'Admin Download HiRes', 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
 					<% end %>
 					<%= link_to "<i class='fa fa-info'> </i>".html_safe, pdf_image_path(pdf.id), { 
 						:class => "btn btn-sm btn-success",
@@ -67,7 +70,12 @@
 							</div>
 							<div class="floater"></div>
 							<div class="purchase_bar">
-								<span class="purchase_price">Digital Download - <%= number_to_currency(pdf_price) %></span>
+								<span class="purchase_price">
+									Digital Download 
+									<a href="#" data-toggle="tooltip" data-original-title="High resolution pdf of printed page. Suitable for large prints as well as digital use." data-placement="top">
+										<i class="fa fa-info-circle" ></i>
+									</a>
+									- <%= number_to_currency(pdf_price) %></span>
 								<span class="purchase_btn">
 									<% if image_in_cart?(pdf.id) %>
 										<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 

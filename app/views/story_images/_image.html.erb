@@ -31,7 +31,10 @@
 				</span>
 				<span class="bar_icons float-right">
 					<% if admin? %>
-						<%= link_to('<i class="fa fa-download"> </i>'.html_safe, order_admin_download_path(image,:item_type=>"StoryImage"), :class=>"btn btn-sm btn-primary") %>
+						<%= link_to '<i class="fa fa-download"> </i>'.html_safe, 
+							order_admin_download_path(image,:item_type=>"StoryImage"),
+							:class => "btn btn-sm btn-primary",
+							title: 'Admin Download HiRes', 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
 					<% end %>
 					<%= link_to "<i class='fa fa-info'> </i>".html_safe, story_image_path(image.id), { 
 						:class => "btn btn-sm btn-success",
@@ -101,7 +104,8 @@
 									High Resolution 
 									<a href="#" data-toggle="tooltip" data-original-title="Original file provided by the photographer. Suitable for large prints as well as digital use." data-placement="top">
 										<i class="fa fa-info-circle" ></i>
-									</a>									- <%= number_to_currency(@default_settings.image_hi_res_price) %>
+									</a>
+									- <%= number_to_currency(@default_settings.image_hi_res_price) %>
 									<% if image_in_cart?(image.id) %>
 										<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
 											:class=>"btn btn-success" %>

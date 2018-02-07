@@ -30,9 +30,11 @@
 	</td>
 	<td data-th="Action" class="action_column text-center">
 		<% if order_item.item_type == "StoryImage" %>
-			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.story_image) %>
+			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.story_image),
+				:title => 'Download Image', :rel => 'tooltip', "data-placement" => "Right" %>
 		<% else %>
-			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.pdf_image) %>
+			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.pdf_image),
+				title: 'Download PDF', :rel => 'tooltip', "data-placement" => "Right" %>
 		<% end %>
 	</td>
 </tr>
