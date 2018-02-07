@@ -19,7 +19,7 @@
 			<% end %>
 		<% else %>
 			<% if order_item.pdf_image.plan %>
-				<strong><%= order_item.pdf_image.publication %></strong><br/> 
+				<%= order_item.pdf_image.publication %><br/> 
 				<%= order_item.pdf_image.pubdate.strftime('%m/%d/%y') unless order_item.pdf_image.pubdate.nil? %><br/> 
 				<%= order_item.pdf_image.section_letter %><%= order_item.pdf_image.page %>
 			<% end %>
@@ -30,11 +30,9 @@
 	</td>
 	<td data-th="Action" class="action_column text-center">
 		<% if order_item.item_type == "StoryImage" %>
-			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.story_image,
-				:item_type=>order_item.item_type, :item_quality=>order_item.item_quality) %>
+			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.story_image) %>
 		<% else %>
-			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.pdf_image,
-				:item_type=>order_item.item_type, :item_quality=>order_item.item_quality) %>
+			<%= link_to icon('download fa-lg'), order_order_item_download_path(@order.obscure_uniq_identifier,order_item.pdf_image) %>
 		<% end %>
 	</td>
 </tr>

@@ -111,15 +111,22 @@ class OrdersController < ApplicationController
     # Find item to download within the order
     @order = Order.find_by_obscure_uniq_identifier(params[:order_id])
     @order_item = OrderItem.find_by_order_id_and_item_id(@order.id,params[:order_item_id])
-    puts @order_item.item_id.to_s
-
-    if params[:item_type] == "StoryImage"
+    if @order_item.item_type == "StoryImage"
       @image = StoryImage.find(@order_item.item_id)
-      send_file @image.image.path, :filename => "image_"+@image.id.to_s+".jpg"
-      Rails.logger.info "***** Image Downloaded ***** " + @image.image.path
+      if @order_item.item_quality == "Hires"
+        send_file @image.image.path, :filename => "image_"+@image.id.to_s+".jpg"
+        Rails.logger.info "***** HiRes Image Downloaded ***** " + @image.image.path
+      else
+        # Create lowres version of the original in database
+        @lowres_image = MiniMagick::Image.open(@image.image.path)
+        @lowres_image.resize "800x800"
+#        @lowres_image.write
+        send_file @lowres_image.path, :filename => "image_"+@image.id.to_s+".jpg"
+        Rails.logger.info "***** LowRes Image Downloaded ***** " + @image.image.path
+      end
     else
       @pdf = PdfImage.find(@order_item.item_id)
-      send_file @pdf.image.path, :filename => "image_"+@pdf.id.to_s+".pdf"
+      send_file @pdf.image.path, :filename => "PDFpage_"+@pdf.id.to_s+".pdf"
       Rails.logger.info "***** News Page Downloaded ***** " + @pdf.image.path
     end
   end
