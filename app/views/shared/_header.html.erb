@@ -1,5 +1,5 @@
-<nav class="navbar navbar-dark bg-dark">
-	<div class="d-flex justify-content-between align-items-center">
+<div id="header_bar" class="d-flex justify-content-between bg-dark">
+	<div class="align-items-center">
 		<div id="branding">
 			<h1>
 				<%= link_to root_path do %>
@@ -12,29 +12,28 @@
 			<% end %>
 		</div>
 	</div>
-	<div>
-		<div id="navMenu">
-			<div class="btn-group">
-				<% if admin? %>
-					<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Admin
+	<div class="d-flex align-items-center">
+		<div class="btn-group-vertical">
+			<div class="btn-block text-center">
+				<%= link_to( cart_label_quantity_items(), cart_path(), :class=>"btn btn-success d-none d-sm-block") %>
+				<%= link_to( cart_label_quantity(), cart_path(), :class=>"btn btn-success d-block d-sm-none") %>
+			</div>
+			<% if admin? %>
+				<div class="dropleft btn-block text-center">
+					<button type="button" class="btn btn-secondary" data-toggle="dropdown">
+						<%= icon('bars fa-lg') %>
 					</button>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#"><%= link_to "Dashboard", dashboard_path %></a>
-						<a class="dropdown-item" href="#"><%= link_to "Orders", orders_path %></a>
-						<a class="dropdown-item" href="#"><%= link_to "Locations", locations_path %></a>
-						<a class="dropdown-item" href="#"><%= link_to "Default Settings", default_settings_path %></a>
-						<a class="dropdown-item" href="#"><%= link_to "Default Pages", default_pages_path %></a>
+						<%= link_to "Dashboard", dashboard_path, :class=>"dropdown-item" %></a>
+						<%= link_to "Orders", orders_path, :class=>"dropdown-item" %></a>
+						<%= link_to "Locations", locations_path, :class=>"dropdown-item" %></a>
+						<%= link_to "Default Settings", default_settings_path, :class=>"dropdown-item" %></a>
+						<%= link_to "Default Pages", default_pages_path, :class=>"dropdown-item" %></a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#"><%= link_to "Logout", logout_path %></a>
+						<%= link_to "Logout", logout_path, :class=>"dropdown-item" %></a>
 					</div>
-					&nbsp;
-				<% end %>
-				<div>
-					<%= link_to( cart_label_quantity_items(), cart_path(), :class=>"btn btn-success d-none d-sm-block") %>
-					<%= link_to( cart_label_quantity(), cart_path(), :class=>"btn btn-success d-sm-none") %>
 				</div>
-			</div>
+			<% end %>
 		</div>
 	</div>
-</nav>
+</div>

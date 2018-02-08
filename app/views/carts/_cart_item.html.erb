@@ -5,7 +5,7 @@
 	<td data-th="Description" class="description_column text-center">
 		<div class="align-top"><%= cart_item.item_description %></div>
 	</td>
-	<td data-th="Published" class="publish_column text-center">
+	<td data-th="Published" class="publish_column text-center d-none d-sm-block">
 		<% if cart_item.item_type == "StoryImage" %>
 			<% if cart_item.item.story %>
 				<% if cart_item.item.story.plan %>
@@ -29,7 +29,7 @@
 				data: {confirm:'Remove image from cart?'} %>
 		</div>
 	</td>
-	<td data-th="Action" class="action_column">
+	<td data-th="Action" class="action_column d-none d-sm-block">
 		<%= link_to icon('remove fa-lg'), 
 			remove_item_cart_path(:id => cart_item.item_id), :method=> :put, :action => 'remove_item_cart',
 			data: {confirm:'Remove image from cart?'} %>

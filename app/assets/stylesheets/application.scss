@@ -83,7 +83,6 @@
 	.publish_column { }
 	.price_column { }
 	.succeed_col { display: none; }
-	.action_column { display: none; }
 	.colspan_column { display: none; }
 	.image_related .form-search-text { display: none; }
 	.related_image_block  { display: none; }
@@ -113,6 +112,7 @@
     text-decoration:none; 
 }
 .newspaper_logo { max-height: 50px; }
+#header_bar { padding: 15px }
 
 /*** Home Page ***/
 .home-page-head {
