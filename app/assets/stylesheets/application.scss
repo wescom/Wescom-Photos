@@ -18,6 +18,14 @@
 
 
 /*** Main custimation ***/
+.body_defaults {
+/*  width: 100vw; */
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
 .indent { text-indent: 50px; }
 .max_100 {max-width: 100%; max-height: 100%;}
 .btn { margin-left: 5px; }
@@ -79,9 +87,6 @@
 .dropdown-menu { padding: 0.5rem 1rem; }
 
 @include media-breakpoint-down(xs) {
-	.image_column { }
-	.publish_column { }
-	.price_column { }
 	.succeed_col { display: none; }
 	.colspan_column { display: none; }
 	.image_related .form-search-text { display: none; }
@@ -112,7 +117,7 @@
     text-decoration:none; 
 }
 .newspaper_logo { max-height: 50px; }
-#header_bar { padding: 15px }
+#header_bar { padding: 15px; }
 
 /*** Home Page ***/
 .home-page-head {
