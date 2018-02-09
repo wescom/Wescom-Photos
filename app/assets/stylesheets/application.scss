@@ -19,12 +19,13 @@
 
 /*** Main custimation ***/
 .body_defaults {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+	width: 100vw;
+	min-width: 400px;
+	position: relative;
+	left: 50%;
+	right: 50%;
+	margin-left: -50vw;
+	margin-right: -50vw;
 }
 .indent { text-indent: 50px; }
 .max_100 {max-width: 100%; max-height: 100%;}
@@ -33,6 +34,7 @@
 .content_block { margin: 0px 10px; min-height: 650px; }
 .order_block, .image_block { margin: 0px 10px; min-height: 300px; }
 .location_block { margin: 20px 10% 0px 10%; min-height: 300px; }
+td.image_column { padding: 0.75rem 0px 0.75rem 0 }
 .img-thumb {width: 100px; height: auto;}
 .cart_heading, .checkout_heading { margin: 20px 0px 0px 10%;}
 .image_heading, .order_heading, .location_heading, .default_heading, .dashboard_heading, .default_page_heading { margin: 20px 10% 10px 10%; }

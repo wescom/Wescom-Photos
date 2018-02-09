@@ -24,8 +24,6 @@
 				<th class="">Name</th>
 				<th class="text-center">Items</th>
 				<th class="text-center">Total Amount</th>
-				<th class="succeed_col text-center">Succeeded?</th>
-				<th class="auth_col text-center">Authorization Code</th>
 				<th class="action_col text-center"></th>
 			</tr>
 		</thead>
@@ -40,8 +38,6 @@
 						<td><%= order.first_name %> <%= order.last_name %></td>
 						<td class="text-center"><%= order.order_items.count %></td>
 						<td class="text-center"><%= number_to_currency order.amount %></td>
-						<td class="succeed_col text-center"><%= order.success == true ? "Yes" : "No" %></td>
-						<td class="auth_col text-center"><%= order.authorization_code %></td>
 						<td class="action_column text-center">
 							<% if order.order_items.count > 0 %>
 								<p class="show_order_items_next btn btn-outline-info">

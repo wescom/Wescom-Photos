@@ -9,7 +9,7 @@
 	<td data-th="Description" class="description_column text-center">
 		<div class="align-top"><%= order_item.item_description %></div>
 	</td>
-	<td data-th="Published" class="publish_column text-center">
+	<td data-th="Published" class="publish_column text-center d-none d-sm-block">
 		<% if order_item.item_type == "StoryImage" %>
 			<% if order_item.story_image.story %>
 				<% if order_item.story_image.story.plan %>
