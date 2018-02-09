@@ -48,6 +48,7 @@
 			</div>
 			<div class=""><br></div>
 			<h6>Purchase Digital Download:</h6>
+			<p class=""><a data-toggle="modal" href="#licenseModal"><small>Image use license</small></a></p>
 			<div class="purchase_bar">
 				<span class="purchase_price">
 					High Resolution 
@@ -216,3 +217,30 @@
 		</div>
 	</div>
 <% end %>
+
+<div class="modal fade col-sm-6 col-md-6" id="licenseModal" tabindex="-1" role="dialog" aria-labelledby="licenseModalLabel" aria-hidden="true">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+					Image Use License
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="row">
+						<p><%= @default_settings.image_use_license.html_safe %></p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="container">
+					<div class="image_copyright text-center"> 
+						&copy; Copyright - Western Communications, Inc.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
