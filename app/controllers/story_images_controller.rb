@@ -60,7 +60,7 @@ class StoryImagesController < ApplicationController
         Rails.logger.info @story.inspect
         if !@story.nil?
           @story_image = @story.story_images.find_by_media_id(params[:media_id]) unless @story.nil?
-          Rails.logger.info @ststory_imageory.inspect
+          Rails.logger.info @story_image.inspect
           params[:id] = @story_image.id unless @story_image.nil?
         end
       end
