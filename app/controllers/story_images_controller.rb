@@ -56,7 +56,7 @@ class StoryImagesController < ApplicationController
     # Check if media_id and story_id are given as paramters. If so, find the image id
     if params.has_key?(:media_id) && params.has_key?(:story_id)
       if !params[:story_id].empty? && !params[:media_id].empty?
-        @story = Story.find_by_id(params[:story_id])
+        @story = Story.find_by_doc_id(params[:story_id])
         if !@story.nil?
           @story_image = @story.story_images.find_by_media_id(params[:media_id]) unless @story.nil?
           params[:id] = @story_image.id unless @story_image.nil?
