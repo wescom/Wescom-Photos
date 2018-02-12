@@ -36,6 +36,7 @@ NAMES_TO_FILTER = [
   "Veteran",
   "Deschutes River",
   
+  "Oregon State",
   "Central Oregon",
   "Deschutes County",
   "Deschutes",

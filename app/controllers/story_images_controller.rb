@@ -94,9 +94,9 @@ class StoryImagesController < ApplicationController
 
       # find other related images from the proper names in the caption
       if @related_story_images.count < 10
-        names = image_caption_names(@story_image.media_webcaption)  # Get proper names from caption
+        @proper_names_in_caption = image_caption_names(@story_image.media_webcaption)  # Get proper names from caption
         # Search images for each 'proper name' within caption fields
-        names.each do |name|
+        @proper_names_in_caption.each do |name|
           begin
             @related_name_images = StoryImage.search(:include => [:story]) do
               fulltext name, 
