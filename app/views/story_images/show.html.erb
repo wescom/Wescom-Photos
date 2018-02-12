@@ -177,7 +177,9 @@
 			<div class="image_admin_info card-block">
 				<p><strong>Original caption</strong> - 
 					<i><%= @story_image.media_originalcaption.to_s unless @story_image.media_originalcaption.nil? %></i>
-					<br/>Proper Names in webcaption (used for related images): <%= @proper_names_in_caption %>
+					<% if @proper_names_in_caption %>
+						<br/>Proper Names in webcaption (used for related images): <%= @proper_names_in_caption %>
+					<% end %>
 				</p>
 				<p>
 					<strong>ID</strong> - <i><%= @story_image.id unless @story_image.id.nil? %></i>
