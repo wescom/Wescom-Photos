@@ -124,7 +124,7 @@ class StoryImagesController < ApplicationController
           # Add related 'proper name' images to related_story_images
           @related_name_images.results[0..6].each do |related_image|
             if related_image.id != @story_image.id  # dont add if current image
-              @related_story_images << related_image
+              @related_story_images << related_image unless @related_story_images.include?(related_image) # dont add if already in list
             end
           end
         end
