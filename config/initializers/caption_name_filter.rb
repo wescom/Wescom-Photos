@@ -34,7 +34,8 @@ NAMES_TO_FILTER = [
   "Senior Center",
   "Bend Senior",
   "Veteran",
-
+  "Deschutes River",
+  
   "Central Oregon",
   "Deschutes County",
   "Deschutes",

@@ -176,7 +176,14 @@
 			</div>
 			<div class="image_admin_info card-block">
 				<p><strong>Original caption</strong> - <i><%= @story_image.media_originalcaption.to_s unless @story_image.media_originalcaption.nil? %></i></p>
-				<p><strong>ID</strong> - <i><%= @story_image.id unless @story_image.id.nil? %></i></p>
+				<p>
+					<strong>ID</strong> - <i><%= @story_image.id unless @story_image.id.nil? %></i>
+					<%= link_to '<i class="fa fa-edit" ></i>'.html_safe, 
+						"https://archive.wescompapers.com/story_images/"+@story_image.id.to_s,
+						:class=>"btn btn-outline-info",
+						title: 'Edit image data in WescomArchive.com', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
+					</a>
+				</p>
 				<p><strong>Media ID</strong> - <i><%= @story_image.media_id unless @story_image.media_id.nil? %></i></p>
 				<p><strong>Media Name</strong> - <i><%= @story_image.media_name unless @story_image.media_name.nil? %></i></p>
 				<p><strong>Original Filename</strong> - <i><%= @story_image.image_file_name unless @story_image.image_file_name.nil? %></i></p>
