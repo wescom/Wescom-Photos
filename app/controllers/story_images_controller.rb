@@ -38,9 +38,9 @@ class StoryImagesController < ApplicationController
           paginate(:page => params[:page], :per_page => 24)
           order_by :story_pubdate, :desc
           order_by :story_publication_name, :asc
-      end
-      rescue Errno::ECONNREFUSED
-        render :text => "Search Server Down\n\n\n It will be back online shortly"
+        end
+        rescue Errno::ECONNREFUSED
+          render :text => "Search Server Down\n\n\n It will be back online shortly"
       end
     else
       redirect_to :root
@@ -84,13 +84,52 @@ class StoryImagesController < ApplicationController
       	end
       end
       
-      # find other related images
+      # find other related images from the story
       if @story_image.story.present?
 #        params[:search_query] = @story_image.story.categoryname
         
-        @related_story_images = @story_image.story.story_images.where("id != ?", @story_image.id)         # remove current image
+        @related_story_images = @story_image.story.story_images.where("id != ?", @story_image.id)               # remove current image
         @related_story_images = @related_story_images.reject {|x| !image_for_sale?(x,default_settings,false)}   # remove any images not for sale
       end
+
+      # find other related images from the proper names in the caption
+      if @related_story_images.count < 10
+        names = image_caption_names(@story_image.media_webcaption)  # Get proper names from caption
+        # Search images for each 'proper name' within caption fields
+        names.each do |name|
+          begin
+            @related_name_images = StoryImage.search(:include => [:story]) do
+              fulltext name, 
+                :fields => [:media_webcaption, 
+                            :media_printcaption, 
+                            :media_originalcaption]
+              # Filter out any images marked as NotForSale
+              without(:forsale, "NotForSale") 
+
+              any do  # filter for images For Sale OR (caption and priority)
+                all do
+                  #Filter all searches by location
+                  with(:story_location_id, default_settings.location_id)
+                  # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin'
+                  fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
+                  # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'
+                  fulltext default_settings.search_for_priority, :fields => [:priority]
+                end
+                fulltext "For Sale", :fields => [:forsale]
+              end
+              order_by :story_pubdate, :desc
+              order_by :story_publication_name, :asc
+            end
+          end
+          # Add related 'proper name' images to related_story_images
+          @related_name_images.results[0..6].each do |related_image|
+            if related_image.id != @story_image.id  # dont add if current image
+              @related_story_images << related_image
+            end
+          end
+        end
+      end
+      #puts "***related_story_images***"+@related_story_images.inspect
 
       # find pdfs of this image's publication
       if @story_image.story.present? and @story_image.story.plan.present?
@@ -178,5 +217,21 @@ class StoryImagesController < ApplicationController
         return false
       end
     end
+  end
+  
+  def image_caption_names(caption) 
+    if caption
+      caption = caption.gsub(/\(.*?\)/, "")     # Exclude text between (). This should exclude any photog name and newspaper source on image.
+      NAMES_TO_FILTER.each {|x| caption.slice! x }    # Remove any names from caption that match the NAMES_TO_FILTER
+
+      regex = /([A-Z][a-z]*)[\s-]([A-Z][a-z]*)/ # Regex to find all proper first/lastnames
+      names = caption.scan(regex)               # Pull proper names from caption into an array
+      names.map! { |x| x.join(' ') }            # Join first and last name together
+
+      #puts "****** Proper Names ***** "+names.inspect
+    else
+      name = ""
+    end
+    return names
   end
 end
