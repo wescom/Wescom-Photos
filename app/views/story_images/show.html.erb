@@ -181,7 +181,8 @@
 					<%= link_to '<i class="fa fa-edit" ></i>'.html_safe, 
 						"https://archive.wescompapers.com/story_images/"+@story_image.id.to_s,
 						:class=>"btn btn-outline-info",
-						title: 'Edit image data in WescomArchive.com', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
+						title: 'Edit image data in WescomArchive.com', 'data-toggle' => 'tooltip', 'data-placement' => 'right',
+						target: :_blank %>
 					</a>
 				</p>
 				<p><strong>Media ID</strong> - <i><%= @story_image.media_id unless @story_image.media_id.nil? %></i></p>
