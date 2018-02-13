@@ -224,9 +224,6 @@ class StoryImagesController < ApplicationController
   end
   
   def image_caption_names(caption) 
-
-caption = "Jarod Opperman / The Bulletin Pro men riders cross the Deschutes River on O.B. Riley Road Sunday afternoon during their second lap of the final stage of the Cascade Cycling Classic."
-
     if caption
       caption = caption.gsub(/\(.*?\)/, "")     # Exclude text between (). This should exclude any photog name and newspaper source on image.
       caption = caption.gsub(/^(.*[\\\/])/, "")     # Exclude text before slash. This should exclude any photog name in older workflows of sourcing an image.
