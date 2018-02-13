@@ -13,6 +13,7 @@ NAMES_TO_FILTER = [
   "Mountian View", 
   "Bend High",
   "Bend",
+  "Lava Bears",
   "Summit High",
   "Summit",
   "Redmond High",
@@ -38,6 +39,8 @@ NAMES_TO_FILTER = [
   "Bend Senior",
   "Veteran",
   "Deschutes River",
+  "Country Club",
+  "Golf Course",
   
   "Oregon State",
   "Central Oregon",
