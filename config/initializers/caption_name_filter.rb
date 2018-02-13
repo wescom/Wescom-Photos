@@ -4,6 +4,9 @@
 # Restart required after edits
 #
 NAMES_TO_FILTER = [
+  "The Bulletin",
+  "Bulletin",
+  
   "High School",
   "Middle School",
   "Elementary School",
