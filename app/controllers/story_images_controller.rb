@@ -95,36 +95,40 @@ class StoryImagesController < ApplicationController
       # find other related images from the proper names in the caption
       if @related_story_images.nil? || @related_story_images.count < 10
         @proper_names_in_caption = image_caption_names(@story_image.media_webcaption)  # Get proper names from caption
-        # Search images for each 'proper name' within caption fields
-        @proper_names_in_caption.each do |name|
-          begin
-            @related_name_images = StoryImage.search(:include => [:story]) do
-              fulltext name, 
-                :fields => [:media_webcaption, 
-                            :media_printcaption, 
-                            :media_originalcaption]
-              # Filter out any images marked as NotForSale
-              without(:forsale, "NotForSale") 
+        if !@proper_names_in_caption.nil?
+          # Search images for each 'proper name' within caption fields
+          @proper_names_in_caption.each do |name|
+            begin
+              @related_name_images = StoryImage.search(:include => [:story]) do
+                fulltext name, 
+                  :fields => [:media_webcaption, 
+                              :media_printcaption, 
+                              :media_originalcaption]
+                # Filter out any images marked as NotForSale
+                without(:forsale, "NotForSale") 
 
-              any do  # filter for images For Sale OR (caption and priority)
-                all do
-                  #Filter all searches by location
-                  with(:story_location_id, default_settings.location_id)
-                  # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin'
-                  fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
-                  # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'
-                  fulltext default_settings.search_for_priority, :fields => [:priority]
+                any do  # filter for images For Sale OR (caption and priority)
+                  all do
+                    #Filter all searches by location
+                    with(:story_location_id, default_settings.location_id)
+                    # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin'
+                    fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
+                    # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'
+                    fulltext default_settings.search_for_priority, :fields => [:priority]
+                  end
+                  fulltext "For Sale", :fields => [:forsale]
                 end
-                fulltext "For Sale", :fields => [:forsale]
+                order_by :story_pubdate, :desc
+                order_by :story_publication_name, :asc
               end
-              order_by :story_pubdate, :desc
-              order_by :story_publication_name, :asc
             end
-          end
-          # Add related 'proper name' images to related_story_images
-          @related_name_images.results[0..6].each do |related_image|
-            if related_image.id != @story_image.id  # dont add if current image
-              @related_story_images << related_image unless @related_story_images.include?(related_image) # dont add if already in list
+            # Add related 'proper name' images to related_story_images
+            if !@related_name_images.nil?
+              @related_name_images.results[0..6].each do |related_image|
+                if related_image.id != @story_image.id  # dont add if current image
+                  @related_story_images << related_image unless @related_story_images.include?(related_image) # dont add if already in list
+                end
+              end
             end
           end
         end
