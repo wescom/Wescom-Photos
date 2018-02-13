@@ -93,7 +93,7 @@ class StoryImagesController < ApplicationController
       end
 
       # find other related images from the proper names in the caption
-      if @related_story_images.count < 10
+      if @related_story_images.exists? && @related_story_images.count < 10
         @proper_names_in_caption = image_caption_names(@story_image.media_webcaption)  # Get proper names from caption
         # Search images for each 'proper name' within caption fields
         @proper_names_in_caption.each do |name|
