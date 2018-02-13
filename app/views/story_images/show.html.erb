@@ -96,14 +96,14 @@
 <br/>
 <br/>
 
-<div class="related_images">
+<div id="related_images">
 	<div class="container">
 		<h5>Related items</h5>
 		<br/>
 		<div class="d-flex flex-wrap justify-content-start">
 			<% @pdf_images.each_with_index do |pdf, index| %>
 				<div class="card text-center related_image_card">
-					<div class="card-img-top">
+					<div class="related-card-img-top">
 						<%= link_to image_tag(pdf.image(:large), :class=>"card_section_img"), 
 						 	pdf_images_path(:pub_select => pdf.plan.pub_name, 
 							:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
