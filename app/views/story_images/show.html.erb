@@ -96,73 +96,63 @@
 <br/>
 <br/>
 
-<div class="image_related">
+<div class="related_images">
 	<div class="container">
 		<h5>Related items</h5>
-		<div class="row">
-			<% if !@pdf_images.nil? %>
-				<div class="col-6 col-sm-4 col-md-3 col-lg-3">
-					<% @pdf_images.each_with_index do |pdf, index| %>
-						<div class="card text-center">
-							<div class="card-img-top">
-								<%= link_to image_tag(pdf.image(:large), :class=>"card_section_img"), 
-								 	pdf_images_path(:pub_select => pdf.plan.pub_name, 
-									:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
-									:search_query => "") %>
-							</div>
-							<div class="card-block">
-								<p class="card-text">
-									<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %>
-								</p>
-								<%= link_to( "Browse", pdf_images_path(:pub_select => pdf.publication, 
-									:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
-									:search_query => ""),
-									:class=>"btn btn-primary") %>
-							</div>
-						</div>
-					<% end %>
+		<br/>
+		<div class="d-flex flex-wrap justify-content-start">
+			<% @pdf_images.each_with_index do |pdf, index| %>
+				<div class="card text-center related_image_card">
+					<div class="card-img-top">
+						<%= link_to image_tag(pdf.image(:large), :class=>"card_section_img"), 
+						 	pdf_images_path(:pub_select => pdf.plan.pub_name, 
+							:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
+							:search_query => "") %>
+					</div>
+					<div class="card-block">
+						<p class="card-text">
+							<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %>
+						</p>
+						<%= link_to( "Browse", pdf_images_path(:pub_select => pdf.publication, 
+							:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
+							:search_query => ""),
+							:class=>"btn btn-primary") %>
+					</div>
 				</div>
 			<% end %>
-			<div class="col-6 col-sm-8 col-md-9 col-lg-9">
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<div class="card text-center">
-							<div class="card-block">
-								<div class="card-title">
-									Search for similar images:
-								</div>
-								<div class="image-gallery-search-wrap">
-									<div class="image-gallery-search">        
-										<%= render :partial => 'story_images/search_images' %>
-									</div>
-								</div>
-							</div>
+			<% if !@related_story_images.nil? %>
+				<% @related_story_images.each_with_index do |image, index| %>
+					<div class="card text-center related_image_card">
+						<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"), story_image_path(image.id) %>
+						<div class="card-block">
+							<p class="card-text">
+								<% if !image.media_webcaption.nil? and !image.media_webcaption.empty? %>
+									<i class="modal_image_caption"><%= truncate image.media_webcaption, :length => 60, :separator => /\s/ %></i>
+								<% else %>
+									<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 60, :separator => /\s/ %></i>
+								<% end %>
+							</p>
+							<%= link_to( "View", story_image_path(image.id), :class=>"btn btn-primary") %>
 						</div>
 					</div>
-					<% if !@related_story_images.nil? %>
-						<% @related_story_images.each_with_index do |image, index| %>
-								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-									<div class="card text-center">
-										<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"), story_image_path(image.id) %>
-										<div class="card-block">
-											<p class="card-text">
-												<% if !image.media_webcaption.nil? and !image.media_webcaption.empty? %>
-													<i class="modal_image_caption"><%= truncate image.media_webcaption, :length => 60, :separator => /\s/ %></i>
-												<% else %>
-													<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 60, :separator => /\s/ %></i>
-												<% end %>
-											</p>
-											<%= link_to( "View", story_image_path(image.id), :class=>"btn btn-primary") %>
-										</div>
-									</div>
-								</div>
-						<% end %>
-					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="card text-center">
+			<div class="card-block">
+				<div class="card-title">
+					Search for similar images:
+				</div>
+				<div class="image-gallery-search-wrap">
+					<div class="image-gallery-search">        
+						<%= render :partial => 'story_images/search_images' %>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 	
 <% if admin? %>
 	<br/>
