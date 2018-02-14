@@ -77,7 +77,7 @@ class StoryImagesController < ApplicationController
           params_info = "StoryId:#{params[:story_id]}" unless params[:story_id].empty?
           params_info = params_info + " MediaId:#{params[:media_id]}" unless params[:media_id].empty?
           flash_message :notice, "Image not available - " + params_info +
-            "<a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for #{params_info}'>
+            "<a href='mailto:wescomphotos@wescompapers.com?subject=WescomPhotos.com - Image Request for #{params_info}'>
               <i>- Email us a request for this image</i>
             </a>"
       	  redirect_to story_images_path(:search_query => @story_image.story.categoryname)
@@ -150,8 +150,8 @@ class StoryImagesController < ApplicationController
         params_info = params_info + " MediaId:##{params[:media_id]}" unless params[:media_id].empty?
       end
       Rails.logger.info "Images does not exist in database - Image Id ##{params[:id]} not available"
-      flash_message :notice, "Image not available - " + params_info +
-        "<a href='mailto:webmaster@wescompapers.com?subject=WescomPhotos.com - Image Request for #{params_info}'>
+      flash_message :notice, "Image not found - " + params_info +
+        "<a href='mailto:wescomphotos@wescompapers.com?subject=WescomPhotos.com - Image Request for #{params_info}'>
           <i>- Email us a request for this image</i>
         </a>"
   	  redirect_to root_path

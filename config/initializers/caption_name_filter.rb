@@ -10,7 +10,7 @@ NAMES_TO_FILTER = [
   "High School",
   "Middle School",
   "Elementary School",
-  "Mountian View", 
+  "Mountain View", 
   "Bend High",
   "Bend",
   "Lava Bears",
