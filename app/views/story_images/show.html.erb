@@ -100,7 +100,7 @@
 	<div class="container">
 		<h5>Related items</h5>
 		<br/>
-		<div class="d-flex flex-wrap justify-content-start">
+		<div class="d-flex flex-wrap justify-content-center">
 			<% @pdf_images.each_with_index do |pdf, index| %>
 				<div class="card text-center related_image_card">
 					<div class="related-card-img-top">
@@ -138,6 +138,7 @@
 				<% end %>
 			<% end %>
 		</div>
+		<br/>
 		<div class="card text-center">
 			<div class="card-block">
 				<div class="card-title">
