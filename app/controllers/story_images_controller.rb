@@ -53,14 +53,17 @@ class StoryImagesController < ApplicationController
     default_settings = DefaultSetting.where("location_id" => current_location).first
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     
-    # Check if media_id and story_id are given as paramters. If so, find the image id
+    # Check if both media_id and story_id are given as paramters. If so, find the image id
     if params.has_key?(:media_id) && params.has_key?(:story_id)
       if !params[:story_id].empty? && !params[:media_id].empty?
         @story = Story.find_by_doc_id(params[:story_id])
-        # Rails.logger.info @story.inspect
         if !@story.nil?
+          # Find media_id attached to story_id
           @story_image = @story.story_images.find_by_media_id(params[:media_id]) unless @story.nil?
-          # Rails.logger.info @story_image.inspect
+          params[:id] = @story_image.id unless @story_image.nil?
+        else
+          # No story found so find the first image using the media_id
+          @story_image = StoryImage.find_by_media_id(params[:media_id]) unless params[:media_id].nil?
           params[:id] = @story_image.id unless @story_image.nil?
         end
       end
