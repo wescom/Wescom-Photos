@@ -108,6 +108,8 @@ class OrdersController < ApplicationController
   end
   
   def download
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
+
     # Find item to download within the order
     @order = Order.find_by_obscure_uniq_identifier(params[:order_id])
     @order_item = OrderItem.find_by_order_id_and_item_id(@order.id,params[:order_item_id])
@@ -119,7 +121,7 @@ class OrdersController < ApplicationController
 
       # Write web caption to image's exif data
       pic = MiniExiftool.new @modified_image.path
-      pic.caption_abstract = @image.media_webcaption + "\n\n" + "© Western Communications, Inc. "
+      pic.caption_abstract = @image.media_webcaption+"\n\n"+"© Western Communications, Inc."+"\n\n"+"Image use license: "+@default_settings.image_use_license.gsub(/<[^>]*>/,'')
       pic.save
 
       if @order_item.item_quality == "Hires"
@@ -138,8 +140,9 @@ class OrdersController < ApplicationController
   end
 
   def admin_download
-    # Downloads HiRes Original file
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
 
+    # Downloads HiRes Original file
     if params[:item_type] == "StoryImage"
       @image = StoryImage.find(params[:order_id])
 
@@ -148,7 +151,7 @@ class OrdersController < ApplicationController
 
       # Write web caption to image's exif data
       pic = MiniExiftool.new @modified_image.path
-      pic.caption_abstract = @image.media_webcaption + "\n\n" + "© Western Communications, Inc. "
+      pic.caption_abstract = @image.media_webcaption+"\n\n"+"© Western Communications, Inc."+"\n\n"+"Image use license: "+@default_settings.image_use_license.gsub(/<[^>]*>/,'')
       pic.save
 
       send_file @modified_image.path, :filename => "image_"+@image.id.to_s+".jpg"
