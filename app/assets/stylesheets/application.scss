@@ -535,3 +535,62 @@ td.image_column { padding: 0.75rem 0px 0.75rem 0 }
 /*.flickr_pagination .previous_page { margin-right: 1em; }
 .flickr_pagination .next_page { margin-left: 1em; } */
 
+/* Orders Layout */
+.orders-search {
+    text-align: center;
+    margin: 5px 0px 5px 0px;
+}
+.orders-search .search_container { width: 90% }
+.orders-search .form-search {
+	margin: 0;
+    padding: 10px;
+}
+.orders-search .form-search > div { width: 73%; }
+.orders-search .form-search-fields {
+    display: inline-block;
+    position: relative;
+	width: 100%;
+}
+.orders-search .form-search-label { min-width: 150px; align-self: center; }
+.orders-search .form-search-text-col { flex-grow: 1; }
+.orders-search .form-search-text {
+    height: 46px;
+	min-width: 290px;
+	width: 100%;
+    margin: 5px 10px 5px 0px;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: .05em;
+    text-indent: 10px;
+}
+.orders-search .form-search-select {
+    height: 46px;
+	min-width: 150px;
+    margin: 5px 10px 5px 0px;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: .05em;
+    text-indent: 10px;
+}
+.orders-search .form-search-date {
+    height: 46px;
+    margin: 5px 10px 5px 0px;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: .05em;
+    text-indent: 0px;
+}
+.form-search-date #date_from_select{ width: 110px; text-align: center; }
+.form-search-date #date_to_select{ width: 110px; text-align: center; }
+.orders-search .form-search-button {
+    border: 1px solid #02888f;
+    background: #02888f;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: .05em;
+    margin: 5px 0px 5px 0px;
+    height: 46px;
+	width: 46px;
+    text-transform: uppercase;
+}

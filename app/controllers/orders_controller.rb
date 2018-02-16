@@ -10,6 +10,8 @@ class OrdersController < ApplicationController
   def index
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     @orders = Order.all.order("created_at desc")
+    @orders = @orders.where("created_at >= ?", Date.strptime(params[:date_from_select], "%m/%d/%Y")) if params[:date_from_select].present?
+    @orders = @orders.where("created_at <= ?", Date.strptime(params[:date_to_select], "%m/%d/%Y")) if params[:date_to_select].present?
     if params[:search].present?
       @orders = @orders.where("id LIKE ? or first_name LIKE ? or last_name LIKE ?", 
         "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
