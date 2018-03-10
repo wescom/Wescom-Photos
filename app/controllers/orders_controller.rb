@@ -164,6 +164,21 @@ class OrdersController < ApplicationController
       Rails.logger.info "***** News Page Downloaded ***** " + @pdf.image.path
     end
   end
+  
+  def resend_order_email
+    @order = Order.find_by_id(params[:order_id])
+
+    OrderMailer.order_confirmation(@order).deliver
+    redirect_to order_path(@order)
+  end
+  
+  def orders_previous_month
+    @orders = Order.all
+
+    OrderMailer.orders_previous_month(@orders).deliver_now
+    flash[:notice] = "Order history has been sent."
+    redirect_to orders_path()
+  end
 
 private
   def order_params

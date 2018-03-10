@@ -35,7 +35,12 @@
 					</tr>
 				</tfoot>
 			</table>
-			Order emailed to: <%= @order.email %>
+			<div>
+				Order emailed to: <%= @order.email %>
+				<% if admin? %>
+					<br/><%= link_to 'Re-Send email', order_resend_order_email_path(@order.id), class: "btn btn-success btn-sm" %>
+				<% end %>
+			</div>
 		<% end %>
 	</div>
 

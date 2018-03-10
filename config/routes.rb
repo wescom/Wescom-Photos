@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:index, :new, :create, :show] do
     get :admin_download
+    get :resend_order_email, to: 'orders#resend_order_email', as: :resend_order_email
     resources :order_items, only: [] do
       get 'download', to: 'orders#download', as: 'download'
     end

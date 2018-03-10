@@ -1,19 +1,10 @@
-class OrderMailer < ApplicationMailer
+class OrdersAccountingMailer < ApplicationMailer
   default :from => DefaultSetting.first.confirmation_from_email
 
   # Confirmation of submission
-  def order_confirmation(order)
-    @order = order
-		
-    subject = "Wescom Photos - Order Confirmation #{@order.id}"
-    mail(to: @order.email, subject: subject)
-  end
-  
-  # Order history
   def orders_previous_month()
     subject = "WescomPhotos.com - Orders"
     mail(to: 'shoffmann@bendbulletin.com', subject: subject)
   end
-  
-  
+
 end
