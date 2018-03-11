@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+		<%= stylesheet_link_tag "emails" %>
+	</head>
+	<body>
+		<div>
+    	<h2>WescomPhotos.com - <%= @time_period %> Orders</h2>
+
+			<table>
+				<thead>
+					<tr>
+						<th class="text_center">Location</th>
+						<th class="text_center">OrderId</th>
+						<th class="text_center">Date</th>
+						<th class="text_center">Name</th>
+						<th class="text_center">Qty</th>
+						<th class="text_center">Amount</th>
+					</tr>
+				</thead>
+
+        <tfoot>
+          <tr>
+            <td colspan="6" class="text_right"><%= number_to_currency(@orders_total) %></td>
+          </tr>
+        </tfoot>
+        
+  			<tbody>
+  				<% if @orders.size > 0 %>
+  					<% @orders.each do |order| %>
+  						<tr>
+  							<td class="text_center"><%= order.location.name if order.location %></td>
+  							<td class="text_center"><%= order.id %></td>
+  							<td class="text_center"><%= order.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%m/%d/%y - %l:%M %P') %></td>
+  							<td><%= order.first_name %> <%= order.last_name %></td>
+  							<td class="text_center"><%= order.order_items.count %></td>
+  							<td class="text_right"><%= number_to_currency order.amount %></td>
+  						</tr>
+  					<% end %>
+  				<% else %>
+  					<tr><td>No orders for this time period</td></tr>
+  				<% end %>
+  			</tbody>
+		  </table>
+      
+      <p>*** Payments were deposited into Wescom PayPal account</p>
+		</div>
+	</body>
+</html>

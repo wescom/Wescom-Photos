@@ -10,8 +10,12 @@ class OrderMailer < ApplicationMailer
   end
   
   # Order history
-  def orders_previous_month()
-    subject = "WescomPhotos.com - Orders"
+  def order_history(orders,time_period)
+    @orders = orders
+    @time_period = time_period
+    @orders_total = orders.sum(:amount)
+
+    subject = "WescomPhotos.com - #{time_period} Orders"
     mail(to: 'shoffmann@bendbulletin.com', subject: subject)
   end
   

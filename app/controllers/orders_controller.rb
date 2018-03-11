@@ -169,14 +169,16 @@ class OrdersController < ApplicationController
     @order = Order.find_by_id(params[:order_id])
 
     OrderMailer.order_confirmation(@order).deliver
+    flash_message :notice, "Order confirmation has been resent"
     redirect_to order_path(@order)
   end
   
-  def orders_previous_month
-    @orders = Order.all
+  def email_previous_month_orders
+    @orders = Order.where("created_at >= ? and created_at <= ?", Date.today.last_month.beginning_of_month, Date.today.last_month.end_of_month).order(:created_at)
+    time_period = Date.today.last_month.strftime("%B")
 
-    OrderMailer.orders_previous_month(@orders).deliver_now
-    flash[:notice] = "Order history has been sent."
+    OrderMailer.order_history(@orders,time_period).deliver_now
+    flash_message :notice, "Order history has been emailed"
     redirect_to orders_path()
   end
 

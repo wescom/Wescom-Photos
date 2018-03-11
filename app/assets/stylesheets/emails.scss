@@ -1,3 +1,17 @@
 .indent { text-indent: 50px; }
 .tab { margin: 50px; }
 .list-unstyled { list-style:none; }
+.text_center { text-align: center; }
+.text_right { text-align: right; }
+
+thead, tfoot {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #6da9d2;
+    color: white;
+}
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+}
