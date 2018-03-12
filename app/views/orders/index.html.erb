@@ -18,6 +18,14 @@
 			</tr>
 		</thead>
 
+        <tfoot>
+          <tr>
+            <td colspan="5"></td>
+            <td class="text-center"><%= number_to_currency(@orders.sum(:amount)) %></td>
+			<td></td>
+          </tr>
+        </tfoot>
+
 		<tbody>
 			<% if @orders.size > 0 %>
 				<% @orders.each do |order| %>
