@@ -6,7 +6,7 @@
 	<div class="row dashboard_block">
 		<!-- sample charts https://www.highcharts.com/demo/line-basic -->
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= line_chart @orders.group_by_month(:created_at).count, 
+			<%= line_chart @orders.where('created_at >= ?', 6.months.ago).group_by_month(:created_at).count, 
 				id: "orders-by-month", 
 				ytitle: "# of Orders", 
 				width: "600px", 
@@ -23,12 +23,12 @@
 			%>
 		</div>
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= line_chart @orders.group_by_month(:created_at).sum(:amount), 
+			<%= line_chart @orders.where('created_at >= ?', 6.months.ago).group_by_month(:created_at).sum(:amount), 
 				id: "sales-by-month", 
 				ytitle: "Order Amount", 
 				width: "600px", 
 				height: "400px",
-				title: 'Total Sales by Month',
+				title: 'Total Revenue by Month',
 				library: {
 					tooltip: {
 					            shared: true,
@@ -40,7 +40,7 @@
 			%>
 		</div>
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= line_chart @order_items.group(:item_type).group_by_month(:created_at).sum(:quantity), 
+			<%= line_chart @order_items.where('created_at >= ?', 6.months.ago).group(:item_quality).group_by_month(:created_at).sum(:quantity), 
 				id: "image-types-by-month", 
 				label: "Quantity", 
 				ytitle: "# of Images", 
@@ -54,12 +54,12 @@
 							showInLegend: true
 						}
 					},					
-					legend: {labelFormat: '{name}s'},
+					legend: {labelFormat: '{name}'},
 					tooltip: {
 					            shared: true,
 					            crosshairs: true,
 								xDateFormat: '<b>%B, %Y</b>',
-								pointFormat: '{series.name}s: {point.y}<br/>'
+								pointFormat: '{series.name}: {point.y}<br/>'
 					        }
 				}
 			%>
