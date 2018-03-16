@@ -5,6 +5,9 @@ class OrdersController < ApplicationController
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     @orders = Order.all
     @order_items = OrderItem.all
+    
+    @item_categories = OrderItem.joins(story_image: :story).where(:item_type=>"StoryImage").select("stories.subcategoryname")
+
   end
 
   def index

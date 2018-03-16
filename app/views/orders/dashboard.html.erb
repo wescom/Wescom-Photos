@@ -81,6 +81,24 @@
 				}
 			%>
 		</div>
+
+		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
+			<%= pie_chart @item_categories.group(:subcategoryname).count,
+				id: "popular-categories", 
+				height: "400px",
+				title: 'Popular Categories',
+				library: {
+					plotOptions: {
+						pie: {
+							dataLabels: { enabled: false },
+							showInLegend: true
+						}
+					},
+					legend: {labelFormat: '{name} : {y} Items'},
+					tooltip: {pointFormat: 'Images Sold: <b>{point.y}</b>'}
+				}
+			%>
+		</div>
 		
 		
 	</div>
