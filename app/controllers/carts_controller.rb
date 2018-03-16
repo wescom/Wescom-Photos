@@ -3,8 +3,9 @@ class CartsController < ApplicationController
 
   def create   # Add image item to cart
     @story_image = StoryImage.find(params[:id])
-    @cart_item = CartItem.where(:item_id => @story_image.id)
-    # Check whether item is already in cart
+
+    # Check whether item is already in personal cart
+    @cart_item = CartItem.where(:item_id => @story_image.id, :owner_id => @cart)
     if @cart_item.exists?
       flash_message :notice, "Image already in cart"
     else
@@ -15,8 +16,9 @@ class CartsController < ApplicationController
 
   def add_pdf   # Add PDF item to cart
     @pdf_image = PdfImage.find(params[:id])
-    @cart_item = CartItem.where(:item_id => @pdf_image.id)
-    # Check whether item is already in cart
+
+    # Check whether item is already in personal cart
+    @cart_item = CartItem.where(:item_id => @pdf_image.id, :owner_id => @cart)
     if @cart_item.exists?
       flash_message :notice, "News page already in cart"
     else
