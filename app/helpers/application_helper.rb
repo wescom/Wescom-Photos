@@ -72,12 +72,16 @@ module ApplicationHelper
   
   def cart_quantity
     if session[:cart_id]
+      puts "********** " + session[:cart_id].to_s
+      #@cart = session[:cart_id] ? Cart.find(cart_id) : Cart.create
       @cart = Cart.find(session[:cart_id])
       quantity = @cart.total_unique_items
       return quantity.to_s
     else
       return "0"
     end
+  rescue StandardError => e
+    @_request.reset_session
   end
 
   def cart_label
