@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207003140) do
+ActiveRecord::Schema.define(version: 20180327221220) do
 
   create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "owner_id"
@@ -59,6 +59,15 @@ ActiveRecord::Schema.define(version: 20180207003140) do
     t.string   "email_contact"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+  end
+
+  create_table "default_pricings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string   "price_name"
+    t.string   "price_type"
+    t.string   "price_description"
+    t.decimal  "price",             precision: 12, scale: 3
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   create_table "default_settings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -286,6 +295,7 @@ ActiveRecord::Schema.define(version: 20180207003140) do
     t.boolean  "approved"
     t.string   "web_pubnum"
     t.index ["categoryname"], name: "index_stories_on_categoryname", using: :btree
+    t.index ["doc_id"], name: "index_stories_on_doc_id", using: :btree
     t.index ["plan_id"], name: "index_stories_on_plan_id", using: :btree
     t.index ["project_group"], name: "index_stories_on_project_group", using: :btree
     t.index ["pubdate"], name: "index_stories_on_pubdate", using: :btree

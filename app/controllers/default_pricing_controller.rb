@@ -1,0 +1,3 @@
+class DefaultPricingController < ApplicationController
+  
+end

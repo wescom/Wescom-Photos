@@ -63,6 +63,11 @@ class DefaultSettingsController < ApplicationController
     end
   end
   
+  def show
+    @locations = Location.all.order("name")
+    @default_settings = DefaultSetting.find(params[:id])    
+  end
+  
   private
     def default_setting_params
       # convert search_for_pdf_pubtypeId from array to string, removing blanks
