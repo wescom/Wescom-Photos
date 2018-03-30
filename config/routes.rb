@@ -23,10 +23,9 @@ Rails.application.routes.draw do
   match  "/dashboard" => "orders#dashboard", :via => [:get]
   match  "/email_previous_month_orders" => "orders#email_previous_month_orders", :via => [:get]
   
-  resources :default_settings do
-    resources :default_pricing
-  end
-  resources :default_banner_images, :only => [:new, :create, :destroy]
+  resources :default_settings
+  resources :default_pricings, :only => [:new, :create, :edit, :update, :destroy]
+  resources :default_banner_images, :only => [:new, :create, :edit, :update, :destroy]
   resources :default_pages
   
   resources :sessions

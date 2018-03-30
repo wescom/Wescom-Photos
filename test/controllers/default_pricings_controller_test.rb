@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DefaultPricingControllerTest < ActionDispatch::IntegrationTest
+class DefaultPricingsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

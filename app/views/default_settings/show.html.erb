@@ -1,15 +1,101 @@
 <div class="default_heading">
 	<div class="container search_container">
 		<div class="row justify-content-between">
-			<h1>Global Settings: <%= @default_settings.location.name %></h1>
-			<div><%= link_to 'Edit', edit_default_setting_path(@default_settings), :class=>"btn btn-primary btn-small" %></div>
+			<h1>Default Settings: <%= @default_settings.location.name %></h1>
 		</div>
+		<%= link_to 'Back to All Default Settings', default_settings_path, :class=>"float-right" %>
 		<h6>These settings control site-wide defaults...</h6>
 	</div>
 
 </div>
 
 <div class="default_block" >
+	<h5>Banner Images:</h5>
+	<div class="form-group row">
+		<div class="offset-1">
+			<table class="table table-condensed">
+				<tbody>
+					<tr>
+						<td>
+							<div class="d-flex flex-wrap justify-content-start align-items-center">
+								<% @default_settings.default_banner_images.each do |banner_image| %>
+									<div>
+										<%= image_tag(banner_image.banner_image(:small), :class=>"img-thumb img-responsive") %>
+										<%= link_to icon('remove fa-lg'), 
+											default_banner_image_path(:id => banner_image,:current_default_setting=>@default_settings), :class => "",
+											:method=> :delete, :action => 'destroy',
+											data: {confirm:'Remove image from banner images?'},
+											title: 'Delete banner image', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
+									</div>
+								<% end %>
+							</div>
+								<%= link_to 'Add New', new_default_banner_image_path(:current_default_setting=>@default_settings), :class=>"float-right" %>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+	
+<div class="default_block" >
+	<h5>Pricing Options:
+		<a href="#" data-toggle="tooltip" data-original-title="Define each price option available for this site" data-placement="top">
+			<i class="fa fa-info-circle" ></i>
+		</a>
+	</h5>
+	<div class="form-group row">
+		<div class="offset-1">
+			<table class="table table-hover table-sm">
+				<thead>
+					<tr>
+						<th class="">Active</th>
+						<th class="">Type</th>
+						<th class="">Name</th>
+						<th class="">Description</th>
+						<th class="">Price</th>
+						<th class="action_col text-center"></th>
+						<th class="action_col text-center"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @default_settings.default_pricing.each do |price| %>
+						<tr>
+							<td class="text-center">
+								<% if price.active %>
+									<%= icon('check fa-lg') %>
+								<% end %>
+							</td>
+							<td><%= price.price_type %></td>
+							<td><%= price.price_name %></td>
+							<td><%= price.price_description %></td>
+							<td><%= price.price %></td>
+							<td class="text-center">
+								<%= link_to icon('edit fa-lg'),
+									edit_default_pricing_path(price,:current_default_setting=>@default_settings),
+									title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
+							</td>
+							<td class="text-center">
+								<%= link_to icon('remove fa-lg'), 
+									default_pricing_path(price), :class => "",
+									:method=> :delete, :action => 'destroy',
+									data: {confirm:'Remove price option?'},
+									title: 'Delete', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
+							</td>
+						</tr>
+					<% end %>
+					<tr><td colspan="8"><%= link_to 'Add New', new_default_pricing_path(:current_default_setting=>@default_settings), :class=>"float-right" %></td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="default_block" >
+	<div class="float-right">
+		<%= link_to 'Edit Remaining Defaults', edit_default_setting_path(@default_settings), :class=>"btn btn-primary btn-small" %>
+	</div>
+
 	<h5>Logo:</h5>
 	<div class="form-group row">
 		<div class="offset-1 col-3">
@@ -19,35 +105,6 @@
 	<hr/>
 
 	<h5>Home page:</h5>
-	<div class="form-group row">
-		<label for="default_banner_image_text" class="offset-1 col-3 col-form-label">Banner Images: </label>
-		<p class="btn btn-outline-info">
-			<%= link_to '<i class="fa fa-image"></i>'.html_safe+" Add Image", 
-				new_default_banner_image_path(:current_default_setting=>@default_settings.id),
-				title: 'Add banner image', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
-		</p>
-		<table id="default_settings" class="table table-condensed">
-			<tbody>
-				<tr>
-					<td>
-						<div class="d-flex flex-wrap justify-content-start align-items-center">
-							<% @default_settings.default_banner_images.each do |banner_image| %>
-								<div>
-									<%= image_tag(banner_image.banner_image(:small), :class=>"img-thumb img-responsive") %>
-									<%= link_to icon('remove fa-lg'), 
-										default_banner_image_path(:id => banner_image), :class => "",
-										:method=> :delete, :action => 'destroy',
-										data: {confirm:'Remove image from banner images?'},
-										title: 'Delete banner image', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
-								</div>
-							<% end %>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
 	<div class="form-group row">
 		<label for="home_welcome_text" class="offset-1 col-3 col-form-label">Welcome text:</label>
 		<div class="col-8">
@@ -103,27 +160,6 @@
 		</div>
 		<div class="col-2">
 			<%= @default_settings.home_image_cat3_description %>
-		</div>
-	</div>
-	<hr/>
-
-	<h5>Pricing defaults:</h5>
-	<div class="form-group row">
-		<label for="image_hi_res_price" class="offset-1 col-3 col-form-label">Image Hi-Res Price:</label>
-		<div class="col-3">
-			<%= @default_settings.image_hi_res_price %>
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="image_low_res_price" class="offset-1 col-3 col-form-label">Image Low-Res Price:</label>
-		<div class="col-3">
-			<%= @default_settings.image_low_res_price %>
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="pdf_price" class="offset-1 col-3 col-form-label">PDF Price:</label>
-		<div class="col-3">
-			<%= @default_settings.pdf_price %>
 		</div>
 	</div>
 	<hr/>

@@ -1,7 +1,7 @@
 <div class="default_heading">
 	<div class="container search_container">
 		<div class="row justify-content-between">
-			<h1>Global Settings</h1>
+			<h1>Default Settings</h1>
 			<div><%= link_to 'Add', new_default_setting_path, :class=>"btn btn-primary btn-small" %></div>
 		</div>
 		<h6>These settings control site-wide defaults...</h6>
@@ -35,44 +35,11 @@
 						<td class="text-center"><%= current_default_setting.updated_at.strftime('%m/%d/%y') %></td>
 						<td class="text-center">
 							<p class="btn btn-outline-info">
-								<%= link_to '<i class="fa fa-edit"></i>'.html_safe, 
-									edit_default_setting_path(current_default_setting),
-									title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="btn btn-outline-info">
 								<%= link_to '<i class="fa fa-eye"></i>'.html_safe, 
 									default_setting_path(current_default_setting),
 									title: 'View Settings', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
 							</p>
 						</td>
-						<tr>
-							<td></td>
-							<td></td>
-							<td>
-								<p class="">Banner Images: </p>
-								<p class="btn btn-outline-info">
-									<%= link_to '<i class="fa fa-image"></i>'.html_safe+" Add Image", 
-										new_default_banner_image_path(:current_default_setting=>current_default_setting),
-										title: 'Add banner image', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
-								</p>
-							</td>
-							<td colspan="3">
-								<div class="d-flex flex-wrap justify-content-start align-items-center">
-									<% current_default_setting.default_banner_images.each do |banner_image| %>
-										<div>
-											<%= image_tag(banner_image.banner_image(:small), :class=>"img-thumb img-responsive") %>
-											<%= link_to icon('remove fa-lg'), 
-												default_banner_image_path(:id => banner_image), :class => "",
-												:method=> :delete, :action => 'destroy',
-												data: {confirm:'Remove image from banner images?'},
-												title: 'Delete banner image', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
-										</div>
-									<% end %>
-								</div>
-							</td>
-						</tr>
 					</tr>
 				<% end %>
 			<% else %>

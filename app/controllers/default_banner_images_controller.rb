@@ -7,13 +7,14 @@ class DefaultBannerImagesController < ApplicationController
   end
 
   def create
+    @default_setting = DefaultSetting.find(params[:default_banner_image][:default_setting_id])
     if params[:cancel_button]
-      redirect_to default_settings_path
+      redirect_to @default_setting
     else
       @default_banner_image = DefaultBannerImage.new(default_banner_image_params)
       if (!@default_banner_image.nil? && @default_banner_image.save)
         flash_message :notice, "Banner Image Uploaded"
-        redirect_to default_settings_url
+        redirect_to @default_setting
       else
         flash_message :notice, "Image Failed to Upload"
         render :action => :new
@@ -22,13 +23,14 @@ class DefaultBannerImagesController < ApplicationController
   end
 
   def destroy
+    @default_setting = DefaultSetting.find(params[:current_default_setting])
     @default_banner_image = DefaultBannerImage.find(params[:id])
     if @default_banner_image.destroy
       flash_message :notice, "Banner Image Removed"
-      redirect_to default_settings_url
+      redirect_to @default_setting
     else
       flash_message :notice, "Image Removal Failed"
-      redirect_to default_settings_url
+      redirect_to @default_setting
     end
   end
 

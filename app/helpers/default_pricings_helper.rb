@@ -1,0 +1,2 @@
+module DefaultPricingsHelper
+end

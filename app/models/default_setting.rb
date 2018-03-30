@@ -1,7 +1,7 @@
 class DefaultSetting < ApplicationRecord
   belongs_to :location
-  has_many  :default_banner_images
-  has_many  :default_pricing
+  has_many  :default_banner_images, :dependent => :destroy
+  has_many  :default_pricing, :dependent => :destroy
   
   has_attached_file :site_image, 
       :styles => { 

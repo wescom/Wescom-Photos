@@ -65,7 +65,7 @@ class DefaultSettingsController < ApplicationController
   
   def show
     @locations = Location.all.order("name")
-    @default_settings = DefaultSetting.find(params[:id])    
+    @default_settings = DefaultSetting.find(params[:id])  
   end
   
   private
