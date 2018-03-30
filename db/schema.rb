@@ -64,8 +64,10 @@ ActiveRecord::Schema.define(version: 20180327221220) do
   create_table "default_pricings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "default_setting_id"
     t.boolean  "active"
+    t.string   "item_type"
     t.string   "price_name"
-    t.string   "price_type"
+    t.string   "price_quality"
+    t.string   "price_tooltip"
     t.string   "price_description"
     t.decimal  "price",              precision: 12, scale: 3
     t.datetime "created_at",                                  null: false

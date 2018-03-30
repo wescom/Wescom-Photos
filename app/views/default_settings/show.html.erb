@@ -50,8 +50,10 @@
 				<thead>
 					<tr>
 						<th class="">Active</th>
-						<th class="">Type</th>
+						<th class="">Item Type</th>
 						<th class="">Name</th>
+						<th class="">Quality</th>
+						<th class="">ToolTip</th>
 						<th class="">Description</th>
 						<th class="">Price</th>
 						<th class="action_col text-center"></th>
@@ -66,8 +68,10 @@
 									<%= icon('check fa-lg') %>
 								<% end %>
 							</td>
-							<td><%= price.price_type %></td>
+							<td><%= price.item_type %></td>
 							<td><%= price.price_name %></td>
+							<td><%= price.price_quality %></td>
+							<td><%= price.price_tooltip %></td>
 							<td><%= price.price_description %></td>
 							<td><%= price.price %></td>
 							<td class="text-center">

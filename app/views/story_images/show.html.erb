@@ -47,48 +47,36 @@
 				</p>
 			</div>
 			<div class=""><br></div>
+
 			<h6>Purchase Digital Download:</h6>
 			<p class=""><a data-toggle="modal" href="#licenseModal"><small>Image use license</small></a></p>
 			<div class="purchase_bar">
-				<span class="purchase_price">
-					High Resolution 
-					<a href="#" data-toggle="tooltip" data-original-title="Original file provided by the photographer. Suitable for large prints as well as digital use." data-placement="top">
-						<i class="fa fa-info-circle" ></i>
-					</a>
-					 - <%= number_to_currency(@default_settings.image_hi_res_price) %>
-					<% if image_in_cart?(@story_image.id) %>
-						<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
-							:class=>"btn btn-success" %>
-					<% else %>
-						<%= link_to 'Add to cart', 
-							cart_path(:id => @story_image, 
-									:price => @default_settings.image_hi_res_price,
-									:quality => "Hires",
-									:description => "High Resolution Image Download"), 
-							:method => 'POST', :class=>"btn btn-success" %>
+				<% @default_settings.default_pricing.each do |price| %>
+					<% if price.active and price.item_type == "StoryImage" %>
+						<span class="purchase_price">
+							<%= price.price_name %>
+							<a href="#" data-toggle="tooltip" data-original-title="<%= price.price_tooltip %>" data-placement="top">
+								<i class="fa fa-info-circle" ></i>
+							</a>
+							- <%= number_to_currency(price.price) %>
+							<br/>
+							<% if image_in_cart?(@story_image.id) %>
+								<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
+									:class=>"btn btn-success" %>
+							<% else %>
+								<%= link_to 'Add to cart', 
+									cart_path(:id => @story_image, 
+											:price => price.price,
+											:quality => price.price_quality,
+											:description => price.price_description), 
+									:method => 'POST', :class=>"btn btn-success" %>
+							<% end %>
+							<br/>
+							<br/>
+						</span>
 					<% end %>
-					<br/>
-					<br/>
-				</span>
-				<span class="purchase_price">
-					Low Resolution 
-					<a href="#" data-toggle="tooltip" data-original-title="Suitable for small prints and digital use." data-placement="top">
-						<i class="fa fa-info-circle" ></i>
-					</a>
-					- <%= number_to_currency(@default_settings.image_low_res_price) %>
-					<% if image_in_cart?(@story_image.id) %>
-						<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
-							:class=>"btn btn-success" %>
-					<% else %>
-						<%= link_to 'Add to cart', 
-							cart_path(:id => @story_image, 
-									:price => @default_settings.image_low_res_price,
-									:quality => "Lowres",
-									:description => "Low Resolution Image Download"), 
-							:method => 'POST', :class=>"btn btn-success" %>
-					<% end %>
-					<br/>
-				</span>
+				<% end %>
+
 			</div>
 		</div>
 	</div>

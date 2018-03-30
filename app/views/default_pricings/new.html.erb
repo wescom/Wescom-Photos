@@ -17,11 +17,9 @@
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="price_type" class="offset-1 col-3 col-form-label">Type:</label>
+			<label for="item_type" class="offset-1 col-3 col-form-label">Item Type:</label>
 			<div class="col-3">
-				<%= f.select :price_type, 
-					options_for_select(DefaultPricing::PRICE_TYPE_OPTIONS, :selected=>@default_pricing.price_type),
-					{:required => "true"} %>
+				<%= f.select :item_type, options_for_select(DefaultPricing::ITEM_TYPE_OPTIONS, :selected=>@default_pricing.item_type), {:required => "true"} %>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -31,9 +29,21 @@
 			</div>
 		</div>
 		<div class="form-group row">
+			<label for="price_quality" class="offset-1 col-3 col-form-label">Quality:</label>
+			<div class="col-3">
+				<%= f.select :price_quality, options_for_select(DefaultPricing::PRICE_QUALITY_OPTIONS, :selected=>@default_pricing.price_quality), {:required => "true"} %>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="price_tooltip" class="offset-1 col-3 col-form-label">ToolTip:</label>
+			<div class="col-3">
+				<%= f.text_field :price_tooltip, class: "form-control", :placeholder => "ToolTip text to display with price" %>
+			</div>
+		</div>
+		<div class="form-group row">
 			<label for="price_description" class="offset-1 col-3 col-form-label">Description:</label>
 			<div class="col-3">
-				<%= f.text_area :price_description, :placeholder => "Text to display as info for this price option", class: "form-control" %>
+				<%= f.text_area :price_description, :placeholder => "Description to show on orders", class: "form-control" %>
 			</div>
 		</div>
 		<div class="form-group row">
