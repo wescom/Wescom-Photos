@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :require_admin, only: [:index, :dashboard]
+  before_action :require_admin, only: [:index, :edit, :update, :dashboard]
 
   def dashboard
     @default_settings = DefaultSetting.where("location_id" => current_location).first
@@ -104,6 +104,28 @@ class OrdersController < ApplicationController
       end
     else
       render :new
+    end
+  end
+  
+  def edit
+    @order = Order.find(params[:id])
+  end
+
+  def update
+    if params[:cancel_button]
+      redirect_to @order
+    else
+      @order = Order.find_by_obscure_uniq_identifier(params[:id])
+      @order.expiration_month = Date.today.month.to_s
+      @order.expiration_year = Date.today.year.to_s
+      if @order.update_attributes(order_params)
+        flash_message :notice, "Order updated"
+        redirect_to @order
+      else
+        #Rails.logger.info(@order.errors.messages.inspect)
+        flash_message :notice, "Order failed to update"
+        redirect_to @order
+      end
     end
   end
     
