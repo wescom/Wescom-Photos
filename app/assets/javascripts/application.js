@@ -42,13 +42,15 @@ $(document).ready(function(){
     });
 
 	// Image Gallery
-	$('.image_gallery_hover_bar').hide();
-	$(".image_gallery_panel").mouseenter(function() {
-		$(this).find('.image_gallery_hover_bar').fadeIn('fast');
-	});
-	$(".image_gallery_panel").mouseleave (function() {
-		$(this).find('.image_gallery_hover_bar').fadeOut('fast')
-	});
+	if (screen.width > 1024) {
+        $('.image_gallery_hover_bar').hide();
+		$(".image_gallery_panel").mouseenter(function() {
+			$(this).find('.image_gallery_hover_bar').fadeIn('fast');
+		});
+		$(".image_gallery_panel").mouseleave (function() {
+			$(this).find('.image_gallery_hover_bar').fadeOut('fast')
+		});
+    }
 	$('.image_gallery_caption').hide();
 
 	$('.image_admin_info').hide();
