@@ -176,7 +176,14 @@ class StoryImagesController < ApplicationController
   
   private
   def image_for_sale?(image,default_settings,show_errors)
-#    default_settings = DefaultSetting.where("location_id" => current_location).first
+
+    # Check if image has story, plan and location
+    if image.story.present? and image.story.plan.present? and image.story.plan.location.present?
+      if image.story.plan.location != current_location
+        # Image is from a different location, switch default_settings filter criteria
+        default_settings = DefaultSetting.where("location_id" => image.story.plan.location.id).first
+      end
+    end
 
     # Check whether image is flagged "For Sale' or "NotForSale"
     if !image.forsale.nil? && image.forsale != ""
