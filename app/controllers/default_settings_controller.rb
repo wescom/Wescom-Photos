@@ -32,7 +32,7 @@ class DefaultSettingsController < ApplicationController
       @default_settings = DefaultSetting.new(default_setting_params)
       if @default_settings.save
         flash_message :notice, "Default Settings Created"
-        redirect_to default_settings_url
+        render :action => :show
       else
         render :action => :new
       end
@@ -56,7 +56,7 @@ class DefaultSettingsController < ApplicationController
     else
       if @default_settings.update_attributes(default_setting_params)
         flash_message :notice, "Settings updated"
-        redirect_to default_settings_url
+        render :action => :show
       else
         render :action => :edit
       end
