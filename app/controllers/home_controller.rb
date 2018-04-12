@@ -7,7 +7,7 @@ class HomeController < ApplicationController
       if current_location.nil? 
         # No subdomain given in url, so list all locations for user to choose from
         @default_settings_list = DefaultSetting.where('active' => true)
-        @banner_images = DefaultBannerImage.where.not('default_setting_id' => nil).order("RAND()")
+        @banner_images = DefaultBannerImage.where.not('default_setting_id' => nil).order("RAND()").limit(30)
       else
         # Subdomain given in url, so display Home page for that location
         @default_settings = DefaultSetting.where("location_id" => current_location).first
