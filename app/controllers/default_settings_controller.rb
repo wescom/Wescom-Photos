@@ -1,6 +1,6 @@
 class DefaultSettingsController < ApplicationController
   before_filter :require_admin
-  
+
   def index
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     @locations = Location.all.order("name")
@@ -74,7 +74,7 @@ class DefaultSettingsController < ApplicationController
       params["default_setting"]["search_for_pdf_pubtypeId"] = params["default_setting"]["search_for_pdf_pubtypeId"].reject { |e| e.to_s.empty? }
       params["default_setting"]["search_for_pdf_pubtypeId"] = params["default_setting"]["search_for_pdf_pubtypeId"].join(",")
       
-      params.require(:default_setting).permit(:image_price, :image_hi_res_price, :image_low_res_price, :pdf_price, :confirmation_from_email, 
+      params.require(:default_setting).permit(:active, :image_price, :image_hi_res_price, :image_low_res_price, :pdf_price, :confirmation_from_email, 
         :image_use_license, :home_welcome_text, :home_main_images, 
         :home_image_cat1_name, :home_image_cat2_name, :home_image_cat3_name, 
         :home_image_cat1, :home_image_cat2, :home_image_cat3, 

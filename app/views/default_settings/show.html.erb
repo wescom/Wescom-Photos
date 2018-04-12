@@ -96,9 +96,18 @@
 </div>
 
 <div class="default_block" >
-	<div class="float-right">
-		<%= link_to 'Edit Remaining Defaults', edit_default_setting_path(@default_settings), :class=>"btn btn-primary btn-small" %>
-	</div>
+	<h5>
+		Active?
+		<% if @default_settings.active %>
+			<%= icon('check-square fa-lg') %>
+		<% else %>
+			<i class="far fa-square"></i>
+		<% end %>
+		<div class="float-right">
+			<%= link_to 'Edit Remaining Defaults', edit_default_setting_path(@default_settings), :class=>"btn btn-primary btn-small" %>
+		</div>
+	</h5>
+	<hr/>
 
 	<h5>Logo:</h5>
 	<div class="form-group row">

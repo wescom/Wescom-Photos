@@ -10,6 +10,13 @@
 
 <div class="default_block" >
 	<%= form_for @default_settings, url: default_setting_path, html: { multipart: true } do |f| %>
+		<h5>Active?</h5>
+		<div class="form-group row">
+			<label for="active" class="offset-1 col-3 col-form-label">Active?</label>
+			<div class="col-3">
+				<%= f.check_box :active, class: "form-control" %>
+			</div>
+		</div>
 		<h5>Location:</h5>
 		<div class="form-group row offset-1">
 			<%= f.select 'location_id', 

@@ -1,6 +1,6 @@
 class DefaultPagesController < ApplicationController
   before_filter :require_admin, only: [:index, :edit, :update, :new, :create]
-  
+
   def index
     @default_settings = DefaultSetting.where("location_id" => current_location).first
       @default_pages = DefaultPage.all

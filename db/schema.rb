@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327221220) do
+ActiveRecord::Schema.define(version: 20180412185707) do
 
   create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "owner_id"
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 20180327221220) do
     t.datetime "site_image_updated_at"
     t.decimal  "image_hi_res_price",                        precision: 12, scale: 3
     t.decimal  "image_low_res_price",                       precision: 12, scale: 3
+    t.boolean  "active"
   end
 
   create_table "keywords", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|

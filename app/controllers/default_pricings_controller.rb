@@ -1,4 +1,6 @@
 class DefaultPricingsController < ApplicationController
+  before_filter :require_admin
+
   def new
     @default_setting = DefaultSetting.find(params[:current_default_setting])
     @default_pricing = DefaultPricing.new

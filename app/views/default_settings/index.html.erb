@@ -13,6 +13,7 @@
 	<table id="default_settings" class="table table-hover table-condensed">
 		<thead>
 			<tr>
+				<th class="">Active</th>
 				<th class="">Id</th>
 				<th class="">Location</th>
 				<th class=""></th>
@@ -26,6 +27,11 @@
 			<% if @all_default_settings.size > 0 %>
 				<% @all_default_settings.each do |current_default_setting| %>
 					<tr>
+						<td class="text-center">
+							<% if current_default_setting.active %>
+								<%= icon('check fa-lg') %>
+							<% end %>
+						</td>
 						<td><%= current_default_setting.id %></td>
 						<td class="font-weight-bold"><%= current_default_setting.location.name %></td>
 						<td></td>

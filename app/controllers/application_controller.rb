@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
     include ApplicationHelper
     helper_method :current_user
 
+    before_action :check_current_location
+
     def require_user
       unless current_user
         redirect_to '/login', :error => "Invalid Login"
@@ -31,6 +33,12 @@ class ApplicationController < ActionController::Base
     unless admin?
       redirect_to root_path
       return false
+    end
+  end
+  
+  def check_current_location
+    if current_location.nil? 
+      redirect_to :root
     end
   end
 end

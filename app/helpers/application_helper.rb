@@ -28,9 +28,10 @@ module ApplicationHelper
     @url_location = Location.where('short_url_newspaper_name like ?', current_subdomain)
     if @url_location.empty?
       # subdomain cannot be found in Location table
-      @url_location = Location.first
+      return nil
+      #@url_location = Location.first
       #puts "*****URL***"+@url_location.id.to_s
-      return @url_location.id
+      #return @url_location.id
     else
       #puts "*****URL***"+@url_location.first.id.to_s
       return @url_location.first.id
