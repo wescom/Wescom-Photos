@@ -123,53 +123,45 @@ td.image_column { padding: 0.75rem 0px 0.75rem 0 }
 #header_bar { padding: 15px; }
 
 /*** Home Page ***/
-.publication-head{ 
+.publication_head{ 
 	margin: 20px 10% 10px 10%;
 	overflow: hidden;
 	max-height: 700px;
 }
-.banner-img-collage {
-	/* Prevent vertical gaps */
-	line-height: 0;
-
-	-webkit-column-count: 3;
-	-webkit-column-gap:   0px;
-	-moz-column-count:    3;
-	-moz-column-gap:      0px;
-	column-count:         3;
-	column-gap:           0px;
-
+.publication_head{ 
+	margin: 20px 10% 10px 10%;
+}
+.publication_block{ 
+	margin: 20px 5% 10px 5%;
+}
+.publication_banner {
 	position: relative;
-	z-index: 0;
+	margin: 5px;
+	width: 48%;
+	height: 400px;
+	@include media-breakpoint-only(md) { width: 48%; height: 300px; }
+	@include media-breakpoint-down(sm) { width: 100%; height: 250px; }
 }
-.banner-img {
-	/* Just in case there are inline attributes */
-	width: 100% !important;
-	height: auto !important;
-}
-.banner-img-pubs {
-	position: absolute;
-	z-index: 1;
-	top: 100px;
-	left: 0px;
+.publication_banner_img {
 	width: 100%;
-	@include media-breakpoint-down(sm) { top: 50px; }
+	height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+	opacity: .8;
 }
-.publication_images {
-	padding: 5px;
-	height: 150px;
-	margin-left: .4em;
-	margin-right: .4em;
-	margin-bottom: .7em;
+.publication_logo {
+	position: absolute;
+    background: rgba(0,0,0,0.35);
+    height: 150px;
+	width: 80%;
 	-webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
 	box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
 	background-color: white;
-	@include media-breakpoint-down(md) { height: 100px; }
 }
-.pub_image { 
-	width: 375px; 
-	@include media-breakpoint-down(xs) { width: 275px; }
+.publication_logo_img { 
+	width: 100%;
+	padding: 0px 10px;
 }
 
 .home-page-head {

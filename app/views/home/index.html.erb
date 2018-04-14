@@ -1,23 +1,23 @@
 <% if @default_settings_list %>
 	<!-- No subdomain location given, display a list to choose from -->
-	<div class="publication-head">
+	<div class="publication_head">
 		<h3 class="">Choose from our Publications</h3>
-		<div class="banner-img-collage">
-			<% @banner_images.each do |image| %>
-				<%= image_tag(image.banner_image(:medium), :class=>"banner-img") unless image.nil? %>
-			<% end %>
-			<div class="banner-img-pubs">
-				<div class="d-flex justify-content-center align-items-center flex-wrap">
-					<% @default_settings_list.each do |default_setting| %>
-						<div class="publication_images d-flex align-items-center">
+	</div>
+	<div class="publication_block">
+		<div class="d-flex justify-content-center flex-wrap">
+			<% @default_settings_list.each do |default_setting| %>
+					<div class="publication_banner d-flex align-items-center justify-content-center">
+						<% default_setting.default_banner_images.order("RAND()").limit(1).each do |image| %>
+							<%= image_tag(image.banner_image(:medium), :class=>"publication_banner_img") unless image.nil? %>
+						<% end %>
+						<div class="publication_logo d-flex align-items-center justify-content-center">
 							<%= link_to image_tag(default_setting.site_image(:medium), 
 								:alt=>default_setting.location.newspaper_name, 
-								:class=>"pub_image"), 
+								:class=>"publication_logo_img"), 
 								"https://"+default_setting.location.short_url_newspaper_name+".wescomphotos.com" %>
 						</div>
-					<% end %>
-				</div>
-			</div>
+					</div>
+			<% end %>
 		</div>
 	</div>
 <% else %>
