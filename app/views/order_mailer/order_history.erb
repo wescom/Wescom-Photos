@@ -41,7 +41,7 @@
     						</tr>
     					<% end %>
               <tr>
-                <td colspan="6" class="text_right"><strong>SubTotal: <%= orders.map{ |order| order.amount }.sum %></strong></td>
+                <td colspan="6" class="text_right"><strong><%= orders.first.location.name %> SubTotal . . . $<%= orders.map{ |order| order.amount }.sum %></strong></td>
               </tr>
   					<% end %>
   				<% else %>
