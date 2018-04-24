@@ -17,26 +17,32 @@
 						<th class="text_center">Name</th>
 						<th class="text_center">Qty</th>
 						<th class="text_center">Amount</th>
+						<th class="text_center"> </th>
 					</tr>
 				</thead>
 
         <tfoot>
           <tr>
-            <td colspan="6" class="text_right"><%= number_to_currency(@orders_total) %></td>
+            <td colspan="9" class="text_right"><strong>Total: <%= number_to_currency(@orders_total) %></strong></td>
           </tr>
         </tfoot>
         
   			<tbody>
   				<% if @orders.size > 0 %>
-  					<% @orders.each do |order| %>
-  						<tr>
-  							<td class="text_center"><%= order.location.name if order.location %></td>
-  							<td class="text_center"><%= order.id %></td>
-  							<td class="text_center"><%= order.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%m/%d/%y - %l:%M %P') %></td>
-  							<td><%= order.first_name %> <%= order.last_name %></td>
-  							<td class="text_center"><%= order.order_items.count %></td>
-  							<td class="text_right"><%= number_to_currency order.amount %></td>
-  						</tr>
+  					<% @orders.all.group_by(&:location).each do |location, orders| %>
+              <% orders.each do |order| %>
+    						<tr>
+    							<td class="text_center"><%= order.location.name if order.location %></td>
+    							<td class="text_center"><%= order.id %></td>
+    							<td class="text_center"><%= order.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%m/%d/%y - %l:%M %P') %></td>
+    							<td><%= order.first_name %> <%= order.last_name %></td>
+    							<td class="text_center"><%= order.order_items.count %></td>
+    							<td class="text_right"><%= number_to_currency order.amount %></td>
+    						</tr>
+    					<% end %>
+              <tr>
+                <td colspan="6" class="text_right"><strong>SubTotal: <%= orders.map{ |order| order.amount }.sum %></strong></td>
+              </tr>
   					<% end %>
   				<% else %>
   					<tr><td>No orders for this time period</td></tr>

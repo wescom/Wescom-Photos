@@ -199,7 +199,7 @@ class OrdersController < ApplicationController
   end
   
   def email_previous_month_orders
-    @orders = Order.where("created_at >= ? and created_at <= ?", Date.today.last_month.beginning_of_month, Date.today.last_month.end_of_month).order(:created_at)
+    @orders = Order.where("created_at >= ? and created_at <= ?", Date.today.last_month.beginning_of_month, Date.today.last_month.end_of_month).order(:location_is,:created_at)
     time_period = Date.today.last_month.strftime("%B")
 
     OrderMailer.order_history(@orders,time_period).deliver_now
