@@ -133,7 +133,7 @@
 				<div class="container related_image_block">
 					<div class="row">
 						<% if get_pdf_image(image).present? %>
-							<% get_pdf_image(image).each_with_index do |pdf, index| %>
+							<% get_pdf_image(image).each do |pdf| %>
 								<div class="col-xs-2 col-sm-2 col-md-2 col-lg-1 reduce_padding text-center">
 									<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %> Publication:
 								</div>
