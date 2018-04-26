@@ -88,7 +88,7 @@
 		<h5>Related items</h5>
 		<br/>
 		<div class="d-flex flex-wrap justify-content-center">
-			<% @pdf_images.each_with_index do |pdf, index| %>
+			<% get_pdf_image(@story_image).each_with_index do |pdf, index| %>
 				<div class="card text-center related_image_card">
 					<div class="related-card-img-top">
 						<%= link_to image_tag(pdf.image(:large), :class=>"card_section_img"), 
