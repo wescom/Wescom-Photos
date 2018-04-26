@@ -1,5 +1,13 @@
 module StoryImagesHelper
   
+  def get_pdf_image(image)
+    if image.story.present? and image.story.plan.present?
+      @pdf_images = PdfImage.includes('plan').where(:pubdate=>image.story.pubdate)
+      @pdf_images = @pdf_images.where('plans.pub_name = ?', image.story.plan.pub_name)
+      @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(1)
+    end
+  end
+
   def image_in_cart?(image_id)
     if session[:cart_id]
       @cart = Cart.find(session[:cart_id])
