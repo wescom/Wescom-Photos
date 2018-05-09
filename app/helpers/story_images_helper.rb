@@ -4,7 +4,7 @@ module StoryImagesHelper
     if image.story.present? and image.story.plan.present?
       @pdf_images = PdfImage.includes('plan').where(:pubdate=>image.story.pubdate)
       @pdf_images = @pdf_images.where('plans.pub_name = ?', image.story.plan.pub_name)
-      @pdf_images = @pdf_images.where('plans.import_section_letter = ?', image.story.plan.import_section_letter)
+      @pdf_images = @pdf_images.where('plans.import_section_letter = ?', image.story.plan.import_section_letter) unless image.story.plan.import_section_letter.nil?
       @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(1)
     end
   end
