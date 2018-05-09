@@ -68,11 +68,11 @@ class HomeController < ApplicationController
         @cat3_image = @cat3_image.order_by_pubdate.first
 
         @pdf_images = PdfImage.joins(:plan).where('plans.location_id = ?', @default_settings.location_id)
-        if @default_settings.location_id == 1
+//        if @default_settings.location_id == 1
           @pdf_images = @pdf_images.where('section_letter = ? and page = ?', "A", 1)
-        else 
-          @pdf_images = @pdf_images.where('page = ?', 1)
-        end
+//        else 
+//          @pdf_images = @pdf_images.where('page = ?', 1)
+//        end
         @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(4)
     
         @locations = Location.all.order("location_no")
