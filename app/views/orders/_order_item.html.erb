@@ -1,9 +1,11 @@
 <tr>
 	<td data-th="Image" class="image_column text-center">
 		<% if order_item.item_type == "StoryImage" %>
-			<%= image_tag(order_item.story_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
+			<%= link_to image_tag(order_item.story_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive"), 				order_order_item_download_path(@order.obscure_uniq_identifier,order_item.story_image),
+				:title => 'Download Image', :rel => 'tooltip', "data-placement" => "Right" %>
 		<% else %>
-			<%= image_tag(order_item.pdf_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
+			<%= link_to image_tag(order_item.pdf_image.image(:large), :alt=>"PDF Image", :class=>"img-thumb img-responsive"), 				order_order_item_download_path(@order.obscure_uniq_identifier,order_item.pdf_image),
+				title: 'Download PDF', :rel => 'tooltip', "data-placement" => "Right" %>
 		<% end %>
 	</td>
 	<td data-th="Description" class="description_column text-center">
