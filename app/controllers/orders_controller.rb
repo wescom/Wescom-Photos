@@ -3,8 +3,8 @@ class OrdersController < ApplicationController
 
   def dashboard
     @default_settings = DefaultSetting.where("location_id" => current_location).first
-    @orders = Order.all
-    @order_items = OrderItem.all
+    @orders = Order.where(:success => true)
+    @order_items = OrderItem.joins(:order).where('orders.success' => true)
     
     @item_categories = OrderItem.joins(story_image: :story).where(:item_type=>"StoryImage").select("stories.subcategoryname")
 

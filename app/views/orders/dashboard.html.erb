@@ -40,7 +40,7 @@
 			%>
 		</div>
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= line_chart @order_items.where('created_at >= ?', 6.months.ago).group(:item_description).group_by_month(:created_at).sum(:quantity), 
+			<%= line_chart @order_items.where('order_items.created_at >= ?', 6.months.ago).group(:item_description).group_by_month('order_items.created_at').sum(:quantity), 
 				id: "image-types-by-month", 
 				label: "Quantity", 
 				ytitle: "# of Images", 
@@ -65,7 +65,7 @@
 			%>
 		</div>
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= pie_chart @order_items.group_by_day_of_week(:created_at, format: "%a").count,
+			<%= pie_chart @order_items.group_by_day_of_week('order_items.created_at', format: "%a").count,
 				id: "order-items-by-day_of-week", 
 				height: "400px",
 				title: 'Order Items by Day of Week',
