@@ -204,6 +204,10 @@
 		<label for="search_for_caption_text" class="col-3 col-form-label">Include image caption text:</label>
 		<div class="col-6">
 			<%= @default_settings.search_for_caption_text %>
+			<% if !@default_settings.search_for_caption_text2.nil? %>
+				OR
+				<%= @default_settings.search_for_caption_text2 %>
+			<% end %>
 		</div>
 	</div>
 	<hr class="form-group row offset-1"/>
