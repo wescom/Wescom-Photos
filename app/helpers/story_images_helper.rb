@@ -28,9 +28,11 @@ module StoryImagesHelper
   def image_for_sale?(image,default_settings)
 #    default_settings = DefaultSetting.where("location_id" => current_location).first
 
-    # Check captions for default_settings.search_for_caption_text
+    # Check captions for default_settings.search_for_caption_text or default_settings.search_for_caption_text2
     caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
-    if default_settings.search_for_caption_text.empty? or (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase)
+    if (default_settings.search_for_caption_text.empty? and default_settings.search_for_caption_text2.empty?) or 
+      (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase) or 
+      (caption_text.downcase.include? default_settings.search_for_caption_text2.to_s.downcase)
       caption_text_okay = true
     else
       caption_text_okay = false
