@@ -6,35 +6,35 @@
 	<div class="row dashboard_block">
 		<!-- sample charts https://www.highcharts.com/demo/line-basic -->
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= line_chart @orders.where('created_at >= ?', 6.months.ago).group_by_month(:created_at).count, 
+			<%= line_chart @orders.where('orders.created_at >= ?', 6.months.ago).group('locations.name').group_by_month('orders.created_at').count, 
 				id: "orders-by-month", 
 				ytitle: "# of Orders", 
 				width: "600px", 
 				height: "400px",
-				title: 'Orders by Month',
+				title: 'Orders by Month by Location',
 				library: {
 					tooltip: {
 					            shared: true,
 					            crosshairs: true,
 								xDateFormat: '<b>%B, %Y</b>',
-								pointFormat: '{point.y} orders'
+								pointFormat: '{series.name}: {point.y} orders<br/>'
 					        }
 				}
 			%>
 		</div>
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= line_chart @orders.where('created_at >= ?', 6.months.ago).group_by_month(:created_at).sum(:amount), 
+			<%= line_chart @orders.where('orders.created_at >= ?', 6.months.ago).group('locations.name').group_by_month('orders.created_at').sum(:amount), 
 				id: "sales-by-month", 
 				ytitle: "Order Amount", 
 				width: "600px", 
 				height: "400px",
-				title: 'Total Revenue by Month',
+				title: 'Total Revenue by Month by Location',
 				library: {
 					tooltip: {
 					            shared: true,
 					            crosshairs: true,
 								xDateFormat: '<b>%B, %Y</b>',
-								pointFormat: '${point.y}'
+								pointFormat: '{series.name}: ${point.y}<br/>'
 					        }
 				}
 			%>
