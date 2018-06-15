@@ -69,6 +69,7 @@ class HomeController < ApplicationController
 
         @pdf_images = PdfImage.joins(:plan).where('plans.location_id = ?', @default_settings.location_id)
         @pdf_images = @pdf_images.where('section_letter = ? and page = ?', "A", 1)
+        @pdf_images = @pdf_images.where('publication_type_id IN (?)', @default_settings.search_for_pdf_pubtypeId.split(",").map(&:to_i))
         @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(4)
     
         @locations = Location.all.order("location_no")
