@@ -1,41 +1,82 @@
-<div id="header_bar" class="d-flex justify-content-between bg-dark">
-	<div class="align-items-center">
-		<div id="branding">
-			<h1>
-				<%= link_to root_url( :subdomain => false ) do %>
-					Wescom <span>Photos</span>
-				<% end %>
-			</h1>
-			<% if !@default_settings.nil? %>
-				<%= link_to image_tag(@default_settings.site_image(:medium), :alt=>"newspaper_logo", :class=>"newspaper_logo"), 
-					root_path unless @default_settings.respond_to? :each %>
-			<% end %>
-		</div>
-	</div>
-	<div class="d-flex align-items-center">
-		<% if !current_location.nil? %>
-			<div class="btn-group-vertical">
-				<div class="btn-block text-center">
-					<%= link_to( cart_label_quantity_items(), cart_path(), :class=>"btn btn-success d-none d-sm-block") %>
-					<%= link_to( cart_label_quantity(), cart_path(), :class=>"btn btn-success d-block d-sm-none") %>
+<div id="header_bar" class="bg-dark">
+	<div class="container-fluid">
+		<div class="row align-items-end">
+			<div class="col d-flex align-items-end">
+				<div id="branding" class="float-left">
+					<h1>
+						<%= link_to root_url( :subdomain => false ) do %>
+							Wescom <span>Photos</span>
+						<% end %>
+					</h1>
+					<% if !@default_settings.nil? %>
+						<%= link_to image_tag(@default_settings.site_image(:medium), :alt=>"newspaper_logo", :class=>"newspaper_logo mx-auto d-block"), 
+							root_path unless @default_settings.respond_to? :each %>
+					<% end %>
 				</div>
-				<% if admin? %>
-					<div class="dropleft btn-block text-center">
-						<button type="button" class="btn btn-secondary" data-toggle="dropdown">
-							<%= icon('bars fa-lg') %>
-						</button>
-						<div class="dropdown-menu">
-							<%= link_to "Dashboard", dashboard_path, :class=>"dropdown-item" %></a>
-							<%= link_to "Orders", orders_path, :class=>"dropdown-item" %></a>
-							<%= link_to "Locations", locations_path, :class=>"dropdown-item" %></a>
-							<%= link_to "Default Settings", default_settings_path, :class=>"dropdown-item" %></a>
-							<%= link_to "Default Pages", default_pages_path, :class=>"dropdown-item" %></a>
-							<div class="dropdown-divider"></div>
-							<%= link_to "Logout", logout_path, :class=>"dropdown-item" %></a>
+				<div class="">
+					<% if !current_location.nil? %>
+						<ul class="nav menu-items-bar">
+							<li class="nav-item">
+			 				   <%= link_to "Home", root_path, :class=>"nav-link menu-item-home" %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Images", story_images_path(:search_query => ""), :class=>"nav-link menu-item-images" %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Pages", pdf_images_path(:search_query => ""), :class=>"nav-link menu-item-pages" %>
+							</li>
+						</ul>
+					<% end %>
+				</div>
+			</div>
+			<div class="col-lg-1 col-md-1 col-sm-2 col-2">
+				<% if !current_location.nil? %>
+					<div class="d-flex align-items-center">
+						<div class="btn-group-vertical">
+							<div class="btn-block text-center">
+								<%= link_to( cart_label_quantity_items(), cart_path(), :class=>"btn btn-success d-none d-sm-block") %>
+								<%= link_to( cart_label_quantity(), cart_path(), :class=>"btn btn-success d-block d-sm-none") %>
+							</div>
+							<% if admin? %>
+								<div class="dropleft btn-block text-center menu-items-icon-admin">
+									<button type="button" class="btn btn-secondary btn-menu" data-toggle="dropdown">
+										<%= icon('bars fa-lg') %>
+									</button>
+									<div class="dropdown-menu">
+										<%= link_to "Dashboard", dashboard_path, :class=>"dropdown-item" %>
+										<%= link_to "Orders", orders_path, :class=>"dropdown-item" %>
+										<%= link_to "Locations", locations_path, :class=>"dropdown-item" %>
+										<%= link_to "Default Settings", default_settings_path, :class=>"dropdown-item" %>
+										<%= link_to "Default Pages", default_pages_path, :class=>"dropdown-item" %>
+										<div class="dropdown-divider"></div>
+										<%= link_to "Logout", logout_path, :class=>"dropdown-item" %>
+									</div>
+								</div>
+							<% end %>
+							<div class="dropleft btn-block text-center menu-items-icon-all">
+								<button type="button" class="btn btn-secondary btn-menu" data-toggle="dropdown">
+									<%= icon('bars fa-lg') %>
+								</button>
+								<div class="dropdown-menu">
+									<%= link_to "Home", root_path, :class=>"dropdown-item" %>
+									<%= link_to "Images", story_images_path(:search_query => ""), :class=>"dropdown-item" %>
+									<%= link_to "Pages", pdf_images_path(:search_query => ""), :class=>"dropdown-item" %>
+									<% if admin? %>
+										<div class="dropdown-divider"></div>
+										<%= link_to "Dashboard", dashboard_path, :class=>"dropdown-item" %>
+										<%= link_to "Orders", orders_path, :class=>"dropdown-item" %>
+										<%= link_to "Locations", locations_path, :class=>"dropdown-item" %>
+										<%= link_to "Default Settings", default_settings_path, :class=>"dropdown-item" %>
+										<%= link_to "Default Pages", default_pages_path, :class=>"dropdown-item" %>
+										<div class="dropdown-divider"></div>
+										<%= link_to "Logout", logout_path, :class=>"dropdown-item" %>
+									<% end %>
+								</div>
+							</div>
 						</div>
 					</div>
 				<% end %>
 			</div>
-		<% end %>
+		</div>
 	</div>
 </div>

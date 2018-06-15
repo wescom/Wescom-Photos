@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
     @orders = Order.joins(:location).where(:success => true)
     @order_items = OrderItem.joins(:order).where('orders.success' => true)
     
-    @item_categories = OrderItem.joins(story_image: :story).where(:item_type=>"StoryImage").select("stories.subcategoryname")
+    @item_categories = OrderItem.joins(story_image: :story).where(:item_type=>"StoryImage").select(:subcategoryname)
 
   end
 

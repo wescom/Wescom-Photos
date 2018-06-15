@@ -94,6 +94,14 @@ td.image_column { padding: 0.75rem 0px 0.75rem 0 }
 	.colspan_column { display: none; }
 	.image_related .form-search-text { display: none; }
 	.related_image_block  { display: none; }
+	.menu-items-bar { display: none; }
+	.menu-items-icon-admin { display: none; }
+	.menu-items-icon-all { display: block; }
+ 	.btn-menu { margin-left: 0px; }
+}
+
+@include media-breakpoint-down(sm) {
+	.menu-item-home { display: none; }
 }
 
 @include media-breakpoint-down(md) {
@@ -102,24 +110,30 @@ td.image_column { padding: 0.75rem 0px 0.75rem 0 }
 
 @include media-breakpoint-up(sm) {
 	.mobile_action_row { display: none; } 
+	.menu-items-icon-admin { display: block; }
+	.menu-items-icon-all { display: none; }
 }
 
 /*** Branding ***/
+#branding { padding-right: 25px;}
 #branding h1 { }
 #branding h1 a {
-	font: italic 1.1em Georgia, "Times New Roman", Times, serif;
+	font: italic 0.88em Georgia, "Times New Roman", Times, serif;
 	color: #fff;
 	margin: 0px;
 	padding: 0px;
 }
 #branding h1 a span {
-	font: italic 0.7em Georgia, "Times New Roman", Times, serif;
+	font: italic 0.88em Georgia, "Times New Roman", Times, serif;
 	color: #6da9d2;
 }
 #branding a:link, #branding a:visited, #branding a:hover, #branding a:active,  { 
     text-decoration:none; 
 }
-.newspaper_logo { max-height: 50px; }
+.newspaper_logo { 
+	max-height: 40px; 
+	@include media-breakpoint-down(sm) { max-height: 30px; }
+}
 #header_bar { padding: 15px; }
 
 /*** Home Page ***/
