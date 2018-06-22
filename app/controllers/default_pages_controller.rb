@@ -1,5 +1,5 @@
 class DefaultPagesController < ApplicationController
-  before_filter :require_admin, only: [:index, :edit, :update, :new, :create]
+  before_filter :require_admin, only: [:index, :edit, :update, :new, :create, :destroy]
 
   def index
     @default_settings = DefaultSetting.where("location_id" => current_location).first
@@ -50,6 +50,17 @@ class DefaultPagesController < ApplicationController
       else
         render :action => :edit
       end
+    end
+  end
+  
+  def destroy
+    @default_page = DefaultPage.find(params[:id])
+    if @default_page.destroy
+      flash_message :notice, "Page Deleted"
+      redirect_to default_pages_url
+    else
+      flash_message :notice, "Page Deletion Failed"
+      redirect_to default_pages_url
     end
   end
   

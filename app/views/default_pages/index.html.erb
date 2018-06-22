@@ -25,7 +25,15 @@
 						<td class="text-center"><%= page.page_head %></td>
 						<td class="text-center">
 							<p class="btn btn-outline-info">
-								<%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_default_page_path(page) %>
+								<%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_default_page_path(page),
+									title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
+							</p>
+							<p class="btn btn-outline-info">
+								<%= link_to icon('remove fa-lg'), 
+									default_page_path(page), :class => "",
+									:method=> :delete, :action => 'destroy',
+									data: {confirm:'Delete default page?'},
+									title: 'Delete', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %>
 							</p>
 						</td>
 					</tr>
