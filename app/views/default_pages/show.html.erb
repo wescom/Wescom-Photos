@@ -2,10 +2,11 @@
 	<h1><%= @default_page.page_head %></h1>
 	<h2><%= @default_page.page_subhead unless @default_page.page_subhead.nil? %></h2>
 
-	<div><%= @default_page.page_text1.html_safe unless @default_page.page_text1.nil? %></div>
-	<div><%= @default_page.page_text2.html_safe unless @default_page.page_text2.nil? %></div>
-	<div><%= @default_page.page_text3.html_safe unless @default_page.page_text3.nil? %></div>
-
+	<div style="margin-top: 50px">
+		<div><%= @default_page.page_text1.html_safe unless @default_page.page_text1.nil? %></div>
+		<div><%= @default_page.page_text2.html_safe unless @default_page.page_text2.nil? %></div>
+		<div><%= @default_page.page_text3.html_safe unless @default_page.page_text3.nil? %></div>
+	</div>
 
 	<% if @default_page.email_contact.length > 5 %>
 		<h2>Contact Us</h2>
