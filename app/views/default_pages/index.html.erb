@@ -21,7 +21,7 @@
 				<% @default_pages.each do |page| %>
 					<tr>
 						<td><%= page.site_name %></td>
-						<td class="text-center"><%= page.page_name %></td>
+						<td class="text-center"><%= link_to page.page_name, default_page_path(page.page_name) %></td>
 						<td class="text-center"><%= page.page_head %></td>
 						<td class="text-center">
 							<p class="btn btn-outline-info">
