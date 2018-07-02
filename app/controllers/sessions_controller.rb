@@ -12,7 +12,8 @@ class SessionsController < ApplicationController
         	session[:user_id] = user.id
         	redirect_to root_path
     	else
-        	redirect_to root_path, :error => "Invalid Login"
+          flash_message :notice, "Login failed"
+        	redirect_to login_path, :error => "Invalid Login"
         	Rails.logger.info "*** Invalid Login ***"
     	end
 	end
