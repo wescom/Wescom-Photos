@@ -10,7 +10,7 @@
 		<div class="container search_results">
 			<div class="search_result_count">
 				<i><%= @search_result_count %> results</i>
-				<small hidden>(<%= link_to "Tips for searching...", default_page_path("FAQ") %>)</small>
+				<small>(<%= link_to "Tips for searching...", default_page_path("FAQ"), target: :_blank %>)</small>
 			</div>
 			<div class="flickr_pagination d-none d-sm-block">
 				<%= will_paginate @story_images.results, :inner_window => 2, :outer_window => 0 %>
@@ -30,7 +30,7 @@
 			<div class="search_result_count">
 				<% if @search_result_count > 3 %>
 					<i><%= @search_result_count %> results</i>
-					<small hidden>(<%= link_to "Tips for searching...", default_page_path("FAQ") %>)</small>
+					<small>(<%= link_to "Tips for searching...", default_page_path("FAQ"), target: :_blank %>)</small>
 				<% end %>
 			</div>
 			<div class="flickr_pagination d-none d-sm-block">
