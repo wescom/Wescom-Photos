@@ -27,7 +27,16 @@ Rails.application.routes.draw do
   resources :default_pricings, :only => [:new, :create, :edit, :update, :destroy]
   resources :default_banner_images, :only => [:new, :create, :edit, :update, :destroy]
   resources :default_pages
+
+  # Widget Routes
+  resources :widgets, only: [] do
+    collection do
+      get 'story_images'
+      get 'pdf_images'
+    end
+  end
   
+  # Auth Routes
   resources :sessions
   match "/login" => "sessions#new", :via => [:get, :post]
   match "/logout" => "sessions#destroy", :via => [:get, :post]

@@ -1,0 +1,34 @@
+<% if @pdf_images.count > 0 %>
+	<h3 class="">Recent PDFs for Sale</h3>
+	<% @pdf_images.each_with_index do |pdf, index| %>
+		<!-- limit number of PDFs based on screen size -->
+		<% case index+1 %>	
+		<% when 1 %>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<% when 2 %>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<% when 3 %>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 d-none d-md-block">
+		<% when 4 %>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 d-none d-lg-block">
+		<% end %>
+			<div class="card text-center">
+				<%= link_to image_tag(pdf.image(:large), :class=>"card-img-top card_pdf_image"), 
+				 	pdf_images_path(:pub_select => pdf.publication, 
+					:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
+					:search_query => "") %>
+				<div class="card-block">
+					<p class="card-text">
+						<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %>
+					</p>
+					<%= link_to( "Browse", pdf_images_path(:pub_select => pdf.publication, 
+						:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
+						:search_query => ""),
+						:class=>"btn btn-primary") %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<br/>
+	<%= link_to( "Search all publication dates", pdf_images_path(:search_query => ""), :class=>"btn btn-primary") %>
+<% end %>
