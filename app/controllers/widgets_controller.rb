@@ -18,6 +18,8 @@ class WidgetsController < ApplicationController
     # parameters available: 
     #   pubname = name of publication
     #   pubdate = publication date MM-DD-YYYY
+    #   section = section letter of publication
+    #   page = page number
     #   quantity = number of pdf images to show
 
     @default_settings = DefaultSetting.where("location_id" => current_location).first
@@ -29,13 +31,13 @@ class WidgetsController < ApplicationController
     # filter by params[:pubdate]
     @pdf_images = @pdf_images.where('pubdate = ?', fix_date_format(params[:pubdate])) unless params[:pubdate].nil? or params[:pubdate].empty?
 
-    if @default_settings.location.name == 'Redmond'
-      @pdf_images = @pdf_images.where('page = ?', 1)
-    else
-      @pdf_images = @pdf_images.where('section_letter = ? and page = ?', "A", 1)
-    end
+    # filter to params[:section]
+    @pdf_images = @pdf_images.where('section_letter = ?', params[:section]) unless params[:section].nil? or params[:section].empty?
 
-    # filter by 
+    # filter to params[:page]
+    @pdf_images = @pdf_images.where('page = ?', params[:page]) unless params[:page].nil? or params[:page].empty?
+
+    # filter by default settings for publication_type
     @pdf_images = @pdf_images.where('publication_type_id IN (?)', @default_settings.search_for_pdf_pubtypeId.split(",").map(&:to_i))
 
     # filter down to quantity params[:quantity], limit results to maximum of 20
