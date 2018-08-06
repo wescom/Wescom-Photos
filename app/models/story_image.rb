@@ -155,4 +155,9 @@ class StoryImage < ApplicationRecord
     includes(:story).where("stories.publication_name = ?", name) if name
   end
 
+  def self.has_story_category_or_subcategory(name)
+    return scoped unless name.present?
+    includes(:story).where("stories.categoryname = ? or stories.subcategoryname = ?", name, name) if name
+  end
+
 end

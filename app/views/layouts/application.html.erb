@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+	<% if flash[:admin_error]  %>
+		<META NAME="robots" CONTENT="noindex,nofollow">
+	<% end %>
+	
     <title><%= yield :title %> Wescom Photos</title>
     <%= csrf_meta_tags %>
 

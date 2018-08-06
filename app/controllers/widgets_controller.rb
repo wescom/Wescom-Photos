@@ -6,12 +6,27 @@ class WidgetsController < ApplicationController
     # parameters available: 
     #   story_id = story_id
     #   quantity = number of story images to show
+    #   pubdate = publication date MM-DD-YYYY
+    #   category = story category or subcategory
 
     default_settings = DefaultSetting.where("location_id" => current_location).first
-    @story = Story.find_by_doc_id(params[:story_id])
-    @story_images = @story.story_images
-    @story_images = @story_images.reject {|x| !image_for_sale?(x,default_settings,false)}   # remove any images not for sale
-    @story_images = @story_images[0,params[:quantity].to_i]
+    @story_images = StoryImage
+
+    # filter by params[:story_id]
+    @story_images = @story_images.where('story_id = ?', params[:story_id]) unless params[:story_id].nil? or params[:story_id].empty?
+
+    # filter by params[:pubdate]
+    @story_images = @story_images.joins(:story).where('stories.pubdate = ?', fix_date_format(params[:pubdate])) unless params[:pubdate].nil? or params[:pubdate].empty?
+
+    # filter to params[:section]
+    @story_images = @story_images.has_story_category_or_subcategory(params[:category]) unless params[:category].nil? or params[:category].empty?
+
+    # filter down any images not for sale
+#    @story_images = @story_images.reject {|x| !image_for_sale?(x,default_settings,false)}
+
+    # filter down to quantity params[:quantity], limit results to maximum of 20
+    @story_images = @story_images.order_by_pubdate.first(20)
+    @story_images = @story_images.first(params[:quantity].to_i) unless params[:quantity].nil? or params[:quantity].empty?
   end  
   
   def pdf_images
