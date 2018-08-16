@@ -1,22 +1,52 @@
 <% if @story_images %>
 	<div id="widget" class="widget_column">
-		<% @story_images.each do |image| %>
-<%= image.story_id %><br/>
-<%= image.story.categoryname %><%= image.story.subcategoryname %><br/>
-<%= image.story.pubdate %><br/>
-			<div class="card text-center related_image_card">
-				<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"), story_image_path(image.id) %>
-				<div class="card-block">
-					<p class="card-text">
-						<% if !image.media_webcaption.nil? and !image.media_webcaption.empty? %>
-							<i class="modal_image_caption"><%= truncate image.media_webcaption, :length => 60, :separator => /\s/ %></i>
-						<% else %>
-							<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 60, :separator => /\s/ %></i>
-						<% end %>
-					</p>
-					<%= link_to( "View", story_image_path(image.id), :class=>"btn btn-primary") %>
-				</div>
+		<% if params[:story_id] %>
+			<div class="widget_head text-center">
+				<h4>Purchase Images</h4>
+				<%= link_to( "Search Archives", story_images_path(), :class=>"btn btn-sm btn-primary") %>
 			</div>
+		<% else %>
+			<% if params[:category] %>
+				<div class="widget_head text-center">
+					<h4>Purchase Images</h4>
+					<%= link_to( "Search "+params[:category].titleize, story_images_path(), :class=>"btn btn-sm btn-primary") %>
+				</div>
+			<% else %>
+				<% if params[:pubdate] %>
+					<div class="widget_head text-center">
+						<h4>Purchase Images</h4>
+						<h6><%= params[:pubdate] %></h6>
+						<%= link_to( "Search Archives", story_images_path(), :class=>"btn btn-sm btn-primary") %>
+					</div>
+				<% else %>
+					<div class="widget_head text-center">
+						<h4>Purchase Images</h4>
+						<%= link_to( "Search Archives", story_images_path(), :class=>"") %>
+					</div>
+				<% end %>
+			<% end %>
 		<% end %>
+
+		<div class="container">
+			<div class="row">
+				<% @story_images.each do |image| %>
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="card text-center">
+							<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"), story_image_path(image.id) %>
+							<div class="card-block">
+								<p class="card-text">
+									<% if !image.media_webcaption.nil? and !image.media_webcaption.empty? %>
+										<i class="modal_image_caption"><%= truncate image.media_webcaption, :length => 60, :separator => /\s/ %></i>
+									<% else %>
+										<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 60, :separator => /\s/ %></i>
+									<% end %>
+								</p>
+								<%= link_to( "View Image", story_image_path(image.id), :class=>"") %>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
 	</div>
 <% end %>

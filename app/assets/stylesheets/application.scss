@@ -654,16 +654,20 @@ td.image_column { padding: 0.75rem 0px 0.75rem 0 }
 }
 
 /* Widgets Layout */
-#widget.widget_column { width: 200px; }
+#widget.widget_column { width: 100%; padding: 0px 2px;}
 #widget .widget_head { 
-	font-size: 1.25rem;
-	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
     font-family: inherit;
     font-weight: 500;
     line-height: 1.2;
     color: inherit;
+	border-bottom: 3px solid #ddd; 
+	padding-top: 20px;
+	padding-bottom: 15px;
 }
+#widget .widget_head a { margin-top: 10px; }
 #widget .widget_card { border: none; }
+#widget .card { padding-bottom: 0.5rem; min-height: 275px; }
+#widget .card p { margin-bottom: 3px; }
 #widget .widget_foot { 	margin-top: 0.5rem; margin-bottom: 0.5rem; }
 #widget .btn { margin: 0px; }

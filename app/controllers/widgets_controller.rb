@@ -5,12 +5,13 @@ class WidgetsController < ApplicationController
   def story_images
     # parameters available: 
     #   story_id = story_id
-    #   quantity = number of story images to show
     #   pubdate = publication date MM-DD-YYYY
     #   category = story category or subcategory
+    #   quantity = number of story images to show
 
-    default_settings = DefaultSetting.where("location_id" => current_location).first
-    @story_images = StoryImage
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
+    default_settings = @default_settings
+    @story_images = StoryImage.order_by_pubdate
 
     # filter by params[:story_id]
     @story_images = @story_images.where('story_id = ?', params[:story_id]) unless params[:story_id].nil? or params[:story_id].empty?
@@ -18,14 +19,14 @@ class WidgetsController < ApplicationController
     # filter by params[:pubdate]
     @story_images = @story_images.joins(:story).where('stories.pubdate = ?', fix_date_format(params[:pubdate])) unless params[:pubdate].nil? or params[:pubdate].empty?
 
-    # filter to params[:section]
+    # filter to params[:category]
     @story_images = @story_images.has_story_category_or_subcategory(params[:category]) unless params[:category].nil? or params[:category].empty?
 
     # filter down any images not for sale
-#    @story_images = @story_images.reject {|x| !image_for_sale?(x,default_settings,false)}
+    @story_images = @story_images.all.reject {|x| !image_for_sale?(x,default_settings,false)}
 
     # filter down to quantity params[:quantity], limit results to maximum of 20
-    @story_images = @story_images.order_by_pubdate.first(20)
+    @story_images = @story_images.first(20)
     @story_images = @story_images.first(params[:quantity].to_i) unless params[:quantity].nil? or params[:quantity].empty?
   end  
   
@@ -87,9 +88,15 @@ class WidgetsController < ApplicationController
       if image.story.present? and image.story.plan.present? and image.story.plan.location.present?
         if image.story.plan.location != current_location
           # Image is from a different location, switch default_settings filter criteria
-          default_settings = DefaultSetting.where("location_id" => image.story.plan.location.id).first
+          @default_settings = DefaultSetting.where("location_id" => image.story.plan.location.id).first
+          default_settings = @default_settings
+          if default_settings.nil?
+            puts "*** Image ID "+image.id.to_s+" attached to story ID "+image.story.id.to_s+" do not have a valid plan location"
+            return false
+          end
         end
       end
+
       # Check whether image is flagged "For Sale' or "NotForSale"
       if !image.forsale.nil? && image.forsale != ""
         if (image.forsale.include? "For Sale")
@@ -106,6 +113,7 @@ class WidgetsController < ApplicationController
 
         # Check captions for default_settings.search_for_caption_text or default_settings.search_for_caption_text2
         caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
+
         if (default_settings.search_for_caption_text.empty? and default_settings.search_for_caption_text2.empty?) or 
           (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase) or 
           (caption_text.downcase.include? default_settings.search_for_caption_text2.to_s.downcase)

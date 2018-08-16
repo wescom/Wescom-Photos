@@ -1,28 +1,51 @@
 <% if @pdf_images.count > 0 %>
 	<div id="widget" class="widget_column">
-		<% if params[:pubdate] %>
-			<div class="widget_head text-center">Purchase PDFs <br/>from <br/><%= params[:pubdate] %></div>
-		<% else %>
-			<div class="widget_head text-center">Recent PDFs <br/>for Sale</div>
-		<% end %>
-		<% @pdf_images.each_with_index do |pdf, index| %>
-			<div class="card widget_card text-center">
-				<%= link_to image_tag(pdf.image(:large), :class=>"card-img-top card_pdf_image"), 
-				 	pdf_images_path(:pub_select => pdf.publication, 
-					:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
-					:search_query => "") %>
-				<div class="card-block">
-					<p class="card-text">
-						<% if params[:pubname].nil? %>
-							<%= pdf.plan.pub_name unless pdf.plan.nil? %>
-						<% end %>
-						<% if params[:pubdate].nil? %>
-							<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %>
-						<% end %>
-					</p>
-				</div>
+		<% if params[:pubname] %>
+			<div class="widget_head text-center">
+				<h4>Purchase Images</h4>
+				<h6><%= params[:pubname] %></h6>
+				<%= link_to( "Search Archives", story_images_path(), :class=>"btn btn-sm btn-primary") %>
 			</div>
+		<% else %>
+			<% if params[:pubdate] %>
+				<div class="widget_head text-center">
+					<h4>Purchase PDFs</h4>
+					<h6><%= params[:pubdate] %></h6>
+					<%= link_to( "Search Archives", pdf_images_path(), :class=>"btn btn-sm btn-primary") %>
+				</div>
+			<% else %>
+				<div class="widget_head text-center">
+					<h4>Purchase PDFs</h4>
+					<%= link_to( "Search Archives", pdf_images_path(), :class=>"btn btn-sm btn-primary") %>
+				</div>
+			<% end %>
 		<% end %>
+
+		<div class="container">
+			<div class="row">
+				<% @pdf_images.each_with_index do |pdf, index| %>
+					<div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-2">
+						<div class="card widget_card text-center">
+							<%= link_to image_tag(pdf.image(:large), :class=>"card-img-top card_pdf_image"), 
+							 	pdf_images_path(:pub_select => pdf.publication, 
+								:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
+								:search_query => "") %>
+							<div class="card-block">
+								<p class="card-text">
+									<% if params[:pubname].nil? %>
+										<%= pdf.plan.pub_name unless pdf.plan.nil? %>
+									<% end %>
+									<% if params[:pubdate].nil? %>
+										<%= pdf.pubdate.strftime('%m/%d/%y') unless pdf.pubdate.nil? %>
+									<% end %>
+								</p>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+
 		<div class="widget_foot text-center">
 			<%= link_to( "Browse", pdf_images_path(:pub_select => params[:pubname], 
 				:date_select => params[:pubdate], 
