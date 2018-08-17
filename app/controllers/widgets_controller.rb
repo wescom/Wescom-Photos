@@ -11,7 +11,7 @@ class WidgetsController < ApplicationController
 
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     default_settings = @default_settings
-    @story_images = StoryImage.order_by_pubdate
+    @story_images = StoryImage.limit(100).order_by_pubdate
 
     # filter by params[:story_id]
     @story_images = @story_images.where('story_id = ?', params[:story_id]) unless params[:story_id].nil? or params[:story_id].empty?
@@ -39,7 +39,7 @@ class WidgetsController < ApplicationController
     #   quantity = number of pdf images to show
 
     @default_settings = DefaultSetting.where("location_id" => current_location).first
-    @pdf_images = PdfImage
+    @pdf_images = PdfImage.limit(100)
 
     # filter by params[:pubname]
     @pdf_images = @pdf_images.joins(:plan).where('plans.pub_name = ?', params[:pubname]) unless params[:pubname].nil? or params[:pubname].empty?
