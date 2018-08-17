@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :default_pages
 
   # Widget Routes
-  resources :widgets, only: [] do
+  resources :widgets, only: [:index] do
     collection do
       get 'story_images'
       get 'pdf_images'

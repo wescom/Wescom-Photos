@@ -2,6 +2,10 @@ class WidgetsController < ApplicationController
   layout 'widgets'
   after_action :allow_iframe
   
+  def index
+    render action: "index", layout: "application"
+  end
+  
   def story_images
     # parameters available: 
     #   story_id = story_id

@@ -1,0 +1,60 @@
+<div class="default_heading">
+	<div class="container search_container">
+		<div class="row justify-content-between">
+			<h1>Widgets</h1>
+		</div>
+		<h6>These widgets allow other websites to iframe in results from WescomPhotos.com...</h6>
+	</div>
+
+</div>
+
+<div class="default_block" >
+
+	<h5>Example iframe:</h5>
+	<p>
+		<i><small>&lt;iframe src="http://bulletin.vcap.me:3000/widgets/story_images?category=sports&quantity=4" 
+		style="width: 1000px; height: 420px"&gt;&lt;/iframe&gt;</small></i>
+	</p>
+	<iframe src="http://bulletin.vcap.me:3000/widgets/story_images?category=sports&quantity=4" style="width: 1000px; height: 420px"></iframe>
+
+	<hr/>
+
+	<h5>Story Image Widget</h5>
+	<p>/widgets/story-images</p>
+
+	Parameters available: 
+	<ul>
+		<li>story_id = story_id</li>
+		<li>pubdate = publication date MM-DD-YYYY</li>
+		<li>category = story category or subcategory</li>
+		<li>quantity = number of story images to show</li>
+	</ul>
+	
+	<p>
+		Example: 
+		<a href="https://bulletin.wescomphotos.com/widgets/story_images?category=sports&quantity=6">
+			bulletin.wescomphotos.com/widgets/story_images?category=sports&quantity=6
+		</a>
+	</p>
+	
+	<hr/>
+	
+	<h5>PDF Image Widget</h5>
+	<p>/widgets/pdf_images</p>
+
+	Parameters available: 
+	<ul>
+		<li>pubname = name of publication</li>
+		<li>pubdate = publication date MM-DD-YYYY</li>
+		<li>section = section letter of publication</li>
+		<li>page = page number</li>
+		<li>quantity = number of pdf images to show</li>
+	</ul>
+	
+	<p>
+		Example: 
+		<a href="https://bulletin.wescomphotos.com/widgets/pdf_images?pubname=The%20Bulletin&quantity=3&page=1">
+			bulletin.wescomphotos.com/widgets/pdf_images?pubname=The%20Bulletin&quantity=3&page=1
+		</a>
+	</p>
+</div>
