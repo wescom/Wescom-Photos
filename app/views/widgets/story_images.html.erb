@@ -9,14 +9,14 @@
 			<% if params[:category] %>
 				<div class="widget_head text-center">
 					<h4>Purchase Images</h4>
-					<%= link_to( "Search "+params[:category].titleize, story_images_path(), :class=>"btn btn-sm btn-primary") %>
+					<%= link_to( "Search "+params[:category].titleize, story_images_path(:search_query => params[:category]), :class=>"btn btn-sm btn-primary") %>
 				</div>
 			<% else %>
 				<% if params[:pubdate] %>
 					<div class="widget_head text-center">
 						<h4>Purchase Images</h4>
 						<h6><%= params[:pubdate] %></h6>
-						<%= link_to( "Search Archives", story_images_path(), :class=>"btn btn-sm btn-primary") %>
+						<%= link_to( "Search Archives", story_images_path(:search_query => params[:pubdate]), :class=>"btn btn-sm btn-primary") %>
 					</div>
 				<% else %>
 					<div class="widget_head text-center">
