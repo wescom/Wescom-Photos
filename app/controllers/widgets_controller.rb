@@ -17,6 +17,35 @@ class WidgetsController < ApplicationController
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     default_settings = @default_settings
 
+    if params[:story_id]
+      begin
+        @story_id_images = StoryImage.search(:include => [:story]) do
+          # Filter for story_id images
+          with(:story_id, params[:story_id]) 
+
+          # Filter out any images marked as NotForSale
+          without(:forsale, "NotForSale") 
+        
+          any do  # filter for images For Sale OR (caption and priority)
+            all do
+              #Filter all searches by location
+              with(:story_location_id, default_settings.location_id)
+              # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'
+              fulltext default_settings.search_for_priority, :fields => [:priority]
+              any do
+                # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin' or 'Spokesman'
+                fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
+                fulltext default_settings.search_for_caption_text2, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
+              end
+            end
+            fulltext "For Sale", :fields => [:forsale]
+          end
+        end
+        rescue Errno::ECONNREFUSED
+          render :text => "Search Server Down\n\n\n It will be back online shortly"
+      end
+    end
+    
     params[:search_query] = "" if params[:search_query].nil?
     params[:search_query] = params[:search_query] + " " + params[:pubdate].to_s unless params[:pubdate].nil?
     params[:search_query] = params[:search_query] + " " + params[:category].to_s  unless params[:category].nil?
@@ -35,18 +64,19 @@ class WidgetsController < ApplicationController
                       :story_pubdate_leading_zeros_full_year,
                       :story_pubyear,
                       :media_name]
+        # Filter out any story_id images, avoid duplicates
+        without(:story_id, params[:story_id]) 
         # Filter out any images marked as NotForSale
         without(:forsale, "NotForSale") 
         
         any do  # filter for images For Sale OR (caption and priority)
           all do
-            #filter by params[:story_id]
-            with(:story_id, params[:story_id]) 
             #Filter all searches by location
             with(:story_location_id, default_settings.location_id)
             # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'
             fulltext default_settings.search_for_priority, :fields => [:priority]
-            any do  # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin' or 'Spokesman'
+            any do
+              # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin' or 'Spokesman'
               fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
               fulltext default_settings.search_for_caption_text2, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
             end
@@ -59,7 +89,15 @@ class WidgetsController < ApplicationController
       rescue Errno::ECONNREFUSED
         render :text => "Search Server Down\n\n\n It will be back online shortly"
     end
-    @story_images = @story_images.results.first(20) unless @story_images.nil?
+    @story_images = @story_images.results.first(20) unless @story_images.nil?   # Limit results to 20 images for speed
+
+    # Combine the two results into @story_images
+    # "You can take the union of two sets using the | operator. This is the "or" operator, if an element is in one set or the other, it's in the resulting set."
+    if @story_id_images
+      @story_images = @story_id_images.results | @story_images
+    end
+    
+    # Return quantity of images
     @story_images = @story_images.first(params[:quantity].to_i) unless @story_images.nil? or params[:quantity].nil? or params[:quantity].empty?
   end  
   
@@ -122,71 +160,6 @@ class WidgetsController < ApplicationController
         rescue Exception
           puts "pubdate param failed"
           return nil
-        end
-      end
-    end
-    
-    def image_for_sale?(image,default_settings,show_errors)
-      # Check if image has story, plan and location
-      if image.story.present? and image.story.plan.present? and image.story.plan.location.present?
-        if image.story.plan.location != current_location
-          # Image is from a different location, switch default_settings filter criteria
-          @default_settings = DefaultSetting.where("location_id" => image.story.plan.location.id).first
-          default_settings = @default_settings
-          if default_settings.nil?
-            puts "*** Image ID "+image.id.to_s+" attached to story ID "+image.story.id.to_s+" do not have a valid plan location"
-            return false
-          end
-        end
-      end
-
-      # Check whether image is flagged "For Sale' or "NotForSale"
-      if !image.forsale.nil? && image.forsale != ""
-        if (image.forsale.include? "For Sale")
-          return true
-        else
-          if (image.forsale.include? "NotForSale")
-            return false
-          else
-            return false
-          end
-        end
-      else
-        # Check whether image is available for sale based on default settings
-
-        # Check captions for default_settings.search_for_caption_text or default_settings.search_for_caption_text2
-        caption_text = image.media_webcaption.to_s + image.media_printcaption.to_s + image.media_originalcaption.to_s
-
-        if (default_settings.search_for_caption_text.empty? and default_settings.search_for_caption_text2.empty?) or 
-          (caption_text.downcase.include? default_settings.search_for_caption_text.to_s.downcase) or 
-          (caption_text.downcase.include? default_settings.search_for_caption_text2.to_s.downcase)
-          caption_text_okay = true
-        else
-          caption_text_okay = false
-          flash_message :admin_error, "Caption text '"+default_settings.search_for_caption_text+"' missing" if show_errors
-        end
-      
-        # Check image priority for default_settings.search_for_priority
-        if default_settings.search_for_priority.empty? 
-          image_priority_okay = true
-        else
-          if image.priority.nil?
-            image_priority_okay = false
-            flash_message :admin_error, "Priority = NULL" if show_errors
-          else
-            if default_settings.search_for_priority.include? image.priority
-              image_priority_okay = true
-            else
-              image_priority_okay = false
-              flash_message :admin_error, "Priority = "+image.priority if show_errors
-            end
-          end
-        end
-      
-        if (caption_text_okay and image_priority_okay)
-          return true
-        else
-          return false
         end
       end
     end
