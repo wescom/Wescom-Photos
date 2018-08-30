@@ -41,7 +41,7 @@ class WidgetsController < ApplicationController
         any do  # filter for images For Sale OR (caption and priority)
           all do
             #filter by params[:story_id]
-            #with(:story_id, params[:story_id]) 
+            with(:story_id, params[:story_id]) 
             #Filter all searches by location
             with(:story_location_id, default_settings.location_id)
             # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'

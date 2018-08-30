@@ -53,6 +53,9 @@ class StoryImage < ApplicationRecord
     string :publish_status
     string :priority
     string :image_content_type
+    integer :story_id do
+      story.id if story.present?
+    end
     integer :story_location_id do
       if story.present? 
         if story.plan.present?
