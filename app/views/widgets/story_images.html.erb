@@ -3,25 +3,25 @@
 		<% if params[:story_id] %>
 			<div class="widget_head text-center">
 				<h4>Purchase Images</h4>
-				<%= link_to( "Search Archives", story_images_path(), :class=>"btn btn-sm btn-primary") %>
+				<%= link_to( "Search Archives", story_images_path()+"?referrer=widget", :class=>"btn btn-sm btn-primary") %>
 			</div>
 		<% else %>
 			<% if params[:category] %>
 				<div class="widget_head text-center">
 					<h4>Purchase Images</h4>
-					<%= link_to( "Search "+params[:category].titleize, story_images_path(:search_query => params[:category]), :class=>"btn btn-sm btn-primary") %>
+					<%= link_to( "Search "+params[:category].titleize, story_images_path(:search_query => params[:category])+"?referrer=widget", :class=>"btn btn-sm btn-primary") %>
 				</div>
 			<% else %>
 				<% if params[:pubdate] %>
 					<div class="widget_head text-center">
 						<h4>Purchase Images</h4>
 						<h6><%= params[:pubdate] %></h6>
-						<%= link_to( "Search Archives", story_images_path(:search_query => params[:pubdate]), :class=>"btn btn-sm btn-primary") %>
+						<%= link_to( "Search Archives", story_images_path(:search_query => params[:pubdate])+"?referrer=widget", :class=>"btn btn-sm btn-primary") %>
 					</div>
 				<% else %>
 					<div class="widget_head text-center">
 						<h4>Purchase Images</h4>
-						<%= link_to( "Search Archives", story_images_path(), :class=>"") %>
+						<%= link_to( "Search Archives", story_images_path()+"?referrer=widget", :class=>"btn btn-sm btn-primary") %>
 					</div>
 				<% end %>
 			<% end %>
@@ -34,7 +34,8 @@
 						<div class="card text-center">
 							<div class="widget_panel">
 								<div class="crop">
-									<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"), story_image_path(image.id) %>
+									<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"),
+										story_image_path(image.id)+"?referrer=widget" %>
 								</div>
 							</div>
 							<div class="card-block">
@@ -45,7 +46,7 @@
 										<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 60, :separator => /\s/ %></i>
 									<% end %>
 								</p>
-								<%= link_to( "View Image", story_image_path(image.id), :class=>"") %>
+								<%= link_to("View Image", story_image_path(image.id)+"?referrer=widget", :class=>"") %>
 							</div>
 						</div>
 					</div>
