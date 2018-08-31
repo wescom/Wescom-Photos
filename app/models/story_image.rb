@@ -54,7 +54,7 @@ class StoryImage < ApplicationRecord
     string :priority
     string :image_content_type
     integer :story_id do
-      story.id if story.present?
+      story.doc_id if story.present?
     end
     integer :story_location_id do
       if story.present? 

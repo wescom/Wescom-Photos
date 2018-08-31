@@ -92,7 +92,7 @@ class WidgetsController < ApplicationController
     @story_images = @story_images.results.first(20) unless @story_images.nil?   # Limit results to 20 images for speed
 
     # Combine the two results into @story_images
-    # "You can take the union of two sets using the | operator. This is the "or" operator, if an element is in one set or the other, it's in the resulting set."
+    # You can take the union of two sets using the | operator. This is the "or" operator, if an element is in one set or the other, include it.
     if @story_id_images
       @story_images = @story_id_images.results | @story_images
     end
