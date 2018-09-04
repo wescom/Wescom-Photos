@@ -669,15 +669,14 @@ td.image_column { padding: 0.75rem 0px 0.75rem 0 }
 #widget.widget_column { width: 100%; padding: 0px 2px;}
 #widget .widget_head { 
 	margin-bottom: 10px;
-    font-family: inherit;
-    font-weight: 500;
-    line-height: 1.2;
-    color: inherit;
 	border-bottom: 3px solid #ddd; 
 	padding-bottom: 15px;
 }
-#widget .widget_head a { margin-top: 10px; }
+#widget .widget_head a { margin-top: 10px; font-size: 14px; }
 #widget .widget_head h4 {
+	font-family: "Open Sans Condensed",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 1.1;
 	font-size: 18px;
 	margin: 0;
     padding: 10px;
@@ -690,3 +689,4 @@ td.image_column { padding: 0.75rem 0px 0.75rem 0 }
 #widget .card p { margin-bottom: 3px; }
 #widget .widget_foot { 	margin-top: 0.5rem; margin-bottom: 0.5rem; }
 #widget .btn { margin: 0px; }
+#widget .modal_image_caption { font-size: 10px; }
