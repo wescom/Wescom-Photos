@@ -3,7 +3,7 @@
 		<% if params[:story_id] %>
 			<div class="widget_head text-center">
 				<h4>Purchase Images</h4>
-				<%= link_to( "Search Archives", story_images_path()+"?referrer=widget", target: :_blank, :class=>"btn btn-sm btn-primary") %>
+				<%= link_to( "Search Archives", story_images_path()+"?referrer=widget", target: :_blank, :class=>"") %>
 			</div>
 		<% else %>
 			<% if params[:category] %>
@@ -46,7 +46,6 @@
 										<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 60, :separator => /\s/ %></i>
 									<% end %>
 								</p>
-								<%= link_to("View Image", story_image_path(image.id)+"?referrer=widget", target: :_blank, :class=>"") %>
 							</div>
 						</div>
 					</div>
