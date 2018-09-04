@@ -33,10 +33,8 @@
 					<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="card text-center">
 							<div class="widget_panel">
-								<div class="crop">
-									<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"),
-										story_image_path(image.id)+"?referrer=widget", target: :_blank %>
-								</div>
+								<%= link_to image_tag(image.image(:large), :class=>"card-img-top card_section_img"),
+									story_image_path(image.id)+"?referrer=widget", target: :_blank %>
 							</div>
 							<div class="card-block">
 								<p class="card-text">
