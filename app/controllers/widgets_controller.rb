@@ -45,7 +45,8 @@ class WidgetsController < ApplicationController
           render :text => "Search Server Down\n\n\n It will be back online shortly"
       end
     end
-    
+    @story_id_images = @story_id_images.results.first(20) unless @story_id_images.nil?   # Limit results to 20 images for speed
+
     params[:search_query] = "" if params[:search_query].nil?
     params[:search_query] = params[:search_query] + " " + params[:pubdate].to_s unless params[:pubdate].nil?
     params[:search_query] = params[:search_query] + " " + params[:category].to_s  unless params[:category].nil?
@@ -93,8 +94,12 @@ class WidgetsController < ApplicationController
 
     # Combine the two results into @story_images
     # You can take the union of two sets using the | operator. This is the "or" operator, if an element is in one set or the other, include it.
-    if @story_id_images
-      @story_images = @story_id_images.results | @story_images
+    if params[:story_id]
+      if @story_id_images.count > 0
+        @story_images = @story_id_images | @story_images
+      else
+        @story_images = nil
+      end
     end
     
     # Return quantity of images
