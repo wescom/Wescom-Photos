@@ -1,32 +1,8 @@
 <% if @story_images %>
 	<div id="widget" class="widget_column">
-		<% if params[:story_id] %>
-			<div class="widget_head text-center">
-				<h4>Purchase Images</h4>
-				<%= link_to( "Search Archives", story_images_path()+"?referrer=widget", target: :_blank, :class=>"") %>
-			</div>
-		<% else %>
-			<% if params[:category] %>
-				<div class="widget_head text-center">
-					<h4>Purchase Images</h4>
-					<%= link_to( "Search "+params[:category].titleize, story_images_path(:search_query => params[:category])+"?referrer=widget", target: :_blank, :class=>"btn btn-sm btn-primary") %>
-				</div>
-			<% else %>
-				<% if params[:pubdate] %>
-					<div class="widget_head text-center">
-						<h4>Purchase Images</h4>
-						<h6><%= params[:pubdate] %></h6>
-						<%= link_to( "Search Archives", story_images_path(:search_query => params[:pubdate])+"?referrer=widget", target: :_blank, :class=>"btn btn-sm btn-primary") %>
-					</div>
-				<% else %>
-					<div class="widget_head text-center">
-						<h4>Purchase Images</h4>
-						<%= link_to( "Search Archives", story_images_path()+"?referrer=widget", target: :_blank, :class=>"btn btn-sm btn-primary") %>
-					</div>
-				<% end %>
-			<% end %>
-		<% end %>
-
+		<div class="widget_head text-center">
+			<h4>Purchase Photos</h4>
+		</div>
 		<div class="container">
 			<div class="row">
 				<% @story_images.each do |image| %>
@@ -39,9 +15,9 @@
 							<div class="card-block">
 								<p class="card-text">
 									<% if !image.media_webcaption.nil? and !image.media_webcaption.empty? %>
-										<i class="modal_image_caption"><%= truncate image.media_webcaption, :length => 60, :separator => /\s/ %></i>
+										<i class="modal_image_caption"><%= truncate image.media_webcaption, :length => 80, :separator => /\s/ %></i>
 									<% else %>
-										<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 60, :separator => /\s/ %></i>
+										<i class="modal_image_caption"><%= truncate image.media_printcaption, :length => 80, :separator => /\s/ %></i>
 									<% end %>
 								</p>
 							</div>
@@ -50,5 +26,26 @@
 				<% end %>
 			</div>
 		</div>
+
+		<div class="text-center">
+			<% if params[:story_id] %>
+				<%= link_to( "Search archive for photos", story_images_path()+"?referrer=widget", target: :_blank, :class=>"") %>
+			<% else %>
+				<% if params[:category] %>
+					<%= link_to( "Search archive for photos "+params[:category].titleize, 
+						story_images_path(:search_query => params[:category])+"?referrer=widget", 
+						target: :_blank, :class=>"") %>
+				<% else %>
+					<% if params[:pubdate] %>
+						<%= link_to( "Search archive for photos", 
+							story_images_path(:search_query => params[:pubdate])+"?referrer=widget", 
+							target: :_blank, :class=>"") %>
+					<% else %>
+						<%= link_to( "Search archive for photos", story_images_path()+"?referrer=widget", target: :_blank, :class=>"") %>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+
 	</div>
 <% end %>
