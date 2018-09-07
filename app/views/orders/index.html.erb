@@ -66,10 +66,12 @@
 											<% end %>
 										<% end %>
 										<div class="col text-center">Cost: <%= number_to_currency(item.quantity * item.price_cents.to_d/100) %></div>
-										<% if item.item_type == "StoryImage" %>
+										<% if item.item_type == "StoryImage" && !item.story_image.nil? %>
 											<%= link_to icon('download fa-lg'), order_admin_download_path(item.story_image,:item_type=>"StoryImage") %>
 										<% else %>
-											<%= link_to icon('download fa-lg'), order_admin_download_path(item.pdf_image,:item_type=>"PdfImage") %>
+											<% if !item.pdf_image.nil? %>
+												<%= link_to icon('download fa-lg'), order_admin_download_path(item.pdf_image,:item_type=>"PdfImage") %>
+											<% end %>
 										<% end %>
 									</div>
 								<% end %>
