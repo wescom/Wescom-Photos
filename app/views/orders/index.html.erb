@@ -59,7 +59,7 @@
 												<%= image_tag(item.story_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
 											</div>
 										<% else %>
-											<% !item.pdf_image.nil? %>
+											<% if !item.pdf_image.nil? %>
 												<div class="col text-center">
 													<%= image_tag(item.pdf_image.image(:large), :alt=>"Story Image", :class=>"img-thumb img-responsive") %>
 												</div>
