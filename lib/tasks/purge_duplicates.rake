@@ -45,7 +45,7 @@ namespace :wescom do
     # Keep only those pairs that have more than one record, thus duplicates
     dupes = counts.select{|attrs, count| count > 1}
     dupe_count = dupes.count
-    puts "*** Story Duplicate 2 or more: "+dupes.to_yaml
+    #puts "*** Story Duplicate 2 or more: "+dupes.to_yaml
     puts "*** Number of stories with duplicates: "+dupe_count.to_s
 
     # Map objects by the attributes we have.
@@ -56,7 +56,7 @@ namespace :wescom do
 
     # Take each group and destroy the duplicate, keeping only the first one.
     object_groups.drop(1).each do |group|
-      puts "Duplicate Record = #" + group[0].doc_id.to_s + " - " + group[0].doc_name
+      puts "Duplicate Record for Story: #" + group[0].doc_id.to_s + " - " + group[0].doc_name
       group.each_with_index do |object, index|
         #puts "Duplicate Record=  "+"id:"+object.id.to_s + ", " + object.doc_name #unless index == 0
         
@@ -64,10 +64,9 @@ namespace :wescom do
           # Check if attached images have been sold on WescomPhotos. Do NOT delete is any sold.
           @story_images_sold = OrderItem.find_by_item_id(object.id)
           if @story_images_sold
-            puts @story_images_sold.inspect
-            puts "Do NOT delete Story ID: "+object.id.to_s + ", " + object.doc_name
+            puts "     Do NOT delete Story ID: "+object.id.to_s + ", " + object.doc_name
           else
-            puts "Delete Story ID: "+object.id.to_s + ", " + object.doc_name
+            puts "     Delete Story ID: "+object.id.to_s + ", " + object.doc_name
 #          object.destroy unless index == 0
           end
         end
