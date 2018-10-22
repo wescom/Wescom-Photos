@@ -38,6 +38,10 @@ namespace :wescom do
   end
     
   task :purge_dup_stories  => :environment do
+    puts ""
+    puts "Rake Task:  wescom:purge_dup_stories"
+    puts "   searching database for duplicate stories ..."
+
     # Get a hash of all pdf image file names and how many records of each group
     counts = Story.group([:doc_id]).count
     #puts "Every Story duplicate count: "+counts.to_yaml
@@ -56,21 +60,23 @@ namespace :wescom do
 
     # Take each group and destroy the duplicate, keeping only the first one.
     object_groups.drop(1).each do |group|
-      puts "Duplicate Record for Story: #" + group[0].doc_id.to_s + " - " + group[0].doc_name
-      group.each_with_index do |object, index|
-        #puts "Duplicate Record=  "+"id:"+object.id.to_s + ", " + object.doc_name #unless index == 0
-        
-        if index != 0
-          # Check if attached images have been sold on WescomPhotos. Do NOT delete is any sold.
-          @story_images_sold = OrderItem.find_by_item_id(object.id)
-          if @story_images_sold
-            puts "     Do NOT delete Story ID: "+object.id.to_s + ", " + object.doc_name
-          else
-            puts "     Delete Story ID: "+object.id.to_s + ", " + object.doc_name
-#          object.destroy unless index == 0
+#      if group[0].created_at.utc >= (Time.now - 2.days).utc
+        #puts "Duplicate Record for Story: #" + group[0].doc_id.to_s + " - " + group[0].doc_name
+        group.each_with_index do |object, index|
+          #puts "Duplicate Record=  "+"id:"+object.id.to_s + ", " + object.doc_name #unless index == 0
+
+          if index != 0
+            # Check if attached images have been sold on WescomPhotos. Do NOT delete is any sold.
+            @story_images_sold = OrderItem.find_by_item_id(object.id)
+            if @story_images_sold
+              puts "     Do NOT delete Story ID: "+object.id.to_s + ", " + object.doc_name
+            else
+              puts "     Delete Story ID: "+object.id.to_s + ", " + object.doc_name
+#            object.destroy unless index == 0
+            end
           end
         end
-      end
+#      end
     end
   end
 
