@@ -73,27 +73,29 @@
 							<div class="purchase_bar">
 								<% @default_settings.default_pricing.each do |price| %>
 									<% if price.active and price.item_type == "PDFImage" %>
-										<span class="purchase_price">
-											<%= price.price_name %>
-											<a href="#" data-toggle="tooltip" data-original-title="<%= price.price_tooltip %>" data-placement="top">
-												<i class="fa fa-info-circle" ></i>
-											</a>
-											- <%= number_to_currency(price.price) %>
-											<br/>
-											<% if image_in_cart?(pdf.id) %>
-												<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
-													:class=>"btn btn-success" %>
-											<% else %>
-												<%= link_to 'Add to cart', 
-													add_pdf_cart_path(:id => pdf, 
-															:price => price.price,
-															:quality => price.price_quality,
-															:description => price.price_description), 
-													:method => 'POST', :class=>"btn btn-success" %>
-											<% end %>
-											<br/>
-											<br/>
-										</span>
+										<% if (!price.admin_only) or (price.admin_only and admin?) %>
+											<span class="purchase_price">
+												<%= price.price_name %>
+												<a href="#" data-toggle="tooltip" data-original-title="<%= price.price_tooltip %>" data-placement="top">
+													<i class="fa fa-info-circle" ></i>
+												</a>
+												- <%= number_to_currency(price.price) %>
+												<br/>
+												<% if image_in_cart?(pdf.id) %>
+													<%= link_to "Already in Cart <i class='fa fa-shopping-cart'> </i>".html_safe, cart_path, 
+														:class=>"btn btn-success" %>
+												<% else %>
+													<%= link_to 'Add to cart', 
+														add_pdf_cart_path(:id => pdf, 
+																:price => price.price,
+																:quality => price.price_quality,
+																:description => price.price_description), 
+														:method => 'POST', :class=>"btn btn-success" %>
+												<% end %>
+												<br/>
+												<br/>
+											</span>
+										<% end %>
 									<% end %>
 								<% end %>
 							</div>

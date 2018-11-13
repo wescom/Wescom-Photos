@@ -56,6 +56,6 @@ class DefaultPricingsController < ApplicationController
 
   private
     def default_pricing_params
-      params.require(:default_pricing).permit(:active,:price_name,:item_type,:price_tooltip,:price_quality,:price_description,:price,:default_setting_id)
+      params.require(:default_pricing).permit(:active, :admin_only, :price_name,:item_type,:price_tooltip,:price_quality,:price_description,:price,:default_setting_id)
     end
 end

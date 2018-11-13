@@ -17,6 +17,12 @@
 			</div>
 		</div>
 		<div class="form-group row">
+			<label for="admin_only" class="offset-1 col-3 col-form-label">Admin Only Pricing?</label>
+			<div class="col-3">
+				<%= f.check_box :admin_only, class: "form-control" %>
+			</div>
+		</div>
+		<div class="form-group row">
 			<label for="item_type" class="offset-1 col-3 col-form-label">Item Type:</label>
 			<div class="col-3">
 				<%= f.select :item_type, options_for_select(DefaultPricing::ITEM_TYPE_OPTIONS, :selected=>@default_pricing.item_type), {:required => "true"} %>
