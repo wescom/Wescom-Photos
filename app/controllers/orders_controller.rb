@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
       @orders = @orders.where("id LIKE ? or first_name LIKE ? or last_name LIKE ?", 
         "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     end
-    @orders = @orders.where(:success => true).where("? > 0", :amount)
+    @orders = @orders.where(:success => true)
     @orders = @orders.paginate(:page => params[:page], :per_page => 20)
   end
 
