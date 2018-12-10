@@ -72,7 +72,8 @@ class OrdersController < ApplicationController
             OrderMailer.order_confirmation(@order).deliver_now
             flash_message :notice, "Order confirmation email sent"
           end
-          redirect_to order_path(@order)
+          redirect_to order_order_complete_path(@order)
+#          redirect_to order_path(@order)
         else
           Rails.logger.info "********** CC Failed"
           flash_message :error, "Credit card authorization failed"
@@ -102,7 +103,8 @@ class OrdersController < ApplicationController
           OrderMailer.order_confirmation(@order).deliver_now
           flash_message :notice, "Order confirmation email sent"
         end
-        redirect_to order_path(@order)
+        redirect_to order_order_complete_path(@order)
+#        redirect_to order_path(@order)
       end
     else
       render :new
@@ -131,6 +133,11 @@ class OrdersController < ApplicationController
     end
   end
     
+  def order_complete
+    @default_settings = DefaultSetting.where("location_id" => current_location).first
+    @order = Order.find_by_obscure_uniq_identifier(params[:order_id])
+  end
+  
   def show
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     @order = Order.find_by_obscure_uniq_identifier(params[:id])

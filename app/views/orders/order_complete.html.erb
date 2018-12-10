@@ -1,0 +1,80 @@
+<div class="order_heading">
+	<h2 class="text-center">Thank you for your order</h2>
+	<p>Your order has been processed and completed. Click any of the download buttons below to retrieve your purchased images. A comfirmation email has been sent to the address you provided. Within that email, you can follow the links back to this webpage to continue downloading images at any time.</p>
+	<p>Thank you again.</p>
+	<br/>
+	<br/>
+
+	<h1>Order #<%= @order.id unless @order.nil? %></h1>
+</div>
+
+<div class="container">
+	<div class="row order_block">
+		<% if @order %>
+			<table id="order" class="table table-hover table-condensed">
+				<thead>
+					<tr>
+						<th class="image_column text-center">Item</th>
+						<th class="description_column text-center">Description</th>
+						<th class="publish_column text-center d-none d-sm-block">Published</th>
+						<th class="price_column text-center">Price</th>
+						<th class="action_column text-center">Download</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<%= render :partial => 'order_item', :collection => @order.order_items, object: @order %>
+				</tbody>
+
+				<tfoot>
+					<tr>
+						<td colspan="2"></td>
+						<td class=""><strong>Total:</strong></td>
+						<td class="text-center"><strong><%= number_to_currency @order.amount %></strong></td>
+						<td colspan="1"></td>
+					</tr>
+				</tfoot>
+			</table>
+			<div>
+				Order emailed to: <%= @order.email %>
+				<% if admin? %>
+					<br/>
+					(<a data-toggle="modal" href="#emailEditModal" class="">Edit email address</a> / 
+					<%= link_to 'Resend email', order_resend_order_email_path(@order.id), class: "" %>)
+				<% end %>
+		<% end %>
+	</div>
+
+	<div class="row justify-content-center">
+		<div class="col col-sm-2">
+			<%= link_to('<i class="fa fa-angle-left"></i> Continue Shopping'.html_safe, 
+				session[:referrer], :class=>"btn btn-success btn-small") %>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade col-sm-6 col-md-6" id="emailEditModal" tabindex="-1" role="dialog" aria-labelledby="emailEditModalLabel" aria-hidden="true">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+					Edit Order Email ...
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<%= form_for(@order) do |f| %>
+			        <div class="form-group row">
+						<%= f.label :name, 'New email address for order: ', class: "col-form-label" %>
+				        <div class="col-lg-6">
+							<%= f.email_field :email, class: "form-control", :placeholder => "Email Address" %>
+						</div>
+			        </div>
+					<div class="form-group row d-flex justify-content-end">
+						<%= f.submit "Update", :class => 'btn btn-primary'%>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
