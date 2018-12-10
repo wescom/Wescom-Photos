@@ -30,8 +30,8 @@ class StoryImagesController < ApplicationController
               # Filter all searches by priority set within default_settings, ie. contains 'Web Ready'
               fulltext default_settings.search_for_priority, :fields => [:priority]
               any do  # Filter all searches by caption text set within default_settings, ie. contains 'Bulletin' or 'Spokesman'
-                fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
-                fulltext default_settings.search_for_caption_text2, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption]
+                fulltext default_settings.search_for_caption_text, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption] if !default_settings.search_for_caption_text.nil?
+                fulltext default_settings.search_for_caption_text2, :fields => [:media_webcaption, :media_printcaption, :media_originalcaption] if !default_settings.search_for_caption_text2.nil?
               end
             end
             fulltext "For Sale", :fields => [:forsale]
