@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     @orders = Order.joins(:location).where(:success => true)
     @orders = @orders.where("amount > ?", 0.00)
-    @order_items = OrderItem.joins(:order).where('orders.success' => true)
+    @order_items = OrderItem.joins(:order).where('orders.success' => true).where("orders.amount > ?", 0.00)
     
     @item_categories = OrderItem.joins(story_image: :story).where(:item_type=>"StoryImage").select(:subcategoryname)
 
