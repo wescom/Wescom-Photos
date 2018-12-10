@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   def dashboard
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     @orders = Order.joins(:location).where(:success => true)
+    @orders = @orders.where("amount > ?", 0.00)
     @order_items = OrderItem.joins(:order).where('orders.success' => true)
     
     @item_categories = OrderItem.joins(story_image: :story).where(:item_type=>"StoryImage").select(:subcategoryname)
@@ -13,6 +14,7 @@ class OrdersController < ApplicationController
   def index
     @default_settings = DefaultSetting.where("location_id" => current_location).first
     @orders = Order.all.order("created_at desc")
+    @orders = @orders.where("amount > ?", 0.00)
     @orders = @orders.where("created_at >= ?", Date.strptime(params[:date_from_select], "%m/%d/%Y").beginning_of_day) if params[:date_from_select].present?
     @orders = @orders.where("created_at <= ?", Date.strptime(params[:date_to_select], "%m/%d/%Y").end_of_day) if params[:date_to_select].present?
     if params[:search].present?
