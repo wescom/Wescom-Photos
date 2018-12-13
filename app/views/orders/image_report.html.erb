@@ -26,8 +26,8 @@
 
 							<div class="image_gallery_hover_bar">
 								<span class="bar_pub_info">
+									<%= item.order.location.name if item.order.location %> Purchase: <%= item.order.created_at.strftime('%m/%d/%y') %><br/>
 									<%= item.item_description %> - <%= number_to_currency(item.price_cents.to_d/100) %> <br/>
-									Purchased: <%= item.order.created_at.strftime('%m/%d/%y') %><br/>
 									Category: <%= item.story_image.story.subcategoryname != "None" ? 
 										item.story_image.story.subcategoryname : item.story_image.story.categoryname %>
 								</span>
