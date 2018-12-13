@@ -1,0 +1,64 @@
+<div class="orders_heading">
+	<div class="orders-search">        
+		<%= render :partial => 'search_order_images' %>
+	</div>
+</div>
+
+<div class="orders_block" >
+	<div id="image-gallery" class="container-fluid">
+		<div class="row justify-content-end">
+			<div class="flickr_pagination d-none d-sm-block">
+				<%= will_paginate @order_items, :inner_window => 2, :outer_window => 0 %>
+			</div>
+			<div class="flickr_pagination d-block d-sm-none">
+				<%= will_paginate @order_items, :inner_window => 2, :outer_window => 0, :page_links => false %>
+			</div>
+		</div>
+		<div class="row">
+			<% @order_items.each do |item| %>
+				<% if item.story_image.image.url != "/images/no-image.jpg"%>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="image_gallery_panel">
+							<div class="crop">
+								<%= link_to image_tag(item.story_image.image(:large), :alt=>"Story Image", :class=>""), 
+									story_image_path(item.story_image.id) %>
+							</div>
+
+							<div class="image_gallery_hover_bar">
+								<span class="bar_pub_info">
+									<%= item.item_description %> - <%= number_to_currency(item.price_cents.to_d/100) %> <br/>
+									Purchased: <%= item.order.created_at.strftime('%m/%d/%y') %><br/>
+									Category: <%= item.story_image.story.subcategoryname != "None" ? 
+										item.story_image.story.subcategoryname : item.story_image.story.categoryname %>
+								</span>
+								<span class="bar_icons float-right">
+									<% if admin? %>
+										<%= link_to '<i class="fa fa-download"> </i>'.html_safe, 
+											order_admin_download_path(item.story_image,:item_type=>"StoryImage"),
+											:class => "btn btn-sm btn-primary",
+											title: 'Admin Download HiRes', 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
+									<% end %>
+									<%= link_to "<i class='fa fa-info'> </i>".html_safe, story_image_path(item.story_image.id), 
+										:class => "btn btn-sm btn-success",
+										title: 'View Image Info', 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
+									<%= link_to '<i class="fa fa-shopping-cart"></i>'.html_safe, order_path(item.order.obscure_uniq_identifier), 
+										:class => "btn btn-sm btn-success",
+										title: 'View Order', 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
+								</span>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="row justify-content-end">
+			<div class="flickr_pagination d-none d-sm-block">
+				<%= will_paginate @order_items, :inner_window => 2, :outer_window => 0 %>
+			</div>
+			<div class="flickr_pagination d-block d-sm-none">
+				<%= will_paginate @order_items, :inner_window => 2, :outer_window => 0, :page_links => false %>
+			</div>
+		</div>
+	</div>
+<div>
+

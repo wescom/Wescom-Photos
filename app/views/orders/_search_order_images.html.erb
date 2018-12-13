@@ -1,0 +1,29 @@
+<%= form_tag image_report_path, :class => "form-inline", :method => :get do %>
+	<div class="container">
+		<div class="d-flex flex-wrap justify-content-between">
+			<h1 class="mr-auto p-2">Images Purchased</h1>
+			<div class="p-2">
+				<div class="input-group date form-search-date">
+				    <%= text_field_tag :date_from_select, params[:date_from_select], 
+						:placeholder => "mm/dd/yyyy", :class => "datepicker" %>
+				    <div class="input-group-append">
+						<i class='fa fa-calendar input-group-text'></i>
+				    </div>
+				</div>
+			</div>
+			<div class="p-2">
+				<div class="input-group date form-search-date">
+				    <%= text_field_tag :date_to_select, params[:date_to_select], 
+						:placeholder => "mm/dd/yyyy", :class => "datepicker" %>
+				    <div class="input-group-append">
+						<i class='fa fa-calendar input-group-text'></i>
+				    </div>
+				</div>
+			</div>
+			<div class="p-2">
+			 	<button class="btn-secondary form-search-button" type="submit"><i class="fa fa-search"></i></button>
+			</div>
+		</div>
+	</div>
+<% end %>
+

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     end
   end
   match  "/dashboard" => "orders#dashboard", :via => [:get]
+  match  "/image_report" => "orders#image_report", :via => [:get]
   match  "/email_previous_month_orders" => "orders#email_previous_month_orders", :via => [:get]
   
   resources :default_settings

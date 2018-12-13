@@ -199,6 +199,16 @@ class OrdersController < ApplicationController
     end
   end
   
+  def image_report
+      @default_settings = DefaultSetting.where("location_id" => current_location).first
+
+      @order_items = OrderItem.joins(:order).where('orders.success' => true)
+      @order_items = @order_items.where("orders.amount > ?", 0.00)
+      @order_items = @order_items.where("orders.created_at >= ?", Date.strptime(params[:date_from_select], "%m/%d/%Y").beginning_of_day) if params[:date_from_select].present?
+      @order_items = @order_items.where("orders.created_at <= ?", Date.strptime(params[:date_to_select], "%m/%d/%Y").end_of_day) if params[:date_to_select].present?
+      @order_items = @order_items.order("orders.created_at desc").paginate(:page => params[:page], :per_page => 20)
+  end
+
   def resend_order_email
     @order = Order.find_by_id(params[:order_id])
 
