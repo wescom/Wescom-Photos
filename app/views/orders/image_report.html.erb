@@ -16,7 +16,7 @@
 		</div>
 		<div class="row">
 			<% @order_items.each do |item| %>
-				<% if item.story_image.image.url != "/images/no-image.jpg"%>
+				<% if !item.story_image.nil? and item.story_image.image.url != "/images/no-image.jpg"%>
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 						<div class="image_gallery_panel">
 							<div class="crop">
