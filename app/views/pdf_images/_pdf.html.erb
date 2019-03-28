@@ -2,7 +2,10 @@
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
 		<div class="pdf_gallery_panel">
 			<div class="pdf_gallery_image">
-				<%= link_to image_tag(pdf.image(:large), :alt=>"Story Image", :id=>"#{pdf.id}", :class=>""), pdf_image_path(pdf.id), { 
+				<%= link_to image_tag(pdf.image(:large), 
+					:alt=>pdf.publication+" "+pdf.pubdate.strftime('%m/%d/%y')+" "+pdf.section_letter+pdf.page.to_s, 
+					:id=>"#{pdf.id}", 
+					:class=>""), pdf_image_path(pdf.id), { 
 					:remote => true, 'data-toggle' =>  "modal", 
 					'data-target' => "#imageGalleryModal#{pdf.id}", 
 					'data-type' => "html" } %>
@@ -54,7 +57,9 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
 							<div class="modal_PDF_image">
-								<%= image_tag(pdf.image(:large), :alt=>"Newspaper Image", :class=>"") %>
+								<%= image_tag(pdf.image(:large), 
+								:alt=>pdf.publication+" "+pdf.pubdate.strftime('%m/%d/%y')+" "+pdf.section_letter+pdf.page.to_s,
+								:class=>"") %>
 								<div class="watermark">&copy; Copyright - Western Communications, Inc.</div>
 							</div>
 						</div>
