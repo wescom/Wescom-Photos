@@ -12,7 +12,7 @@
 						<% end %>
 						<div class="publication_logo d-flex align-items-center justify-content-center">
 							<%= link_to image_tag(default_setting.site_image(:medium), 
-								:alt=>default_setting.location.newspaper_name, 
+								:alt=>default_setting.location.newspaper_name+" logo", 
 								:class=>"publication_logo_img"), 
 								"https://"+default_setting.location.short_url_newspaper_name+".wescomphotos.com" %>
 						</div>
@@ -103,8 +103,9 @@
 							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 d-none d-lg-block">
 						<% end %>
 							<div class="card text-center">
-								<%= link_to image_tag(pdf.image(:large), :class=>"card-img-top card_pdf_image"), 
-								 	pdf_images_path(:pub_select => pdf.publication, 
+								<%= link_to image_tag(pdf.image(:large), 
+									:class=>"card-img-top card_pdf_image"), 
+								 	pdf_images_path(:pub_select => pdf.publication,
 									:date_select => pdf.pubdate.strftime('%m/%d/%Y'), 
 									:search_query => "") %>
 								<div class="card-block">
