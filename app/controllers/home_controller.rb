@@ -75,7 +75,8 @@ puts @default_settings.location.name
           @pdf_images = @pdf_images.where('section_letter = ? and page = ?', "A", 1)
         end
         @pdf_images = @pdf_images.where('publication_type_id IN (?)', @default_settings.search_for_pdf_pubtypeId.split(",").map(&:to_i))
-        @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(4)
+# too slow of query       @pdf_images = @pdf_images.order_by_pubdate_sectionletter_page.first(4)
+        @pdf_images = @pdf_images.order("pubdate DESC").first(4)
     
         @locations = Location.all.order("location_no")
       end
