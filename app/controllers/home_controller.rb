@@ -26,12 +26,14 @@ class HomeController < ApplicationController
         end
 
         # Get sample image category info
-        @cat1_image = StoryImage.joins(:story).order_by_pubdate.limit(10)
-        @cat1_image = @cat1_image.where('media_width > media_height')
-        @cat1_image = @cat1_image.where('categoryname = ? OR subcategoryname = ? OR media_category = ?',
+        @cat_images = StoryImage.joins(:story).order_by_pubdate.limit(50)
+        @cat_images = @cat_images.where('media_width > media_height')
+
+        @cat1_image = @cat_images.where('categoryname = ? OR subcategoryname = ? OR media_category = ?',
           @default_settings.home_image_cat1, @default_settings.home_image_cat1, @default_settings.home_image_cat1)
         @cat1_image = @cat1_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
         if @cat1_image.count < 1  # Didnt find an image record, query more records
+          puts "****************** @cat1_image.count < 1 ... quering more records *****************"
           @cat1_image = StoryImage.joins(:story).order_by_pubdate.limit(100)
           @cat1_image = @cat1_image.where('media_width > media_height')
           @cat1_image = @cat1_image.where('categoryname = ? OR subcategoryname = ? OR media_category = ?',
@@ -40,12 +42,11 @@ class HomeController < ApplicationController
         end
         @cat1_image = @cat1_image.order_by_pubdate.first
 
-        @cat2_image = StoryImage.joins(:story).order_by_pubdate.limit(10)
-        @cat2_image = @cat2_image.where('media_width > media_height')
-        @cat2_image = @cat2_image.where('categoryname = ? OR subcategoryname = ? OR media_category = ?',
+        @cat2_image = @cat_images.where('categoryname = ? OR subcategoryname = ? OR media_category = ?',
           @default_settings.home_image_cat2, @default_settings.home_image_cat2, @default_settings.home_image_cat2)
         @cat2_image = @cat2_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
         if @cat2_image.count < 1  # Didnt find an image record, query more records
+          puts "****************** @cat2_image.count < 1 ... quering more records *****************"
           @cat2_image = StoryImage.joins(:story).order_by_pubdate.limit(100)
           @cat2_image = @cat2_image.where('media_width > media_height')
           @cat2_image = @cat2_image.where('categoryname = ? OR subcategoryname = ? OR media_category = ?',
@@ -54,12 +55,11 @@ class HomeController < ApplicationController
         end
         @cat2_image = @cat2_image.order_by_pubdate.first
 
-        @cat3_image = StoryImage.joins(:story).order_by_pubdate.limit(10)
-        @cat3_image = @cat3_image.where('media_width > media_height')
-        @cat3_image = @cat3_image.where('categoryname = ? OR subcategoryname = ? OR media_category = ?',
+        @cat3_image = @cat_images.where('categoryname = ? OR subcategoryname = ? OR media_category = ?',
           @default_settings.home_image_cat3, @default_settings.home_image_cat3, @default_settings.home_image_cat3)
         @cat3_image = @cat3_image.where('media_webcaption like ?',"%#{@default_settings.search_for_caption_text}%")
         if @cat3_image.count < 1  # Didnt find an image record, query more records
+          puts "****************** @cat3_image.count < 1 ... quering more records *****************"
           @cat3_image = StoryImage.joins(:story).order_by_pubdate.limit(100)
           @cat3_image = @cat3_image.where('media_width > media_height')
           @cat3_image = @cat3_image.where('categoryname = ? OR subcategoryname = ?',@default_settings.home_image_cat3, @default_settings.home_image_cat3)
