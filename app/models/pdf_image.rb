@@ -4,7 +4,9 @@ class PdfImage < ApplicationRecord
 
   has_attached_file :image, 
       :styles => { 
-        :large => ["500x500>",:jpg]
+          :small => ["150x150>",:jpg],
+          :medium => ["300x300>",:jpg],
+          :large => ["500x500>",:jpg]
       },
       :url => "/system/pdf_images/:id/:style_:basename.:extension",  
       :path => ":rails_root/public/system/pdf_images/:id/:style_:basename.:extension",
