@@ -6,7 +6,7 @@
 	<div class="row dashboard_block">
 		<!-- sample charts https://www.highcharts.com/demo/line-basic -->
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= line_chart @orders.where('orders.created_at >= ?', 6.months.ago).group('locations.name').group_by_month('orders.created_at').count, 
+			<%= line_chart @orders.where('orders.created_at >= ?', 12.months.ago).group('locations.name').group_by_month('orders.created_at').count, 
 				id: "orders-by-month", 
 				ytitle: "# of Orders", 
 				width: "600px", 
@@ -23,7 +23,7 @@
 			%>
 		</div>
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= line_chart @orders.where('orders.created_at >= ?', 6.months.ago).group('locations.name').group_by_month('orders.created_at').sum(:amount), 
+			<%= line_chart @orders.where('orders.created_at >= ?', 12.months.ago).group('locations.name').group_by_month('orders.created_at').sum(:amount), 
 				id: "sales-by-month", 
 				ytitle: "Order Amount", 
 				width: "600px", 
@@ -40,7 +40,7 @@
 			%>
 		</div>
 		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
-			<%= line_chart @order_items.where('order_items.created_at >= ?', 6.months.ago).group(:item_description).group_by_month('order_items.created_at').sum(:quantity), 
+			<%= line_chart @order_items.where('order_items.created_at >= ?', 12.months.ago).group(:item_description).group_by_month('order_items.created_at').sum(:quantity), 
 				id: "image-types-by-month", 
 				label: "Quantity", 
 				ytitle: "# of Images", 
