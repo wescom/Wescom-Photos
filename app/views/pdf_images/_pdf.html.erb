@@ -9,7 +9,7 @@
 					:remote => true, 'data-toggle' =>  "modal", 
 					'data-target' => "#imageGalleryModal#{pdf.id}", 
 					'data-type' => "html" } %>
-				<%= link_to "<i class='fa fa-copyright'> </i>".html_safe + " Copyright - Western Communications, Inc.", 
+				<%= link_to "<i class='fa fa-copyright'> </i>".html_safe + " Copyright - EO Media Group", 
 					story_image_path(pdf.id), { 
 					:class => "watermark",
 					:remote => true, 'data-toggle' =>  "modal", 
@@ -60,7 +60,7 @@
 								<%= image_tag(pdf.image(:large), 
 								:alt=>pdf.publication+" "+pdf.pubdate.strftime('%m/%d/%y')+" "+pdf.section_letter+pdf.page.to_s,
 								:class=>"") %>
-								<div class="watermark">&copy; Copyright - Western Communications, Inc.</div>
+								<div class="watermark">&copy; Copyright - EO Media Group</div>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
@@ -114,9 +114,9 @@
 						<% if pdf.plan %>
 							&copy; Copyright <%= pdf.pubdate.strftime('%Y') unless pdf.pubdate.nil? %> 
 							- <%= pdf.plan.pub_name unless pdf.plan.pub_name.nil? %>
-							- Western Communications, Inc.
+							- EO Media Group
 						<% else %>
-							&copy; Copyright - Western Communications, Inc.
+							&copy; Copyright - EO Media Group
 						<% end %>
 					</div>
 				</div>
