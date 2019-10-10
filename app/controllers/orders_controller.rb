@@ -157,7 +157,7 @@ class OrdersController < ApplicationController
 
       # Write web caption to image's exif data
       pic = MiniExiftool.new @modified_image.path
-      pic.caption_abstract = @image.media_webcaption+"\n\n"+"© EO Media Group"+"\n\n"+"Image use license: "+@default_settings.image_use_license.gsub(/<[^>]*>/,'')
+      pic.caption_abstract = @image.media_webcaption+"\n\n"+"© The Bulletin/EO Media Group"+"\n\n"+"Image use license: "+@default_settings.image_use_license.gsub(/<[^>]*>/,'')
       pic.save
 
       if @order_item.item_quality == "Hires"
@@ -187,7 +187,7 @@ class OrdersController < ApplicationController
 
       # Write web caption to image's exif data
       pic = MiniExiftool.new @modified_image.path
-      pic.caption_abstract = @image.media_webcaption+"\n\n"+"© EO Media Group"+"\n\n"+"Image use license: "+@default_settings.image_use_license.gsub(/<[^>]*>/,'')
+      pic.caption_abstract = @image.media_webcaption+"\n\n"+"© The Bulletin/EO Media Group"+"\n\n"+"Image use license: "+@default_settings.image_use_license.gsub(/<[^>]*>/,'')
       pic.save
 
       send_file @modified_image.path, :filename => "image_"+@image.id.to_s+".jpg"

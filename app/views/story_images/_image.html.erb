@@ -15,7 +15,7 @@
 						'data-target' => "#imageGalleryModal#{image.id}", 
 						'data-type' => "html" } %>
 				<% end %>
-				<%= link_to "<i class='fa fa-copyright'> </i>".html_safe + " Copyright - EO Media Group", 
+				<%= link_to "<i class='fa fa-copyright'> </i>".html_safe + " Copyright - The Bulletin/EO Media Group", 
 					story_image_path(image.id), { 
 					:class => "watermark",
 					:remote => true, 'data-toggle' =>  "modal", 
@@ -85,7 +85,7 @@
 								<% else %>
 									<%= image_tag(image.image(:large), :alt=>"", :class=>"") %>
 								<% end %>
-								<div class="watermark">&copy; Copyright - EO Media Group</div>
+								<div class="watermark">&copy; Copyright - The Bulletin/EO Media Group</div>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
@@ -185,9 +185,9 @@
 						<% if image.story && image.story.plan %>
 							&copy; Copyright <%= image.story.pubdate.strftime('%Y') unless image.story.pubdate.nil? %> 
 							- <%= image.story.plan.pub_name unless image.story.plan.pub_name.nil? %>
-							- EO Media Group
+							- The Bulletin/EO Media Group
 						<% else %>
-							&copy; Copyright - EO Media Group
+							&copy; Copyright - The Bulletin/EO Media Group
 						<% end %>
 						<span class="float-right"><%= link_to image.id, story_image_path(image.id) %></span>
 					</div>
